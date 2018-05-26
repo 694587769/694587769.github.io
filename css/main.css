@@ -1832,7 +1832,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ffe8cd;
+  background: #9dcbf6;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2678,7 +2678,7 @@ embed {
   -moz-box-shadow: 0 0 5px rgba(202,203,204,0.5);
 }
 body {
-  background: url("/images/backGround.jpg");
+  background: url("https://raw.githubusercontent.com/694587769/694587769.github.io/master/images/backGround.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: 50% 50%;
