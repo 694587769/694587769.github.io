@@ -1,2113 +1,2312 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next mist use-motion" lang="zh-Hans">
+<html lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-<meta name="theme-color" content="#222">
-
-
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="Hexo, NexT" />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="夕阳无限好，只是近黄昏">
-<meta property="og:type" content="website">
-<meta property="og:title" content="苦瓜与吉姆餐厅">
-<meta property="og:url" content="https://694587769.github.io/index.html">
-<meta property="og:site_name" content="苦瓜与吉姆餐厅">
-<meta property="og:description" content="夕阳无限好，只是近黄昏">
-<meta property="og:locale" content="zh-Hans">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="苦瓜与吉姆餐厅">
-<meta name="twitter:description" content="夕阳无限好，只是近黄昏">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Mist',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>三国·幸存者 - Three Kingdoms Survivors</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-  };
-</script>
-
-
-
-  <link rel="canonical" href="https://694587769.github.io/"/>
-
-
-
-
-
-  <title>苦瓜与吉姆餐厅</title>
-  
-
-
-
-
-
-
-
-
+    
+    body {
+      background: #0a0a0a;
+      overflow: hidden;
+      font-family: 'Microsoft YaHei', 'SimSun', sans-serif;
+    }
+    
+    #gameCanvas {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    
+    /* 水墨风格边框装饰 */
+    .ink-border {
+      position: fixed;
+      pointer-events: none;
+      z-index: 100;
+    }
+    
+    .ink-border-top {
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(139, 90, 43, 0.6) 20%, 
+        rgba(139, 90, 43, 0.8) 50%, 
+        rgba(139, 90, 43, 0.6) 80%, 
+        transparent 100%);
+    }
+    
+    .ink-border-bottom {
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(139, 90, 43, 0.6) 20%, 
+        rgba(139, 90, 43, 0.8) 50%, 
+        rgba(139, 90, 43, 0.6) 80%, 
+        transparent 100%);
+    }
+    
+    .ink-border-left {
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 4px;
+      background: linear-gradient(180deg, 
+        transparent 0%, 
+        rgba(139, 90, 43, 0.6) 20%, 
+        rgba(139, 90, 43, 0.8) 50%, 
+        rgba(139, 90, 43, 0.6) 80%, 
+        transparent 100%);
+    }
+    
+    .ink-border-right {
+      top: 0;
+      bottom: 0;
+      right: 0;
+      width: 4px;
+      background: linear-gradient(180deg, 
+        transparent 0%, 
+        rgba(139, 90, 43, 0.6) 20%, 
+        rgba(139, 90, 43, 0.8) 50%, 
+        rgba(139, 90, 43, 0.6) 80%, 
+        transparent 100%);
+    }
+    
+    /* 水墨角落装饰 */
+    .ink-corner {
+      position: fixed;
+      width: 60px;
+      height: 60px;
+      pointer-events: none;
+      z-index: 101;
+    }
+    
+    .ink-corner-tl {
+      top: 4px;
+      left: 4px;
+      border-top: 3px solid rgba(139, 90, 43, 0.7);
+      border-left: 3px solid rgba(139, 90, 43, 0.7);
+    }
+    
+    .ink-corner-tr {
+      top: 4px;
+      right: 4px;
+      border-top: 3px solid rgba(139, 90, 43, 0.7);
+      border-right: 3px solid rgba(139, 90, 43, 0.7);
+    }
+    
+    .ink-corner-bl {
+      bottom: 4px;
+      left: 4px;
+      border-bottom: 3px solid rgba(139, 90, 43, 0.7);
+      border-left: 3px solid rgba(139, 90, 43, 0.7);
+    }
+    
+    .ink-corner-br {
+      bottom: 4px;
+      right: 4px;
+      border-bottom: 3px solid rgba(139, 90, 43, 0.7);
+      border-right: 3px solid rgba(139, 90, 43, 0.7);
+    }
+    
+    /* 菜单屏幕样式 */
+    .menu-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+    }
+    
+    .menu-screen.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    
+    /* 开始菜单 */
+    #startMenu {
+      background: radial-gradient(ellipse at center, 
+        rgba(20, 15, 10, 0.95) 0%, 
+        rgba(10, 8, 5, 0.98) 100%);
+    }
+    
+    .game-title {
+      font-size: 72px;
+      color: #d4a574;
+      text-shadow: 
+        0 0 10px rgba(212, 165, 116, 0.5),
+        0 4px 8px rgba(0, 0, 0, 0.8),
+        2px 2px 0 rgba(139, 90, 43, 0.8);
+      margin-bottom: 10px;
+      letter-spacing: 8px;
+      animation: titleGlow 3s ease-in-out infinite;
+    }
+    
+    @keyframes titleGlow {
+      0%, 100% { text-shadow: 0 0 10px rgba(212, 165, 116, 0.5), 0 4px 8px rgba(0, 0, 0, 0.8), 2px 2px 0 rgba(139, 90, 43, 0.8); }
+      50% { text-shadow: 0 0 20px rgba(212, 165, 116, 0.8), 0 4px 8px rgba(0, 0, 0, 0.8), 2px 2px 0 rgba(139, 90, 43, 0.8); }
+    }
+    
+    .game-subtitle {
+      font-size: 24px;
+      color: #8b7355;
+      margin-bottom: 60px;
+      letter-spacing: 4px;
+    }
+    
+    .menu-btn {
+      padding: 15px 60px;
+      font-size: 24px;
+      color: #d4a574;
+      background: linear-gradient(180deg, rgba(60, 45, 30, 0.9) 0%, rgba(40, 30, 20, 0.95) 100%);
+      border: 2px solid #8b6914;
+      cursor: pointer;
+      margin: 10px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .menu-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(212, 165, 116, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+    
+    .menu-btn:hover::before {
+      left: 100%;
+    }
+    
+    .menu-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(212, 165, 116, 0.4);
+      border-color: #d4a574;
+    }
+    
+    .menu-btn:active {
+      transform: scale(0.98);
+    }
+    
+    .high-score {
+      position: absolute;
+      bottom: 40px;
+      font-size: 18px;
+      color: #8b7355;
+    }
+    
+    /* 角色选择 */
+    #characterSelect {
+      background: rgba(10, 8, 5, 0.95);
+    }
+    
+    .select-title {
+      font-size: 36px;
+      color: #d4a574;
+      margin-bottom: 40px;
+    }
+    
+    .character-cards {
+      display: flex;
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+    
+    .character-card {
+      width: 220px;
+      padding: 20px;
+      background: linear-gradient(180deg, rgba(50, 40, 30, 0.9) 0%, rgba(30, 25, 20, 0.95) 100%);
+      border: 2px solid #5c4a32;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .character-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(212, 165, 116, 0.1) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .character-card:hover::before {
+      opacity: 1;
+    }
+    
+    .character-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 165, 116, 0.3);
+      border-color: #d4a574;
+    }
+    
+    .character-portrait {
+      width: 100%;
+      height: 150px;
+      background: linear-gradient(135deg, #3d2f24 0%, #2a1f18 100%);
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 60px;
+      border: 1px solid #5c4a32;
+      overflow: hidden;
+    }
+    
+    .character-portrait img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .character-name {
+      font-size: 22px;
+      color: #d4a574;
+      text-align: center;
+      margin-bottom: 5px;
+    }
+    
+    .character-title {
+      font-size: 14px;
+      color: #8b7355;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    
+    .character-skill {
+      font-size: 12px;
+      color: #a89070;
+      text-align: center;
+      margin-bottom: 15px;
+      line-height: 1.4;
+    }
+    
+    .character-stats {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 5px;
+      font-size: 12px;
+    }
+    
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      color: #a89070;
+    }
+    
+    .stat-value {
+      color: #d4a574;
+    }
+    
+    .back-btn {
+      padding: 10px 40px;
+      font-size: 18px;
+      color: #8b7355;
+      background: transparent;
+      border: 1px solid #5c4a32;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .back-btn:hover {
+      color: #d4a574;
+      border-color: #d4a574;
+    }
+    
+    /* 升级选择 */
+    #upgradeSelect {
+      background: rgba(0, 0, 0, 0.85);
+    }
+    
+    .upgrade-title {
+      font-size: 48px;
+      color: #ffd700;
+      margin-bottom: 40px;
+      text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+      animation: upgradePulse 1s ease-in-out infinite;
+    }
+    
+    @keyframes upgradePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    
+    .upgrade-cards {
+      display: flex;
+      gap: 30px;
+    }
+    
+    .upgrade-card {
+      width: 200px;
+      padding: 25px 20px;
+      background: linear-gradient(180deg, rgba(40, 35, 30, 0.95) 0%, rgba(25, 22, 18, 0.98) 100%);
+      border: 2px solid #5c4a32;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .upgrade-card:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 30px rgba(212, 165, 116, 0.4);
+    }
+    
+    .upgrade-card.common { border-color: #9e9e9e; }
+    .upgrade-card.rare { border-color: #4fc3f7; }
+    .upgrade-card.epic { border-color: #ba68c8; }
+    
+    .upgrade-card:hover.common { box-shadow: 0 0 30px rgba(158, 158, 158, 0.5); }
+    .upgrade-card:hover.rare { box-shadow: 0 0 30px rgba(79, 195, 247, 0.5); }
+    .upgrade-card:hover.epic { box-shadow: 0 0 30px rgba(186, 104, 200, 0.5); }
+    
+    .upgrade-icon {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 15px;
+      background: rgba(60, 50, 40, 0.8);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    }
+    
+    .upgrade-name {
+      font-size: 18px;
+      color: #d4a574;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    
+    .upgrade-desc {
+      font-size: 13px;
+      color: #a89070;
+      text-align: center;
+      line-height: 1.4;
+      margin-bottom: 10px;
+    }
+    
+    .upgrade-rarity {
+      text-align: center;
+      font-size: 12px;
+      padding: 3px 10px;
+      border-radius: 3px;
+    }
+    
+    .upgrade-rarity.common { color: #9e9e9e; background: rgba(158, 158, 158, 0.2); }
+    .upgrade-rarity.rare { color: #4fc3f7; background: rgba(79, 195, 247, 0.2); }
+    .upgrade-rarity.epic { color: #ba68c8; background: rgba(186, 104, 200, 0.2); }
+    
+    /* 游戏结束 */
+    #gameOver {
+      background: rgba(10, 5, 5, 0.95);
+    }
+    
+    .gameover-title {
+      font-size: 64px;
+      color: #8b0000;
+      margin-bottom: 40px;
+      text-shadow: 0 0 30px rgba(139, 0, 0, 0.6);
+    }
+    
+    .gameover-stats {
+      background: rgba(30, 25, 20, 0.8);
+      padding: 30px 50px;
+      margin-bottom: 40px;
+      border: 1px solid #5c4a32;
+    }
+    
+    .stat-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      font-size: 18px;
+      color: #a89070;
+      border-bottom: 1px solid rgba(92, 74, 50, 0.3);
+    }
+    
+    .stat-item:last-child {
+      border-bottom: none;
+    }
+    
+    .stat-item .value {
+      color: #d4a574;
+      font-weight: bold;
+    }
+    
+    .gameover-buttons {
+      display: flex;
+      gap: 20px;
+    }
+    
+    /* 击杀提示 */
+    .kill-feed {
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      z-index: 150;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    
+    .kill-item {
+      padding: 8px 15px;
+      background: rgba(0, 0, 0, 0.7);
+      color: #d4a574;
+      font-size: 14px;
+      animation: killFadeIn 0.3s ease, killFadeOut 0.5s ease 2.5s forwards;
+      border-left: 3px solid #8b0000;
+    }
+    
+    @keyframes killFadeIn {
+      from { opacity: 0; transform: translateX(50px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    
+    @keyframes killFadeOut {
+      to { opacity: 0; transform: translateX(50px); }
+    }
+    
+    /* 屏幕闪烁效果 */
+    .damage-flash {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(ellipse at center, transparent 0%, rgba(139, 0, 0, 0.3) 100%);
+      pointer-events: none;
+      z-index: 90;
+      opacity: 0;
+      transition: opacity 0.1s ease;
+    }
+    
+    .damage-flash.active {
+      opacity: 1;
+    }
+    
+    /* 渐变叠加层 */
+    .vignette {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, 0.5) 100%);
+      pointer-events: none;
+      z-index: 89;
+    }
+    
+    .ink-wash {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(ellipse at 10% 20%, rgba(139, 90, 43, 0.05) 0%, transparent 50%),
+        radial-gradient(ellipse at 90% 80%, rgba(139, 90, 43, 0.05) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 88;
+    }
+    
+    /* 控制说明 */
+    .controls-hint {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #5c4a32;
+      font-size: 12px;
+      z-index: 50;
+      text-align: center;
+    }
+  </style>
 </head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
+<body>
+  <!-- 水墨边框装饰 -->
+  <div class="ink-border ink-border-top"></div>
+  <div class="ink-border ink-border-bottom"></div>
+  <div class="ink-border ink-border-left"></div>
+  <div class="ink-border ink-border-right"></div>
+  <div class="ink-corner ink-corner-tl"></div>
+  <div class="ink-corner ink-corner-tr"></div>
+  <div class="ink-corner ink-corner-bl"></div>
+  <div class="ink-corner ink-corner-br"></div>
   
+  <!-- 画布 -->
+  <canvas id="gameCanvas"></canvas>
   
-    
+  <!-- 屏幕效果层 -->
+  <div class="damage-flash" id="damageFlash"></div>
+  <div class="vignette"></div>
+  <div class="ink-wash"></div>
   
-
-  <div class="container sidebar-position-left 
-  page-home">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">苦瓜与吉姆餐厅</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
-    </div>
-      
-        <p class="site-subtitle">鸿爪踏雪泥，还是来得及</p>
-      
+  <!-- 击杀提示 -->
+  <div class="kill-feed" id="killFeed"></div>
+  
+  <!-- 开始菜单 -->
+  <div class="menu-screen active" id="startMenu">
+    <h1 class="game-title">三国·幸存者</h1>
+    <p class="game-subtitle">Three Kingdoms Survivors</p>
+    <button class="menu-btn" id="startBtn">开始游戏</button>
+    <p class="high-score" id="highScore">最高记录: --:--</p>
   </div>
-
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
-  </div>
-</div>
-
-<nav class="site-nav">
   
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            目录
-          </a>
-        </li>
-      
-
-      
-    </ul>
-  
-
-  
-</nav>
-
-
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-  <section id="posts" class="posts-expand">
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://694587769.github.io/2019/02/05/写在新年/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Anqing Peng">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苦瓜与吉姆餐厅">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/05/写在新年/" itemprop="url">写在新年</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-05T01:12:03+08:00">
-                2019-02-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  11
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1 min
-                </span>
-              
-            </div>
-          
-
-          
-
+  <!-- 角色选择 -->
+  <div class="menu-screen" id="characterSelect">
+    <h2 class="select-title">选择武将</h2>
+    <div class="character-cards">
+      <div class="character-card" data-char="zhaoyun">
+        <div class="character-portrait"><img src="assets/characters/zhaoyun.png" alt="赵云" onerror="this.parentElement.innerHTML='⚔️'"></div>
+        <div class="character-name">赵云</div>
+        <div class="character-title">常山赵子龙</div>
+        <div class="character-skill">被动: 七探蛇盘 - 闪避+15%，攻击带吸血</div>
+        <div class="character-stats">
+          <div class="stat-row"><span>生命</span><span class="stat-value">100</span></div>
+          <div class="stat-row"><span>速度</span><span class="stat-value">8</span></div>
+          <div class="stat-row"><span>伤害</span><span class="stat-value">18</span></div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-                  献给更美好的一年                        ——Edward Morgan Forster
-
-          
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/02/05/写在新年/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://694587769.github.io/2018/06/21/轶事/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Anqing Peng">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苦瓜与吉姆餐厅">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/21/轶事/" itemprop="url">轶事</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-21T21:37:41+08:00">
-                2018-06-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  826
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  3 min
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          &#160;&#160;&#160;&#160;临近中秋的晚上，夜色朦胧，大而圆的月在薄云中若隐若现，月光洒在我的头上。这是在远离市区喧嚣的一片林子里。静极了，只能听到偶然响起的鸟叫和鸣蝉，为这无边的夜添了生机。月光伴着远处的灯光，湖面上荡起了碎银。秋风掠过林梢，风移影动，远山被薄雾笼着，透着一点光
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/06/21/轶事/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://694587769.github.io/2018/06/21/热风/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Anqing Peng">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苦瓜与吉姆餐厅">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/21/热风/" itemprop="url">热风</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-21T21:36:31+08:00">
-                2018-06-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  702
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2 min
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          &#160;&#160;&#160;&#160;一越过喜马拉雅山脉，从恒河下游席卷而来的灼热气流席卷了整片次大陆，尘土飞扬，炙热阳光暴晒，热风肆意吹拂，让人脸颊发烫。与几个星期前的严寒的雪山的气候形成鲜明对比，放眼望去，黄沙茫茫。
-&#160;&#160;&#160;&#160;这是贞观二十一年（公
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/06/21/热风/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://694587769.github.io/2018/06/21/雪泥鸿爪/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Anqing Peng">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苦瓜与吉姆餐厅">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/21/雪泥鸿爪/" itemprop="url">雪泥鸿爪</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-21T21:32:27+08:00">
-                2018-06-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  381
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1 min
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          &#160;&#160;&#160;&#160;陈奕迅的歌，有一首叫《从何说起》。记得最让人印象深刻的是末尾一句“鸿爪踏雪泥，还是来得及”。每每看到这句话，脑海总是浮现一副画面：夕阳西下，深山古刹，初雪将融，飞鸿落地，万籁俱寂。脚爪踏地，留下浅浅爪印。明日冬雪初融，雪化成水，水蒸成云。又到哪里去找这
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/06/21/雪泥鸿爪/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://694587769.github.io/2018/06/21/春醪/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Anqing Peng">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苦瓜与吉姆餐厅">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/21/春醪/" itemprop="url">春醪</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-21T21:31:32+08:00">
-                2018-06-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  851
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  3 min
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          &#160;&#160;&#160;&#160;不知道尘封了多久，也许是看完后就被弃置。总之，当我找到它的时候，这本书已经布满灰尘，褶皱不堪。春醪集，似乎颇有点意境。下面一行小字：在这急景流年的人生里，我愿高举这盛到杯缘的春醪畅饮。我的眼睛突然湿润了，想起了这本书的作者。
-&#160;&#160;&
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/06/21/春醪/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://694587769.github.io/2018/06/21/关于幼女控及其二三事/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Anqing Peng">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苦瓜与吉姆餐厅">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/21/关于幼女控及其二三事/" itemprop="url">关于幼女控及其二三事</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-21T21:30:52+08:00">
-                2018-06-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  780
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  3 min
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          &#160;&#160;&#160;&#160;人类永远无法互相理解。
-&#160;&#160;&#160;&#160;宇宙世纪终于在幼女控后暂时停下了脚步，在独角兽喷出的精神感应粒子搭成的彩虹彼端，人类的无限可能性未来的帷幕才刚刚打开。当新吉翁号挟持着独角兽穿越时空，宇宙世纪的幕幕过往便重现眼前。
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/06/21/关于幼女控及其二三事/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://694587769.github.io/2018/06/21/武士跌倒/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Anqing Peng">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苦瓜与吉姆餐厅">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/21/武士跌倒/" itemprop="url">武士跌倒</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-21T21:29:05+08:00">
-                2018-06-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2,417
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  8 min
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          &#160;&#160;&#160;&#160;是夜，临济寺夜空群星灿烂。
-&#160;&#160;&#160;&#160;半夜肚子疼睡不着，拉开窗帘，却是漫天繁星，忽而想起了前两天看完的某本书的结尾这句话。
-&#160;&#160;&#160;&#160;来得如此的平淡，洋洋洒洒千万字的传记小说，
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/06/21/武士跌倒/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://694587769.github.io/2018/06/21/未命名/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Anqing Peng">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苦瓜与吉姆餐厅">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/21/未命名/" itemprop="url">未命名</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-21T21:28:06+08:00">
-                2018-06-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,194
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  4 min
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          &#160;&#160;&#160;&#160;对面的工地强行半夜施工，卡车引擎声与指挥调度声交相呼应，来往车辆碾压钢板的声音与起吊重物的声音混合在一起，即使拉上窗帘关上窗也无济于事。就像风会从缝隙里钻进来一样，噪声也会攀着墙，如灵巧的壁虎在墙上穿梭，从窗与墙的缝隙间，从不知名的角落里溜进来，再瞬间
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/06/21/未命名/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://694587769.github.io/2018/06/21/不破不立/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Anqing Peng">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苦瓜与吉姆餐厅">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/21/不破不立/" itemprop="url">不破不立</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-21T21:27:23+08:00">
-                2018-06-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  464
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2 min
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          &#160;&#160;&#160;&#160;不破不立，不塞不流，不止不行。当我读到昌黎先生的《原道》，就为这句话所倾倒。这使我莫名地想起了孔夫子的“三十而立”。而如今非但三十而立，时世艰难，所有的事情都迫切要求着“立”。
-&#160;&#160;&#160;&#160;我想我的确是到了不破不立的
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/06/21/不破不立/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://694587769.github.io/2018/06/21/敦煌/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Anqing Peng">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苦瓜与吉姆餐厅">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/21/敦煌/" itemprop="url">敦煌</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-21T21:21:05+08:00">
-                2018-06-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,757
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  6 min
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          &#160; &#160; &#160; &#160;维时景佑二年乙亥十二月十三日，大宋国潭州府举人赵行德，流历河西适寓沙州。今缘外贼掩袭国土扰乱，大云寺比丘僧搬移圣经于莫高窟而罩藏壁中，于是发心敬写般若波罗蜜多心经一卷安置洞内。伏愿龙天八部长为护助，城隍安泰百姓康宁，次愿甘州小娘子承此善因不溺幽冥
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/06/21/敦煌/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
-
-
-
-          </div>
-          
-
-
-          
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image"
-                src="/images/head.jpg"
-                alt="Anqing Peng" />
-            
-              <p class="site-author-name" itemprop="name">Anqing Peng</p>
-              <p class="site-description motion-element" itemprop="description">夕阳无限好，只是近黄昏</p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/">
-              
-                  <span class="site-state-item-count">15</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                
-                  <span class="site-state-item-count">1</span>
-                  <span class="site-state-item-name">标签</span>
-                
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-
-          
-          
-
-          
-          
-            <div class="links-of-blogroll motion-element links-of-blogroll-block">
-              <div class="links-of-blogroll-title">
-                <i class="fa  fa-fw fa-link"></i>
-                Links
-              </div>
-              <ul class="links-of-blogroll-list">
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://michaelwayneliu.github.io/" title="干爆刘勇成" target="_blank">干爆刘勇成</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://garrybest.github.io/" title="Garrybest的空间" target="_blank">Garrybest的空间</a>
-                  </li>
-                
-              </ul>
-            </div>
-          
-
-          
-
-        </div>
-      </section>
-
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
       </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<div class="powered-by">
-<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
-  本站访客数:<span id="busuanzi_value_site_uv"></span>
-</span>
-</div>
-<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Anqing Peng</span>
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
-
-
-
-
-<div class="theme-info">
-  <div class="powered-by"></div>
-  <span class="post-count">博客全站共16.7k字</span>
-</div>
-        
-
-
-
-
-
-
-
-        
+      <div class="character-card" data-char="guanyu">
+        <div class="character-portrait"><img src="assets/characters/guanyu.png" alt="关羽" onerror="this.parentElement.innerHTML='🗡️'"></div>
+        <div class="character-name">关羽</div>
+        <div class="character-title">武圣</div>
+        <div class="character-skill">被动: 青龙偃月 - 暴击伤害+50%，范围攻击</div>
+        <div class="character-stats">
+          <div class="stat-row"><span>生命</span><span class="stat-value">150</span></div>
+          <div class="stat-row"><span>速度</span><span class="stat-value">5</span></div>
+          <div class="stat-row"><span>伤害</span><span class="stat-value">25</span></div>
+        </div>
       </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
+      <div class="character-card" data-char="zhangfei">
+        <div class="character-portrait"><img src="assets/characters/zhangfei.png" alt="张飞" onerror="this.parentElement.innerHTML='🏹'"></div>
+        <div class="character-name">张飞</div>
+        <div class="character-title">猛将</div>
+        <div class="character-skill">被动: 咆哮 - 攻击速度+30%，恐惧周围敌人</div>
+        <div class="character-stats">
+          <div class="stat-row"><span>生命</span><span class="stat-value">130</span></div>
+          <div class="stat-row"><span>速度</span><span class="stat-value">6</span></div>
+          <div class="stat-row"><span>伤害</span><span class="stat-value">20</span></div>
+        </div>
       </div>
-    
-
-    
-
+    </div>
+    <button class="back-btn" id="backToMenu">返回主菜单</button>
   </div>
-
   
+  <!-- 升级选择 -->
+  <div class="menu-screen" id="upgradeSelect">
+    <h2 class="upgrade-title">升级!</h2>
+    <div class="upgrade-cards" id="upgradeCards">
+      <!-- 动态生成 -->
+    </div>
+  </div>
+  
+  <!-- 游戏结束 -->
+  <div class="menu-screen" id="gameOver">
+    <h2 class="gameover-title">阵亡</h2>
+    <div class="gameover-stats">
+      <div class="stat-item"><span>存活时间</span><span class="value" id="finalTime">00:00</span></div>
+      <div class="stat-item"><span>击杀数</span><span class="value" id="finalKills">0</span></div>
+      <div class="stat-item"><span>获得经验</span><span class="value" id="finalXP">0</span></div>
+      <div class="stat-item"><span>达到等级</span><span class="value" id="finalLevel">1</span></div>
+    </div>
+    <div class="gameover-buttons">
+      <button class="menu-btn" id="restartBtn">再战一局</button>
+      <button class="back-btn" id="returnMenu">返回主菜单</button>
+    </div>
+  </div>
+  
+  <div class="controls-hint">WASD移动 | 鼠标左键攻击 | 空格技能</div>
 
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+// ============================================
+// 三国·幸存者 - 资源加载系统
+// ============================================
+
+const GameAssets = {
+  characters: {},
+  enemies: {},
+  weapons: {},
+  
+  async loadAll() {
+    const loadImage = (src) => {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.onerror = reject;
+        img.src = src;
+      });
+    };
+    
+    try {
+      this.characters.zhaoyun = await loadImage('assets/characters/zhaoyun.png');
+      this.characters.guanyu = await loadImage('assets/characters/guanyu.png');
+      this.characters.zhangfei = await loadImage('assets/characters/zhangfei.png');
+      
+      this.enemies.infantry = await loadImage('assets/enemies/infantry.png');
+      this.enemies.archer = await loadImage('assets/enemies/archer.png');
+      this.enemies.sailor = await loadImage('assets/enemies/sailor.png');
+      this.enemies.lubu = await loadImage('assets/enemies/lubu.png');
+      
+      this.weapons.qinghong = await loadImage('assets/weapons/qinghong.png');
+      this.weapons.greenDragon = await loadImage('assets/weapons/greenDragon.png');
+      this.weapons.crossbow = await loadImage('assets/weapons/crossbow.png');
+      this.weapons.fire = await loadImage('assets/weapons/fire.png');
+      this.weapons.shield = await loadImage('assets/weapons/shield.png');
+      this.weapons.heal = await loadImage('assets/weapons/heal.png');
+      
+      console.log('[Assets] All images loaded successfully');
+    } catch (error) {
+      console.warn('[Assets] Some images failed to load, using fallback', error);
+    }
+  },
+  
+  getCharacter(name) {
+    return this.characters[name.toLowerCase()] || null;
   }
+};
+
+// ============================================
+// 三国·幸存者 - UI系统和视觉特效
+// ============================================
+
+// 游戏状态枚举
+const GameState = {
+  MENU: 'menu',
+  CHARACTER_SELECT: 'character_select',
+  PLAYING: 'playing',
+  UPGRADE: 'upgrade',
+  GAME_OVER: 'game_over'
+};
+
+// 稀有度枚举
+const Rarity = {
+  COMMON: 'common',
+  RARE: 'rare',
+  EPIC: 'epic'
+};
+
+// ============================================
+// 工具函数
+// ============================================
+
+// 格式化时间 (秒 -> MM:SS)
+function formatTime(seconds) {
+  const mins = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60);
+  return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+}
+
+// 线性插值
+function lerp(a, b, t) {
+  return a + (b - a) * t;
+}
+
+// 随机范围
+function randomRange(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+// 随机整数范围
+function randomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// 十六进制转RGB
+function hexToRgb(hex) {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result ? {
+    r: parseInt(result[1], 16),
+    g: parseInt(result[2], 16),
+    b: parseInt(result[3], 16)
+  } : null;
+}
+
+// ============================================
+// 动画系统
+// ============================================
+
+class Animation {
+  constructor(startValue, endValue, duration, easing = 'easeOut', onComplete = null) {
+    this.startValue = startValue;
+    this.endValue = endValue;
+    this.duration = duration;
+    this.elapsed = 0;
+    this.easing = easing;
+    this.onComplete = onComplete;
+    this.isDone = false;
+  }
+  
+  // 缓动函数
+  static easeIn(t) { return t * t; }
+  static easeOut(t) { return 1 - (1 - t) * (1 - t); }
+  static easeInOut(t) { return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
+  static linear(t) { return t; }
+  
+  update(deltaTime) {
+    if (this.isDone) return;
+    
+    this.elapsed += deltaTime;
+    let t = Math.min(this.elapsed / this.duration, 1);
+    
+    const easeFuncs = {
+      'easeIn': Animation.easeIn,
+      'easeOut': Animation.easeOut,
+      'easeInOut': Animation.easeInOut,
+      'linear': Animation.linear
+    };
+    
+    const ease = easeFuncs[this.easing] || easeFuncs.easeOut;
+    const progress = ease(t);
+    
+    this.currentValue = lerp(this.startValue, this.endValue, progress);
+    
+    if (t >= 1) {
+      this.isDone = true;
+      if (this.onComplete) this.onComplete();
+    }
+  }
+  
+  getValue() {
+    return this.currentValue !== undefined ? this.currentValue : this.startValue;
+  }
+}
+
+// 数字动画
+class NumberAnimation {
+  constructor(start, end, duration, onUpdate, onComplete) {
+    this.start = start;
+    this.end = end;
+    this.duration = duration;
+    this.elapsed = 0;
+    this.onUpdate = onUpdate;
+    this.onComplete = onComplete;
+    this.isDone = false;
+  }
+  
+  update(deltaTime) {
+    if (this.isDone) return;
+    
+    this.elapsed += deltaTime;
+    let t = Math.min(this.elapsed / this.duration, 1);
+    t = 1 - Math.pow(1 - t, 2);
+    
+    const current = Math.round(lerp(this.start, this.end, t));
+    if (this.onUpdate) this.onUpdate(current);
+    
+    if (t >= 1) {
+      this.isDone = true;
+      if (this.onComplete) this.onComplete();
+    }
+  }
+}
+
+// ============================================
+// 粒子系统
+// ============================================
+
+class Particle {
+  constructor(x, y, config = {}) {
+    this.x = x;
+    this.y = y;
+    this.vx = config.vx || randomRange(-2, 2);
+    this.vy = config.vy || randomRange(-2, 2);
+    this.life = config.life || 1;
+    this.maxLife = this.life;
+    this.size = config.size || randomRange(2, 5);
+    this.color = config.color || '#ffffff';
+    this.gravity = config.gravity || 0;
+    this.friction = config.friction || 0.98;
+    this.type = config.type || 'circle';
+    this.alpha = 1;
+    this.rotation = config.rotation || 0;
+    this.rotationSpeed = config.rotationSpeed || 0;
+    this.shrink = config.shrink !== false;
+  }
+  
+  update(deltaTime) {
+    this.vx *= this.friction;
+    this.vy *= this.friction;
+    this.vy += this.gravity;
+    
+    this.x += this.vx;
+    this.y += this.vy;
+    
+    this.life -= deltaTime;
+    this.alpha = Math.max(0, this.life / this.maxLife);
+    
+    if (this.shrink) {
+      this.size *= 0.98;
+    }
+    
+    this.rotation += this.rotationSpeed;
+    
+    return this.life > 0;
+  }
+  
+  render(ctx) {
+    ctx.save();
+    ctx.globalAlpha = this.alpha;
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.rotation);
+    
+    if (this.type === 'circle') {
+      ctx.beginPath();
+      ctx.arc(0, 0, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = this.color;
+      ctx.fill();
+    } else if (this.type === 'square') {
+      ctx.fillStyle = this.color;
+      ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
+    } else if (this.type === 'star') {
+      this.drawStar(ctx, 0, 0, 5, this.size, this.size / 2);
+    }
+    
+    ctx.restore();
+  }
+  
+  drawStar(ctx, cx, cy, spikes, outerRadius, innerRadius) {
+    let rot = Math.PI / 2 * 3;
+    let x = cx;
+    let y = cy;
+    const step = Math.PI / spikes;
+    
+    ctx.beginPath();
+    ctx.moveTo(cx, cy - outerRadius);
+    
+    for (let i = 0; i < spikes; i++) {
+      x = cx + Math.cos(rot) * outerRadius;
+      y = cy + Math.sin(rot) * outerRadius;
+      ctx.lineTo(x, y);
+      rot += step;
+      
+      x = cx + Math.cos(rot) * innerRadius;
+      y = cy + Math.sin(rot) * innerRadius;
+      ctx.lineTo(x, y);
+      rot += step;
+    }
+    
+    ctx.lineTo(cx, cy - outerRadius);
+    ctx.closePath();
+    ctx.fillStyle = this.color;
+    ctx.fill();
+  }
+  
+  isDead() {
+    return this.life <= 0;
+  }
+}
+
+// 粒子发射器
+class ParticleEmitter {
+  constructor() {
+    this.particles = [];
+  }
+  
+  emit(x, y, count, config = {}) {
+    for (let i = 0; i < count; i++) {
+      this.particles.push(new Particle(x, y, {
+        vx: config.vx !== undefined ? config.vx : randomRange(-3, 3),
+        vy: config.vy !== undefined ? config.vy : randomRange(-3, 3),
+        life: config.life || randomRange(0.3, 0.8),
+        size: config.size || randomRange(2, 6),
+        color: config.color || '#ffffff',
+        gravity: config.gravity || 0,
+        friction: config.friction || 0.98,
+        type: config.type || 'circle',
+        shrink: config.shrink !== false
+      }));
+    }
+  }
+  
+  // 命中粒子 (红色火花)
+  emitHit(x, y, direction = 0) {
+    const colors = ['#ff4444', '#ff6666', '#ff8888', '#ffaa44'];
+    for (let i = 0; i < 8; i++) {
+      const angle = direction + randomRange(-0.5, 0.5);
+      const speed = randomRange(2, 5);
+      this.particles.push(new Particle(x, y, {
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        life: randomRange(0.2, 0.4),
+        size: randomRange(2, 4),
+        color: colors[randomInt(0, colors.length - 1)],
+        gravity: 0.1,
+        type: 'circle'
+      }));
+    }
+  }
+  
+  // 死亡粒子 (敌人颜色爆炸)
+  emitDeath(x, y, color = '#ff4444') {
+    const rgb = hexToRgb(color) || { r: 255, g: 68, b: 68 };
+    for (let i = 0; i < 20; i++) {
+      const angle = randomRange(0, Math.PI * 2);
+      const speed = randomRange(1, 4);
+      this.particles.push(new Particle(x, y, {
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        life: randomRange(0.4, 0.8),
+        size: randomRange(3, 8),
+        color: `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`,
+        gravity: 0.05,
+        friction: 0.95,
+        type: Math.random() > 0.5 ? 'circle' : 'square'
+      }));
+    }
+  }
+  
+  // 治疗粒子 (绿色上升)
+  emitHeal(x, y, count = 5) {
+    for (let i = 0; i < count; i++) {
+      this.particles.push(new Particle(x + randomRange(-10, 10), y, {
+        vx: randomRange(-0.5, 0.5),
+        vy: randomRange(-2, -1),
+        life: randomRange(0.5, 1),
+        size: randomRange(3, 6),
+        color: '#44ff88',
+        gravity: -0.02,
+        type: 'circle'
+      }));
+    }
+  }
+  
+  // 经验粒子 (金色闪光)
+  emitXP(x, y, count = 3) {
+    const colors = ['#ffd700', '#ffec8b', '#fff8dc', '#ffe4b5'];
+    for (let i = 0; i < count; i++) {
+      this.particles.push(new Particle(x + randomRange(-15, 15), y + randomRange(-15, 15), {
+        vx: randomRange(-1, 1),
+        vy: randomRange(-1.5, -0.5),
+        life: randomRange(0.6, 1.2),
+        size: randomRange(2, 5),
+        color: colors[randomInt(0, colors.length - 1)],
+        gravity: -0.01,
+        type: 'star',
+        shrink: false
+      }));
+    }
+  }
+  
+  // 护盾粒子 (紫色环绕)
+  emitShield(x, y, count = 8) {
+    for (let i = 0; i < count; i++) {
+      const angle = (i / count) * Math.PI * 2;
+      const distance = randomRange(20, 35);
+      this.particles.push(new Particle(
+        x + Math.cos(angle) * distance,
+        y + Math.sin(angle) * distance,
+        {
+          vx: Math.cos(angle + Math.PI / 2) * 2,
+          vy: Math.sin(angle + Math.PI / 2) * 2,
+          life: 0.5,
+          size: 3,
+          color: '#ba68c8',
+          gravity: 0,
+          type: 'circle',
+          shrink: false
+        }
+      ));
+    }
+  }
+  
+  // 武器特效 (剑光)
+  emitSwordTrail(x, y, direction) {
+    for (let i = 0; i < 5; i++) {
+      const offset = randomRange(-10, 10);
+      const perpX = -Math.sin(direction) * offset;
+      const perpY = Math.cos(direction) * offset;
+      
+      this.particles.push(new Particle(x + perpX, y + perpY, {
+        vx: -Math.sin(direction) * randomRange(1, 3),
+        vy: Math.cos(direction) * randomRange(1, 3),
+        life: randomRange(0.1, 0.2),
+        size: randomRange(2, 4),
+        color: Math.random() > 0.5 ? '#4fc3f7' : '#81d4fa',
+        gravity: 0,
+        friction: 0.9,
+        type: 'circle'
+      }));
+    }
+  }
+  
+  update(deltaTime) {
+    this.particles = this.particles.filter(p => p.update(deltaTime));
+  }
+  
+  render(ctx) {
+    this.particles.forEach(p => p.render(ctx));
+  }
+  
+  clear() {
+    this.particles = [];
+  }
+}
+
+// ============================================
+// 伤害数字系统
+// ============================================
+
+class DamageNumber {
+  constructor(x, y, damage, isCrit = false, isHeal = false) {
+    this.x = x;
+    this.y = y;
+    this.startY = y;
+    this.damage = Math.round(damage);
+    this.isCrit = isCrit;
+    this.isHeal = isHeal;
+    this.life = 1;
+    this.maxLife = 1;
+    this.scale = isCrit ? 1.5 : 1;
+    this.alpha = 1;
+    this.rotation = randomRange(-0.2, 0.2);
+  }
+  
+  update(deltaTime) {
+    this.life -= deltaTime;
+    
+    const progress = 1 - (this.life / this.maxLife);
+    this.y = this.startY - progress * 60;
+    this.alpha = 1 - Math.pow(progress, 2);
+    this.scale = this.isCrit ? (1.5 - progress * 0.3) : (1 - progress * 0.2);
+    
+    return this.life > 0;
+  }
+  
+  render(ctx) {
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.rotation);
+    ctx.scale(this.scale, this.scale);
+    ctx.globalAlpha = this.alpha;
+    
+    let color, text;
+    if (this.isHeal) {
+      color = '#44ff88';
+      text = '+' + this.damage;
+    } else if (this.isCrit) {
+      color = '#ffd700';
+      text = this.damage + ' 暴击!';
+    } else {
+      color = '#ff4444';
+      text = this.damage;
+    }
+    
+    ctx.font = `bold ${this.isCrit ? 28 : 22}px "Microsoft YaHei", sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    
+    ctx.strokeStyle = 'rgba(0, 0, 0, 0.5)';
+    ctx.lineWidth = 3;
+    ctx.strokeText(text, 0, 0);
+    
+    ctx.fillStyle = color;
+    ctx.fillText(text, 0, 0);
+    
+    ctx.restore();
+  }
+  
+  isDead() {
+    return this.life <= 0;
+  }
+}
+
+// 伤害数字管理器
+class DamageNumberManager {
+  constructor() {
+    this.numbers = [];
+  }
+  
+  show(x, y, damage, isCrit = false, isHeal = false) {
+    this.numbers.push(new DamageNumber(x, y, damage, isCrit, isHeal));
+  }
+  
+  update(deltaTime) {
+    this.numbers = this.numbers.filter(n => n.update(deltaTime));
+  }
+  
+  render(ctx) {
+    this.numbers.forEach(n => n.render(ctx));
+  }
+}
+
+// ============================================
+// 屏幕效果系统
+// ============================================
+
+class ScreenEffects {
+  constructor() {
+    this.shakeIntensity = 0;
+    this.shakeDuration = 0;
+    this.shakeTime = 0;
+    this.offsetX = 0;
+    this.offsetY = 0;
+    this.damageFlash = document.getElementById('damageFlash');
+    this.flashTime = 0;
+    this.flashDuration = 0;
+  }
+  
+  // 屏幕震动
+  shake(intensity, duration) {
+    this.shakeIntensity = intensity;
+    this.shakeDuration = duration;
+    this.shakeTime = duration;
+  }
+  
+  // 受伤闪烁
+  flashDamage(duration = 0.15) {
+    this.damageFlash.classList.add('active');
+    this.flashDuration = duration;
+    this.flashTime = duration;
+  }
+  
+  update(deltaTime) {
+    // 更新屏幕震动
+    if (this.shakeTime > 0) {
+      this.shakeTime -= deltaTime;
+      const progress = this.shakeTime / this.shakeDuration;
+      const currentIntensity = this.shakeIntensity * progress;
+      this.offsetX = randomRange(-currentIntensity, currentIntensity);
+      this.offsetY = randomRange(-currentIntensity, currentIntensity);
+    } else {
+      this.offsetX = 0;
+      this.offsetY = 0;
+    }
+    
+    // 更新闪烁
+    if (this.flashTime > 0) {
+      this.flashTime -= deltaTime;
+      if (this.flashTime <= 0) {
+        this.damageFlash.classList.remove('active');
+      }
+    }
+  }
+  
+  getOffset() {
+    return { x: this.offsetX, y: this.offsetY };
+  }
+}
+
+// ============================================
+// HUD (游戏内UI)
+// ============================================
+
+class HUD {
+  constructor(ctx) {
+    this.ctx = ctx;
+    this.canvasWidth = ctx.canvas.width;
+    this.canvasHeight = ctx.canvas.height;
+    
+    // 显示数值
+    this.displayHP = 100;
+    this.displayMaxHP = 100;
+    this.displayXP = 0;
+    this.displayMaxXP = 100;
+    this.displayLevel = 1;
+    this.displayKills = 0;
+    this.displayTime = 0;
+    
+    // 目标数值
+    this.targetHP = 100;
+    this.targetMaxHP = 100;
+    this.targetXP = 0;
+    this.targetMaxXP = 100;
+    this.targetLevel = 1;
+    this.targetKills = 0;
+    this.targetTime = 0;
+    
+    // 低血量警告
+    this.lowHPWarning = 0;
+    this.hpPulse = 0;
+    
+    // 动画状态
+    this.animationTime = 0;
+  }
+  
+  resize(width, height) {
+    this.canvasWidth = width;
+    this.canvasHeight = height;
+  }
+  
+  update(deltaTime) {
+    // 平滑过渡数值
+    this.displayHP = lerp(this.displayHP, this.targetHP, 0.1);
+    this.displayMaxHP = lerp(this.displayMaxHP, this.targetMaxHP, 0.1);
+    this.displayXP = lerp(this.displayXP, this.targetXP, 0.15);
+    this.displayMaxXP = lerp(this.displayMaxXP, this.targetMaxXP, 0.1);
+    this.displayLevel = this.targetLevel;
+    this.displayKills = Math.round(lerp(this.displayKills, this.targetKills, 0.2));
+    this.displayTime = this.targetTime;
+    
+    // 低血量脉动
+    const hpPercent = this.displayHP / this.displayMaxHP;
+    if (hpPercent < 0.3) {
+      this.hpPulse += deltaTime * 5;
+    }
+    
+    this.animationTime += deltaTime;
+  }
+  
+  updateStats(hp, maxHP, xp, maxXP, level, kills, time) {
+    if (hp < this.targetHP) {
+      this.targetHP = hp;
+    }
+    this.targetMaxHP = maxHP;
+    this.targetXP = xp;
+    this.targetMaxXP = maxXP;
+    this.targetLevel = level;
+    this.targetKills = kills;
+    this.targetTime = time;
+  }
+  
+  render(gameState) {
+    const ctx = this.ctx;
+    const padding = 20;
+    
+    ctx.save();
+    
+    // 应用屏幕偏移
+    const offset = screenEffects.getOffset();
+    ctx.translate(offset.x, offset.y);
+    
+    // 顶部信息栏背景
+    this.renderTopBar(ctx, padding);
+    
+    // 底部状态栏
+    this.renderBottomBar(ctx, padding);
+    
+    // 武器/技能栏
+    this.renderWeaponBar(ctx, padding);
+    
+    ctx.restore();
+  }
+  
+  renderTopBar(ctx, padding) {
+    const barHeight = 50;
+    const barY = padding;
+    
+    // 存活时间 - 左上
+    ctx.save();
+    const timeText = formatTime(this.displayTime);
+    const timeX = padding + 100;
+    const timeY = barY + barHeight / 2;
+    
+    this.renderInkBox(ctx, padding, barY, 180, barHeight);
+    
+    ctx.fillStyle = '#d4a574';
+    ctx.font = 'bold 20px "Microsoft YaHei", sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(timeText, timeX + 90, timeY);
+    ctx.restore();
+    
+    // 等级 - 顶部中央
+    ctx.save();
+    const levelText = `Lv.${this.displayLevel}`;
+    const levelWidth = 80;
+    const levelX = (this.canvasWidth - levelWidth) / 2;
+    
+    this.renderInkBox(ctx, levelX, barY, levelWidth, barHeight);
+    
+    ctx.fillStyle = '#ffd700';
+    ctx.font = 'bold 22px "Microsoft YaHei", sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(levelText, levelX + levelWidth / 2, timeY);
+    ctx.restore();
+    
+    // 击杀数 - 右上
+    ctx.save();
+    const killsText = `击杀: ${this.displayKills}`;
+    const killsWidth = 140;
+    const killsX = this.canvasWidth - padding - killsWidth;
+    
+    this.renderInkBox(ctx, killsX, barY, killsWidth, barHeight);
+    
+    ctx.fillStyle = '#ff6b6b';
+    ctx.font = 'bold 18px "Microsoft YaHei", sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(killsText, killsX + killsWidth / 2, timeY);
+    ctx.restore();
+  }
+  
+  renderBottomBar(ctx, padding) {
+    const barHeight = 60;
+    const barY = this.canvasHeight - padding - barHeight;
+    const barWidth = 250;
+    
+    // 生命条 - 左下
+    ctx.save();
+    const hpX = padding;
+    
+    this.renderInkBox(ctx, hpX, barY, barWidth, barHeight);
+    
+    const hpBarX = hpX + 15;
+    const hpBarY = barY + 12;
+    const hpBarWidth = barWidth - 30;
+    const hpBarHeight = 16;
+    
+    const hpPercent = Math.max(0, this.displayHP / this.displayMaxHP);
+    
+    // 血条背景
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+    ctx.fillRect(hpBarX, hpBarY, hpBarWidth, hpBarHeight);
+    
+    // 血条填充
+    const hpGradient = ctx.createLinearGradient(hpBarX, 0, hpBarX + hpBarWidth, 0);
+    if (hpPercent > 0.5) {
+      hpGradient.addColorStop(0, '#ff4444');
+      hpGradient.addColorStop(1, '#cc2222');
+    } else if (hpPercent > 0.25) {
+      hpGradient.addColorStop(0, '#ff6644');
+      hpGradient.addColorStop(1, '#cc3322');
+    } else {
+      hpGradient.addColorStop(0, '#ff2222');
+      hpGradient.addColorStop(1, '#aa0000');
+    }
+    
+    ctx.fillStyle = hpGradient;
+    ctx.fillRect(hpBarX, hpBarY, hpBarWidth * hpPercent, hpBarHeight);
+    
+    // 低血量脉动效果
+    if (hpPercent < 0.3 && hpPercent > 0) {
+      const pulseAlpha = (Math.sin(this.hpPulse) + 1) / 2 * 0.3;
+      ctx.fillStyle = `rgba(255, 0, 0, ${pulseAlpha})`;
+      ctx.fillRect(hpBarX, hpBarY, hpBarWidth * hpPercent, hpBarHeight);
+    }
+    
+    // 血条边框
+    ctx.strokeStyle = '#8b6914';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(hpBarX, hpBarY, hpBarWidth, hpBarHeight);
+    
+    // 生命值文字
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 12px "Microsoft YaHei", sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(
+      `${Math.round(this.displayHP)} / ${Math.round(this.displayMaxHP)}`,
+      hpBarX + hpBarWidth / 2,
+      hpBarY + hpBarHeight / 2
+    );
+    
+    ctx.restore();
+    
+    // 经验条 - 底部中央
+    ctx.save();
+    const xpBarWidth = 300;
+    const xpX = (this.canvasWidth - xpBarWidth) / 2;
+    const xpBarY = barY + 35;
+    const xpBarHeight = 12;
+    
+    const xpPercent = Math.min(1, this.displayXP / this.displayMaxXP);
+    
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+    ctx.fillRect(xpX, xpBarY, xpBarWidth, xpBarHeight);
+    
+    const xpGradient = ctx.createLinearGradient(xpX, 0, xpX + xpBarWidth, 0);
+    xpGradient.addColorStop(0, '#ffd700');
+    xpGradient.addColorStop(0.5, '#ffec8b');
+    xpGradient.addColorStop(1, '#ffd700');
+    
+    ctx.fillStyle = xpGradient;
+    ctx.fillRect(xpX, xpBarY, xpBarWidth * xpPercent, xpBarHeight);
+    
+    ctx.strokeStyle = '#daa520';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(xpX, xpBarY, xpBarWidth, xpBarHeight);
+    
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '10px "Microsoft YaHei", sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(
+      `${Math.round(this.displayXP)} / ${Math.round(this.displayMaxXP)}`,
+      xpX + xpBarWidth / 2,
+      xpBarY + xpBarHeight / 2
+    );
+    ctx.restore();
+  }
+  
+  renderWeaponBar(ctx, padding) {
+    ctx.save();
+    const slotSize = 50;
+    const gap = 10;
+    const startX = this.canvasWidth - padding - slotSize * 3 - gap * 2;
+    const y = this.canvasHeight - padding - slotSize - 80;
+    
+    ctx.fillStyle = 'rgba(30, 25, 20, 0.8)';
+    ctx.fillRect(startX - 10, y - 10, slotSize * 3 + gap * 2 + 20, slotSize + 20);
+    ctx.strokeStyle = '#5c4a32';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(startX - 10, y - 10, slotSize * 3 + gap * 2 + 20, slotSize + 20);
+    
+    const weaponIcons = [
+      GameAssets.weapons.qinghong,
+      GameAssets.weapons.shield,
+      GameAssets.weapons.fire
+    ];
+    
+    for (let i = 0; i < 3; i++) {
+      const x = startX + i * (slotSize + gap);
+      
+      ctx.fillStyle = 'rgba(60, 50, 40, 0.9)';
+      ctx.fillRect(x, y, slotSize, slotSize);
+      ctx.strokeStyle = '#8b7355';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(x, y, slotSize, slotSize);
+      
+      const iconImg = weaponIcons[i];
+      if (iconImg && iconImg.complete) {
+        ctx.drawImage(iconImg, x + 5, y + 5, slotSize - 10, slotSize - 10);
+      } else {
+        ctx.fillStyle = '#d4a574';
+        ctx.font = '24px Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        const icons = ['⚔️', '🛡️', '🔥'];
+        ctx.fillText(icons[i] || '', x + slotSize / 2, y + slotSize / 2);
+      }
+    }
+    
+    ctx.restore();
+  }
+  
+  // 渲染水墨风格边框盒子
+  renderInkBox(ctx, x, y, width, height) {
+    ctx.fillStyle = 'rgba(30, 25, 20, 0.85)';
+    ctx.fillRect(x, y, width, height);
+    
+    ctx.strokeStyle = '#8b6914';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(x, y, width, height);
+    
+    // 角落装饰
+    const cornerSize = 8;
+    ctx.strokeStyle = '#d4a574';
+    ctx.lineWidth = 2;
+    
+    // 左上角
+    ctx.beginPath();
+    ctx.moveTo(x, y + cornerSize);
+    ctx.lineTo(x, y);
+    ctx.lineTo(x + cornerSize, y);
+    ctx.stroke();
+    
+    // 右上角
+    ctx.beginPath();
+    ctx.moveTo(x + width - cornerSize, y);
+    ctx.lineTo(x + width, y);
+    ctx.lineTo(x + width, y + cornerSize);
+    ctx.stroke();
+    
+    // 左下角
+    ctx.beginPath();
+    ctx.moveTo(x, y + height - cornerSize);
+    ctx.lineTo(x, y + height);
+    ctx.lineTo(x + cornerSize, y + height);
+    ctx.stroke();
+    
+    // 右下角
+    ctx.beginPath();
+    ctx.moveTo(x + width - cornerSize, y + height);
+    ctx.lineTo(x + width, y + height);
+    ctx.lineTo(x + width, y + height - cornerSize);
+    ctx.stroke();
+  }
+}
+
+// ============================================
+// 声音系统 (占位符)
+// ============================================
+
+const SoundManager = {
+  sounds: {},
+  volume: 1,
+  musicVolume: 0.5,
+  muted: false,
+  
+  // 预加载声音 (实际使用时需要真实音频文件)
+  preload(soundName, url) {
+    console.log(`[Sound] Preload: ${soundName} from ${url}`);
+    this.sounds[soundName] = { url, loaded: false };
+  },
+  
+  // 播放音效
+  play(soundName) {
+    if (this.muted) return;
+    console.log(`[Sound] Play: ${soundName}`);
+  },
+  
+  // 播放背景音乐
+  playMusic(musicName) {
+    if (this.muted) return;
+    console.log(`[Sound] Play Music: ${musicName}`);
+  },
+  
+  // 停止音乐
+  stopMusic() {
+    console.log('[Sound] Stop Music');
+  },
+  
+  // 设置音量
+  setVolume(level) {
+    this.volume = Math.max(0, Math.min(1, level));
+    console.log(`[Sound] Volume: ${this.volume}`);
+  },
+  
+  // 设置音乐音量
+  setMusicVolume(level) {
+    this.musicVolume = Math.max(0, Math.min(1, level));
+    console.log(`[Sound] Music Volume: ${this.musicVolume}`);
+  },
+  
+  // 静音切换
+  toggleMute() {
+    this.muted = !this.muted;
+    console.log(`[Sound] Muted: ${this.muted}`);
+  }
+};
+
+// 音效快捷方法
+function playSound(soundName) {
+  SoundManager.play(soundName);
+}
+
+function stopMusic() {
+  SoundManager.stopMusic();
+}
+
+function setVolume(level) {
+  SoundManager.setVolume(level);
+}
+
+// ============================================
+// 游戏主类
+// ============================================
+
+class Game {
+  constructor() {
+    this.canvas = document.getElementById('gameCanvas');
+    this.ctx = this.canvas.getContext('2d');
+    
+    this.resize();
+    window.addEventListener('resize', () => this.resize());
+    
+    this.state = GameState.MENU;
+    this.lastTime = 0;
+    this.deltaTime = 0;
+    
+    // 游戏数据
+    this.player = {
+      hp: 100,
+      maxHP: 100,
+      xp: 0,
+      maxXP: 100,
+      level: 1,
+      x: 0,
+      y: 0,
+      speed: 5,
+      damage: 15
+    };
+    
+    this.stats = {
+      kills: 0,
+      time: 0,
+      xpGained: 0
+    };
+    
+    this.selectedCharacter = null;
+    this.highScore = this.loadHighScore();
+    
+    // 系统
+    this.hud = new HUD(this.ctx);
+    this.particleEmitter = new ParticleEmitter();
+    this.damageNumbers = new DamageNumberManager();
+    this.screenEffects = new ScreenEffects();
+    
+    // 击杀提示
+    this.killFeedItems = [];
+    
+    // 升级选项
+    this.upgradeOptions = this.generateUpgradeOptions();
+    
+    // 输入状态
+    this.keys = {};
+    this.mouseX = 0;
+    this.mouseY = 0;
+    this.mouseDown = false;
+    
+    this.setupInput();
+    this.setupUI();
+    
+    // 背景粒子
+    this.backgroundParticles = [];
+    this.initBackgroundParticles();
+  }
+  
+  resize() {
+    this.canvas.width = window.innerWidth;
+    this.canvas.height = window.innerHeight;
+    if (this.hud) {
+      this.hud.resize(this.canvas.width, this.canvas.height);
+    }
+  }
+  
+  initBackgroundParticles() {
+    for (let i = 0; i < 50; i++) {
+      this.backgroundParticles.push({
+        x: Math.random() * this.canvas.width,
+        y: Math.random() * this.canvas.height,
+        size: Math.random() * 2 + 1,
+        speedX: randomRange(-0.2, 0.2),
+        speedY: randomRange(-0.5, -0.1),
+        alpha: Math.random() * 0.3 + 0.1
+      });
+    }
+  }
+  
+  setupInput() {
+    window.addEventListener('keydown', (e) => {
+      this.keys[e.key.toLowerCase()] = true;
+      if (e.key === ' ' && this.state === GameState.PLAYING) {
+        this.useSkill();
+      }
+    });
+    
+    window.addEventListener('keyup', (e) => {
+      this.keys[e.key.toLowerCase()] = false;
+    });
+    
+    window.addEventListener('mousemove', (e) => {
+      this.mouseX = e.clientX;
+      this.mouseY = e.clientY;
+    });
+    
+    window.addEventListener('mousedown', (e) => {
+      if (e.button === 0) {
+        this.mouseDown = true;
+        if (this.state === GameState.PLAYING) {
+          this.attack();
+        }
+      }
+    });
+    
+    window.addEventListener('mouseup', (e) => {
+      if (e.button === 0) {
+        this.mouseDown = false;
+      }
+    });
+  }
+  
+  setupUI() {
+    // 开始按钮
+    document.getElementById('startBtn').addEventListener('click', () => {
+      this.showScreen('characterSelect');
+      playSound('click');
+    });
+    
+    // 返回主菜单
+    document.getElementById('backToMenu').addEventListener('click', () => {
+      this.showScreen('startMenu');
+      playSound('click');
+    });
+    
+    // 角色选择
+    document.querySelectorAll('.character-card').forEach(card => {
+      card.addEventListener('click', () => {
+        this.selectCharacter(card.dataset.char);
+        playSound('select');
+      });
+    });
+    
+    // 重新开始
+    document.getElementById('restartBtn').addEventListener('click', () => {
+      this.showScreen('characterSelect');
+      playSound('click');
+    });
+    
+    // 返回主菜单
+    document.getElementById('returnMenu').addEventListener('click', () => {
+      this.showScreen('startMenu');
+      playSound('click');
+    });
+    
+    // 更新最高记录显示
+    this.updateHighScoreDisplay();
+  }
+  
+  showScreen(screenName) {
+    document.querySelectorAll('.menu-screen').forEach(screen => {
+      screen.classList.remove('active');
+    });
+    
+    if (screenName === 'characterSelect' || screenName === 'startMenu') {
+      document.getElementById(screenName).classList.add('active');
+      if (screenName === 'startMenu') {
+        this.state = GameState.MENU;
+      } else {
+        this.state = GameState.CHARACTER_SELECT;
+      }
+    } else if (screenName === 'upgrade') {
+      this.generateUpgradeCards();
+      document.getElementById('upgradeSelect').classList.add('active');
+      this.state = GameState.UPGRADE;
+    } else if (screenName === 'gameOver') {
+      this.showGameOver();
+      document.getElementById('gameOver').classList.add('active');
+      this.state = GameState.GAME_OVER;
+    } else if (screenName === 'playing') {
+      this.state = GameState.PLAYING;
+    }
+  }
+  
+  selectCharacter(character) {
+    this.selectedCharacter = character;
+    
+    const charStats = {
+      zhaoyun: { hp: 100, speed: 8, damage: 18, name: '赵云' },
+      guanyu: { hp: 150, speed: 5, damage: 25, name: '关羽' },
+      zhangfei: { hp: 130, speed: 6, damage: 20, name: '张飞' }
+    };
+    
+    const stats = charStats[character];
+    this.player.maxHP = stats.hp;
+    this.player.hp = stats.hp;
+    this.player.speed = stats.speed;
+    this.player.damage = stats.damage;
+    this.player.x = this.canvas.width / 2;
+    this.player.y = this.canvas.height / 2;
+    
+    this.player.xp = 0;
+    this.player.level = 1;
+    this.player.maxXP = 100;
+    
+    this.stats = { kills: 0, time: 0, xpGained: 0 };
+    
+    this.showScreen('playing');
+    SoundManager.playMusic('battle');
+  }
+  
+  generateUpgradeOptions() {
+    return [
+      { id: 'damage_up', name: '武艺精进', desc: '攻击力+20%', icon: '⚔️', rarity: Rarity.COMMON },
+      { id: 'speed_up', name: '身轻如燕', desc: '移动速度+15%', icon: '💨', rarity: Rarity.COMMON },
+      { id: 'hp_up', name: '体魄强健', desc: '最大生命+25', icon: '❤️', rarity: Rarity.COMMON },
+      { id: 'crit_chance', name: '百步穿杨', desc: '暴击率+15%', icon: '🎯', rarity: Rarity.RARE },
+      { id: 'lifesteal', name: '嗜血之力', desc: '造成伤害5%转化为生命', icon: '🩸', rarity: Rarity.RARE },
+      { id: 'shield', name: '八卦阵', desc: '获得一个护盾', icon: '🛡️', rarity: Rarity.RARE },
+      { id: 'multishot', name: '万箭齐发', desc: '攻击命中多个目标', icon: '🏹', rarity: Rarity.EPIC },
+      { id: 'fire_strike', name: '火计', desc: '召唤火焰攻击', icon: '🔥', rarity: Rarity.EPIC },
+      { id: 'healing', name: '医疗兵法', desc: '持续恢复生命', icon: '💚', rarity: Rarity.EPIC }
+    ];
+  }
+  
+  generateUpgradeCards() {
+    const container = document.getElementById('upgradeCards');
+    container.innerHTML = '';
+    
+    // 随机选择3个升级
+    const shuffled = [...this.upgradeOptions].sort(() => Math.random() - 0.5);
+    const options = shuffled.slice(0, 3);
+    
+    options.forEach(option => {
+      const card = document.createElement('div');
+      card.className = `upgrade-card ${option.rarity}`;
+      card.innerHTML = `
+        <div class="upgrade-icon">${option.icon}</div>
+        <div class="upgrade-name">${option.name}</div>
+        <div class="upgrade-desc">${option.desc}</div>
+        <div class="upgrade-rarity ${option.rarity}">${option.rarity === 'common' ? '普通' : option.rarity === 'rare' ? '稀有' : '史诗'}</div>
+      `;
+      
+      card.addEventListener('click', () => {
+        this.applyUpgrade(option);
+        this.showScreen('playing');
+        playSound('upgrade');
+      });
+      
+      container.appendChild(card);
+    });
+  }
+  
+  applyUpgrade(upgrade) {
+    switch (upgrade.id) {
+      case 'damage_up':
+        this.player.damage *= 1.2;
+        break;
+      case 'speed_up':
+        this.player.speed *= 1.15;
+        break;
+      case 'hp_up':
+        this.player.maxHP += 25;
+        this.player.hp += 25;
+        break;
+      case 'crit_chance':
+        // 暴击率逻辑 (后续实现)
+        break;
+      case 'lifesteal':
+        // 生命偷取逻辑 (后续实现)
+        break;
+      case 'shield':
+        // 护盾逻辑 (后续实现)
+        this.particleEmitter.emitShield(this.player.x, this.player.y);
+        break;
+    }
+  }
+  
+  attack() {
+    const dx = this.mouseX - this.player.x;
+    const dy = this.mouseY - this.player.y;
+    const angle = Math.atan2(dy, dx);
+    
+    this.particleEmitter.emitSwordTrail(this.player.x, this.player.y, angle);
+    playSound('attack');
+    
+    // 模拟造成伤害
+    const damage = this.player.damage;
+    const isCrit = Math.random() < 0.1;
+    const finalDamage = isCrit ? damage * 2 : damage;
+    
+    // 在鼠标位置显示伤害数字
+    this.damageNumbers.show(
+      this.mouseX + randomRange(-20, 20),
+      this.mouseY + randomRange(-20, 20),
+      finalDamage,
+      isCrit
+    );
+    
+    // 命中粒子
+    this.particleEmitter.emitHit(this.mouseX, this.mouseY, angle);
+    
+    if (isCrit) {
+      this.screenEffects.shake(5, 0.1);
+    }
+  }
+  
+  useSkill() {
+    playSound('skill');
+    this.particleEmitter.emitShield(this.player.x, this.player.y, 15);
+  }
+  
+  showGameOver() {
+    document.getElementById('finalTime').textContent = formatTime(this.stats.time);
+    document.getElementById('finalKills').textContent = this.stats.kills;
+    document.getElementById('finalXP').textContent = this.stats.xpGained;
+    document.getElementById('finalLevel').textContent = this.player.level;
+    
+    // 更新最高记录
+    if (this.stats.time > this.highScore) {
+      this.highScore = this.stats.time;
+      this.saveHighScore();
+      this.updateHighScoreDisplay();
+    }
+  }
+  
+  loadHighScore() {
+    const saved = localStorage.getItem('sanguo_survivor_highscore');
+    return saved ? parseFloat(saved) : 0;
+  }
+  
+  saveHighScore() {
+    localStorage.setItem('sanguo_survivor_highscore', this.highScore.toString());
+  }
+  
+  updateHighScoreDisplay() {
+    const display = document.getElementById('highScore');
+    display.textContent = this.highScore > 0 
+      ? `最高记录: ${formatTime(this.highScore)}` 
+      : '最高记录: --:--';
+  }
+  
+  // 添加击杀提示
+  addKillFeed(killer, killed) {
+    const feed = document.getElementById('killFeed');
+    const item = document.createElement('div');
+    item.className = 'kill-item';
+    item.textContent = `${killer} 击败了 ${killed}`;
+    feed.appendChild(item);
+    
+    setTimeout(() => {
+      if (item.parentNode) {
+        item.parentNode.removeChild(item);
+      }
+    }, 3000);
+  }
+  
+  // 受伤处理
+  takeDamage(amount) {
+    this.player.hp -= amount;
+    this.screenEffects.flashDamage();
+    this.screenEffects.shake(8, 0.15);
+    this.particleEmitter.emitHit(this.player.x, this.player.y);
+    playSound('hurt');
+    
+    if (this.player.hp <= 0) {
+      this.player.hp = 0;
+      this.gameOver();
+    }
+  }
+  
+  // 获得经验
+  gainXP(amount) {
+    this.stats.xpGained += amount;
+    this.player.xp += amount;
+    
+    this.particleEmitter.emitXP(this.player.x, this.player.y, 5);
+    
+    // 检查升级
+    while (this.player.xp >= this.player.maxXP) {
+      this.player.xp -= this.player.maxXP;
+      this.levelUp();
+    }
+  }
+  
+  levelUp() {
+    this.player.level++;
+    this.player.maxXP = Math.floor(this.player.maxXP * 1.5);
+    this.player.maxHP += 10;
+    this.player.hp = Math.min(this.player.hp + 20, this.player.maxHP);
+    
+    playSound('levelup');
+    
+    if (this.state === GameState.PLAYING) {
+      this.showScreen('upgrade');
+    }
+  }
+  
+  gameOver() {
+    this.state = GameState.GAME_OVER;
+    SoundManager.stopMusic();
+    playSound('gameover');
+    
+    // 死亡特效
+    this.particleEmitter.emitDeath(this.player.x, this.player.y, '#4fc3f7');
+    
+    setTimeout(() => {
+      this.showScreen('gameOver');
+    }, 500);
+  }
+  
+  // 模拟击杀 (用于演示)
+  simulateKill() {
+    this.stats.kills++;
+    const enemyNames = ['魏国步兵', '魏国弓兵', '吴国水兵', '黄巾兵'];
+    const charNames = {
+      zhaoyun: '赵云',
+      guanyu: '关羽',
+      zhangfei: '张飞'
+    };
+    const killer = charNames[this.selectedCharacter] || '玩家';
+    const killed = enemyNames[randomInt(0, enemyNames.length - 1)];
+    
+    this.addKillFeed(killer, killed);
+    this.gainXP(randomInt(10, 30));
+  }
+  
+  update(deltaTime) {
+    // 更新粒子
+    this.particleEmitter.update(deltaTime);
+    this.damageNumbers.update(deltaTime);
+    this.screenEffects.update(deltaTime);
+    
+    // 更新背景粒子
+    this.backgroundParticles.forEach(p => {
+      p.x += p.speedX;
+      p.y += p.speedY;
+      
+      if (p.y < 0) {
+        p.y = this.canvas.height;
+        p.x = Math.random() * this.canvas.width;
+      }
+      if (p.x < 0) p.x = this.canvas.width;
+      if (p.x > this.canvas.width) p.x = 0;
+    });
+    
+    if (this.state === GameState.PLAYING) {
+      this.stats.time += deltaTime;
+      
+      // 更新HUD
+      this.hud.updateStats(
+        this.player.hp,
+        this.player.maxHP,
+        this.player.xp,
+        this.player.maxXP,
+        this.player.level,
+        this.stats.kills,
+        this.stats.time
+      );
+      
+      // 玩家移动 (演示用)
+      let moveX = 0;
+      let moveY = 0;
+      
+      if (this.keys['w'] || this.keys['arrowup']) moveY -= 1;
+      if (this.keys['s'] || this.keys['arrowdown']) moveY += 1;
+      if (this.keys['a'] || this.keys['arrowleft']) moveX -= 1;
+      if (this.keys['d'] || this.keys['arrowright']) moveX += 1;
+      
+      if (moveX !== 0 || moveY !== 0) {
+        const len = Math.sqrt(moveX * moveX + moveY * moveY);
+        moveX /= len;
+        moveY /= len;
+        
+        this.player.x += moveX * this.player.speed;
+        this.player.y += moveY * this.player.speed;
+        
+        // 边界检测
+        this.player.x = Math.max(50, Math.min(this.canvas.width - 50, this.player.x));
+        this.player.y = Math.max(70, Math.min(this.canvas.height - 70, this.player.y));
+      }
+    }
+    
+    this.hud.update(deltaTime);
+  }
+  
+  render() {
+    const ctx = this.ctx;
+    
+    // 清空画布
+    ctx.fillStyle = '#1a1510';
+    ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    
+    // 渲染背景
+    this.renderBackground();
+    
+    // 应用屏幕偏移
+    ctx.save();
+    const offset = screenEffects.getOffset();
+    ctx.translate(offset.x, offset.y);
+    
+    if (this.state === GameState.PLAYING || this.state === GameState.UPGRADE) {
+      // 渲染游戏元素
+      this.renderGameWorld();
+      
+      // 渲染粒子
+      this.particleEmitter.render(ctx);
+      
+      // 渲染伤害数字
+      this.damageNumbers.render(ctx);
+      
+      // 渲染玩家
+      this.renderPlayer();
+    }
+    
+    ctx.restore();
+    
+    // 渲染HUD (不应用震动偏移)
+    if (this.state === GameState.PLAYING) {
+      this.hud.render(this);
+    }
+  }
+  
+  renderBackground() {
+    const ctx = this.ctx;
+    
+    // 背景渐变
+    const gradient = ctx.createRadialGradient(
+      this.canvas.width / 2, this.canvas.height / 2, 0,
+      this.canvas.width / 2, this.canvas.height / 2, this.canvas.width * 0.7
+    );
+    gradient.addColorStop(0, '#1a1510');
+    gradient.addColorStop(1, '#0a0805');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    
+    // 背景粒子
+    this.backgroundParticles.forEach(p => {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(212, 165, 116, ${p.alpha})`;
+      ctx.fill();
+    });
+    
+    // 网格线 (水墨风格)
+    ctx.strokeStyle = 'rgba(92, 74, 50, 0.1)';
+    ctx.lineWidth = 1;
+    const gridSize = 80;
+    
+    for (let x = 0; x < this.canvas.width; x += gridSize) {
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, this.canvas.height);
+      ctx.stroke();
+    }
+    
+    for (let y = 0; y < this.canvas.height; y += gridSize) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(this.canvas.width, y);
+      ctx.stroke();
+    }
+  }
+  
+  renderGameWorld() {
+    const ctx = this.ctx;
+    
+    const enemySprites = [
+      GameAssets.enemies.infantry,
+      GameAssets.enemies.archer,
+      GameAssets.enemies.sailor,
+      GameAssets.enemies.lubu
+    ];
+    
+    const time = Date.now() / 1000;
+    
+    for (let i = 0; i < 5; i++) {
+      const x = this.canvas.width / 2 + Math.cos(time + i * 1.2) * (150 + i * 30);
+      const y = this.canvas.height / 2 + Math.sin(time + i * 1.2) * (100 + i * 20);
+      
+      const enemyImg = enemySprites[i % enemySprites.length];
+      if (enemyImg && enemyImg.complete) {
+        const size = i === 4 ? 40 : 30;
+        ctx.drawImage(enemyImg, x - size/2, y - size/2, size, size);
+      } else {
+        const enemyColors = ['#9c27b0', '#f44336', '#2196f3', '#f44336'];
+        ctx.beginPath();
+        ctx.arc(x, y, i === 4 ? 20 : 15, 0, Math.PI * 2);
+        ctx.fillStyle = enemyColors[i % enemyColors.length] + '99';
+        ctx.fill();
+        ctx.strokeStyle = enemyColors[i % enemyColors.length];
+        ctx.lineWidth = 2;
+        ctx.stroke();
+      }
+    }
+  }
+  
+  renderPlayer() {
+    const ctx = this.ctx;
+    const { x, y } = this.player;
+    
+    const charImages = {
+      zhaoyun: GameAssets.characters.zhaoyun,
+      guanyu: GameAssets.characters.guanyu,
+      zhangfei: GameAssets.characters.zhangfei
+    };
+    
+    const charColors = {
+      zhaoyun: { primary: '#4fc3f7', secondary: '#81d4fa' },
+      guanyu: { primary: '#4caf50', secondary: '#81c784' },
+      zhangfei: { primary: '#ff9800', secondary: '#ffb74d' }
+    };
+    
+    const colors = charColors[this.selectedCharacter] || charColors.zhaoyun;
+    
+    ctx.save();
+    ctx.translate(x, y);
+    
+    const playerImage = charImages[this.selectedCharacter];
+    if (playerImage && playerImage.complete) {
+      const size = 50;
+      ctx.drawImage(playerImage, -size/2, -size/2, size, size);
+    } else {
+      ctx.beginPath();
+      ctx.arc(0, 0, 20, 0, Math.PI * 2);
+      ctx.fillStyle = colors.primary;
+      ctx.fill();
+      ctx.strokeStyle = colors.secondary;
+      ctx.lineWidth = 3;
+      ctx.stroke();
+    }
+    
+    ctx.restore();
+    
+    const dx = this.mouseX - x;
+    const dy = this.mouseY - y;
+    const angle = Math.atan2(dy, dx);
+    
+    ctx.beginPath();
+    ctx.moveTo(x + Math.cos(angle) * 15, y + Math.sin(angle) * 15);
+    ctx.lineTo(x + Math.cos(angle) * 30, y + Math.sin(angle) * 30);
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 3;
+    ctx.stroke();
+  }
+  
+  gameLoop(currentTime) {
+    this.deltaTime = Math.min((currentTime - this.lastTime) / 1000, 0.1);
+    this.lastTime = currentTime;
+    
+    this.update(this.deltaTime);
+    this.render();
+    
+    requestAnimationFrame((time) => this.gameLoop(time));
+  }
+  
+  start() {
+    this.lastTime = performance.now();
+    this.gameLoop(this.lastTime);
+  }
+}
+
+// 全局引用
+let game;
+let screenEffects;
+let particleEmitter;
+let damageNumbers;
+
+// 初始化游戏
+window.addEventListener('load', async () => {
+  game = new Game();
+  screenEffects = game.screenEffects;
+  particleEmitter = game.particleEmitter;
+  damageNumbers = game.damageNumbers;
+  
+  await GameAssets.loadAll();
+  
+  game.start();
+  
+  // 演示: 每隔几秒模拟一次击杀
+  setInterval(() => {
+    if (game.state === GameState.PLAYING) {
+      game.simulateKill();
+    }
+  }, 3000);
+  
+  // 演示: 随机受伤
+  setInterval(() => {
+    if (game.state === GameState.PLAYING && game.player.hp > 10) {
+      game.takeDamage(randomInt(5, 15));
+    }
+  }, 5000);
+  
+  // 演示: 随机治疗
+  setInterval(() => {
+    if (game.state === GameState.PLAYING && game.player.hp < game.player.maxHP) {
+      game.particleEmitter.emitHeal(game.player.x, game.player.y, 3);
+    }
+  }, 8000);
+});
 </script>
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-  
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-
 </body>
 </html>
