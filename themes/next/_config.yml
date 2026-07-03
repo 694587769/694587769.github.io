@@ -1,0 +1,122 @@
+# NexT Theme Configuration
+# Scheme: Mist (matching original blog style)
+scheme: Mist
+
+# Dark Mode
+darkmode: false
+
+# Favicon
+favicon:
+  small: /images/favicon-16x16.png
+  medium: /images/favicon-32x32.png
+
+# Footer
+footer:
+  since: 2018
+  powered:
+    enable: true
+    version: true
+  theme:
+    enable: true
+    version: true
+
+# Menu
+menu:
+  home: / || fa fa-home
+  archives: /archives/ || fa fa-archive
+  tags: /tags/ || fa fa-tags
+  # categories: /categories/ || fa fa-th
+
+# Sidebar
+sidebar:
+  position: left
+  display: post
+
+# Avatar
+avatar:
+  url: # 可设置头像
+
+# Social Links
+social:
+  GitHub: https://github.com/694587769 || fab fa-github
+
+# Post Settings
+post_meta:
+  item_text: true
+  created_at: true
+  updated_at:
+    enable: true
+    another_day: true
+  categories: false
+
+# Post wordcount
+symbols_count_time:
+  separated_meta: true
+  item_text_total: true
+  item_text_post: true
+  awl: 4
+  wpm: 275
+
+# Code Highlight
+codeblock:
+  highlight_theme: normal
+  copy_button:
+    enable: true
+    show_result: false
+
+# Back to top
+back2top:
+  enable: true
+  sidebar: false
+  scrollpercent: false
+
+# Reading progress bar
+reading_progress:
+  enable: true
+  position: top
+  color: "#37c6c0"
+  height: 3px
+
+# Bookmarks
+bookmark:
+  enable: false
+
+# GitHub Banner
+github_banner:
+  enable: false
+
+# Local Search
+local_search:
+  enable: true
+  trigger: auto
+  top_n_per_article: 1
+  unescape: false
+  preload: false
+
+# Busuanzi (不蒜子) Visitor Counting
+busuanzi_count:
+  enable: true
+  total_visitors: true
+  total_visitors_icon: fa fa-user
+  total_views: true
+  total_views_icon: fa fa-eye
+  post_views: true
+  post_views_icon: far fa-eye
+
+# Creative Commons
+creative_commons:
+  license: by-nc-sa
+  sidebar: false
+  post: false
+  language:
+
+# Vendors (CDN)
+vendors:
+  plugins:
+    busuanzi: https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js
+
+# Custom File Path
+custom_file_path:
+  # 如需自定义CSS/JS可在此配置
+  # style: source/_data/styles.styl
+  # head: source/_data/head.njk
