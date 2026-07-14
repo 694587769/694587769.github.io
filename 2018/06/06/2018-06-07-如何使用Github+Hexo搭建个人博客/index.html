@@ -62,7 +62,11 @@
 
 
   
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" onerror="this.onerror=null;this.src='';console.log('busuanzi CDN unavailable, skipping visitor count');"></script>
+  <script>
+    // 不蒜子加载超时保护：5秒后如果还没加载，隐藏统计元素
+    (function(){var t=setTimeout(function(){try{var b=document.querySelectorAll('[id^=busuanzi_container_]');for(var i=0;i<b.length;i++)b[i].style.display='none';}catch(e){}},5000);if(window.busuanzi){clearTimeout(t);}})();
+  </script>
 
 
 
@@ -71,6 +75,9 @@
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
+
+  <link rel="dns-prefetch" href="//busuanzi.ibruce.info">
+  <link rel="preconnect" href="//busuanzi.ibruce.info" crossorigin>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
