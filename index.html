@@ -727,7 +727,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // 页面加载时默认按时间从近到远排序
-  doSort('date', 'desc');
+  setTimeout(function() { doSort('date', 'desc'); }, 10);
 
   document.querySelectorAll('.sort-bar .sort-btn').forEach(function(btn) {
     btn.addEventListener('click', function() {
