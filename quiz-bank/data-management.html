@@ -1,0 +1,2673 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>数据管理-2026修编（364道）</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #dbeafe;
+            --success: #10b981;
+            --success-light: #d1fae5;
+            --danger: #ef4444;
+            --danger-light: #fee2e2;
+            --warning: #f59e0b;
+            --warning-light: #fef3c7;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+            /* 字体大小变量 */
+            --fs-xs: 11px;
+            --fs-sm: 12px;
+            --fs-base: 14px;
+            --fs-md: 15px;
+            --fs-lg: 16px;
+            --fs-xl: 18px;
+            --fs-2xl: 20px;
+            --fs-3xl: 24px;
+            --fs-4xl: 28px;
+        }
+
+        /* 字体大小级别 */
+        [data-font-size="small"] {
+            --fs-xs: 10px;
+            --fs-sm: 11px;
+            --fs-base: 13px;
+            --fs-md: 14px;
+            --fs-lg: 15px;
+            --fs-xl: 16px;
+            --fs-2xl: 18px;
+            --fs-3xl: 21px;
+            --fs-4xl: 24px;
+        }
+
+        [data-font-size="large"] {
+            --fs-xs: 13px;
+            --fs-sm: 14px;
+            --fs-base: 16px;
+            --fs-md: 17px;
+            --fs-lg: 19px;
+            --fs-xl: 21px;
+            --fs-2xl: 24px;
+            --fs-3xl: 28px;
+            --fs-4xl: 32px;
+        }
+
+        [data-font-size="xlarge"] {
+            --fs-xs: 14px;
+            --fs-sm: 15px;
+            --fs-base: 18px;
+            --fs-md: 20px;
+            --fs-lg: 22px;
+            --fs-xl: 25px;
+            --fs-2xl: 28px;
+            --fs-3xl: 33px;
+            --fs-4xl: 38px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-800);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            font-size: var(--fs-base);
+        }
+
+        /* ===== 页面容器 ===== */
+        .page {
+            display: none;
+            min-height: 100vh;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== 顶部导航 ===== */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 16px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header h1 {
+            font-size: var(--fs-xl);
+            font-weight: 600;
+            letter-spacing: -0.3px;
+        }
+
+        .header-back {
+            background: rgba(255,255,255,0.15);
+            border: none;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: var(--fs-base);
+            backdrop-filter: blur(4px);
+            transition: all 0.2s;
+        }
+
+        .header-back:hover {
+            background: rgba(255,255,255,0.25);
+        }
+
+        .header-right {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .header-icon-btn {
+            background: rgba(255,255,255,0.15);
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .header-icon-btn:hover {
+            background: rgba(255,255,255,0.25);
+        }
+
+        /* ===== 内容区域 ===== */
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* ===== 首页 ===== */
+        .home-hero {
+            text-align: center;
+            padding: 40px 20px 30px;
+            background: linear-gradient(135deg, var(--primary) 0%, #3b82f6 50%, var(--primary-dark) 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .home-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+        }
+
+        .home-hero h2 {
+            font-size: var(--fs-3xl);
+            font-weight: 700;
+            margin-bottom: 8px;
+            position: relative;
+        }
+
+        .home-hero p {
+            font-size: var(--fs-base);
+            opacity: 0.85;
+            position: relative;
+        }
+
+        .stats-overview {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin: -30px 20px 24px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 16px 12px;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+            transition: transform 0.2s;
+        }
+
+        .stat-card:active {
+            transform: scale(0.98);
+        }
+
+        .stat-number {
+            font-size: var(--fs-3xl);
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1.2;
+        }
+
+        .stat-label {
+            font-size: var(--fs-sm);
+            color: var(--gray-500);
+            margin-top: 4px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .menu-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px 16px;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--gray-100);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--primary);
+            transform: scaleX(0);
+            transition: transform 0.25s;
+        }
+
+        .menu-card:hover::after,
+        .menu-card:active::after {
+            transform: scaleX(1);
+        }
+
+        .menu-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .menu-card:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        .menu-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            font-size: var(--fs-2xl);
+        }
+
+        .menu-icon.blue { background: var(--primary-light); }
+        .menu-icon.green { background: var(--success-light); }
+        .menu-icon.orange { background: var(--warning-light); }
+        .menu-icon.red { background: var(--danger-light); }
+        .menu-icon.purple { background: #f3e8ff; }
+        .menu-icon.teal { background: #ccfbf1; }
+
+        .menu-title {
+            font-size: var(--fs-md);
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 4px;
+        }
+
+        .menu-desc {
+            font-size: var(--fs-sm);
+            color: var(--gray-400);
+        }
+
+        .section-title {
+            font-size: var(--fs-lg);
+            font-weight: 600;
+            color: var(--gray-800);
+            margin: 24px 0 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 18px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        /* ===== 刷题页面 ===== */
+        .quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 0 100px;
+        }
+
+        .quiz-progress {
+            background: white;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--gray-100);
+            position: sticky;
+            top: 57px;
+            z-index: 50;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: var(--gray-200);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), #3b82f6);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: var(--fs-sm);
+            color: var(--gray-500);
+        }
+
+        .question-card {
+            background: white;
+            margin: 16px 20px;
+            border-radius: 16px;
+            padding: 24px 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--gray-100);
+        }
+
+        .question-type-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: var(--fs-sm);
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .badge-single { background: var(--primary-light); color: var(--primary); }
+        .badge-multi { background: var(--warning-light); color: var(--warning); }
+        .badge-judge { background: var(--success-light); color: var(--success); }
+
+        .question-text {
+            font-size: var(--fs-lg);
+            font-weight: 500;
+            color: var(--gray-800);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px 16px;
+            border-radius: 12px;
+            border: 2px solid var(--gray-200);
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+        }
+
+        .option-item:hover {
+            border-color: var(--primary);
+            background: var(--gray-50);
+        }
+
+        .option-item.selected {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .option-item.correct {
+            border-color: var(--success);
+            background: var(--success-light);
+        }
+
+        .option-item.wrong {
+            border-color: var(--danger);
+            background: var(--danger-light);
+        }
+
+        .option-item.disabled {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .option-letter {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: var(--gray-100);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--fs-sm);
+            font-weight: 600;
+            color: var(--gray-600);
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .option-item.selected .option-letter {
+            background: var(--primary);
+            color: white;
+        }
+
+        .option-item.correct .option-letter {
+            background: var(--success);
+            color: white;
+        }
+
+        .option-item.wrong .option-letter {
+            background: var(--danger);
+            color: white;
+        }
+
+        .option-text {
+            font-size: var(--fs-md);
+            color: var(--gray-700);
+            line-height: 1.5;
+            flex: 1;
+            padding-top: 2px;
+        }
+
+        .answer-analysis {
+            margin-top: 20px;
+            padding: 16px;
+            background: var(--gray-50);
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .analysis-title {
+            font-size: var(--fs-base);
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .analysis-content {
+            font-size: var(--fs-base);
+            color: var(--gray-600);
+            line-height: 1.6;
+        }
+
+        .answer-result {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+            font-size: var(--fs-md);
+            font-weight: 600;
+        }
+
+        .result-correct { color: var(--success); }
+        .result-wrong { color: var(--danger); }
+
+        /* ===== 底部操作栏 ===== */
+        .quiz-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid var(--gray-200);
+            padding: 12px 20px 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 14px 20px;
+            border-radius: 12px;
+            border: none;
+            font-size: var(--fs-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-family: inherit;
+        }
+
+        .btn:active {
+            transform: scale(0.97);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--gray-100);
+            color: var(--gray-700);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gray-200);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success), #059669);
+            color: white;
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger), #dc2626);
+            color: white;
+        }
+
+        /* ===== 模态框 ===== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: flex-end;
+            justify-content: center;
+            z-index: 200;
+            animation: fadeIn 0.2s;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 24px 24px 0 0;
+            width: 100%;
+            max-width: 800px;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 24px 20px 32px;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: var(--fs-xl);
+            font-weight: 600;
+        }
+
+        .modal-close {
+            background: var(--gray-100);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: var(--fs-xl);
+            color: var(--gray-500);
+        }
+
+        /* ===== 组卷设置 ===== */
+        .setting-group {
+            margin-bottom: 20px;
+        }
+
+        .setting-label {
+            font-size: var(--fs-base);
+            font-weight: 500;
+            color: var(--gray-700);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .setting-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .setting-chip {
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 2px solid var(--gray-200);
+            background: white;
+            font-size: var(--fs-base);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .setting-chip:hover {
+            border-color: var(--primary);
+        }
+
+        .setting-chip.active {
+            border-color: var(--primary);
+            background: var(--primary-light);
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        .number-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            font-size: var(--fs-md);
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+
+        .number-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* ===== 统计页面 ===== */
+        .stats-hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 32px 20px;
+            text-align: center;
+        }
+
+        .stats-hero .accuracy-ring {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 16px;
+            position: relative;
+        }
+
+        .accuracy-ring svg {
+            transform: rotate(-90deg);
+        }
+
+        .accuracy-ring-bg {
+            fill: none;
+            stroke: rgba(255,255,255,0.2);
+            stroke-width: 8;
+        }
+
+        .accuracy-ring-fill {
+            fill: none;
+            stroke: white;
+            stroke-width: 8;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 1s ease;
+        }
+
+        .accuracy-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: var(--fs-4xl);
+            font-weight: 700;
+        }
+
+        .stats-hero-label {
+            font-size: var(--fs-base);
+            opacity: 0.85;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: -24px 20px 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .stats-detail-card {
+            background: white;
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .stats-detail-number {
+            font-size: var(--fs-2xl);
+            font-weight: 700;
+            color: var(--gray-800);
+        }
+
+        .stats-detail-label {
+            font-size: var(--fs-sm);
+            color: var(--gray-500);
+            margin-top: 4px;
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 0 20px 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .chart-title {
+            font-size: var(--fs-md);
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--gray-800);
+        }
+
+        .bar-chart {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .bar-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .bar-label {
+            font-size: var(--fs-sm);
+            color: var(--gray-600);
+            width: 60px;
+            flex-shrink: 0;
+        }
+
+        .bar-track {
+            flex: 1;
+            height: 24px;
+            background: var(--gray-100);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: 12px;
+            transition: width 0.6s ease;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 8px;
+        }
+
+        .bar-fill.blue { background: linear-gradient(90deg, var(--primary), #3b82f6); }
+        .bar-fill.green { background: linear-gradient(90deg, var(--success), #059669); }
+        .bar-fill.red { background: linear-gradient(90deg, var(--danger), #dc2626); }
+        .bar-fill.orange { background: linear-gradient(90deg, var(--warning), #d97706); }
+
+        .bar-value {
+            font-size: var(--fs-xs);
+            font-weight: 600;
+            color: white;
+        }
+
+        /* ===== 错题列表 ===== */
+        .wrong-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .wrong-item {
+            background: white;
+            border-radius: 16px;
+            padding: 16px 20px;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid var(--gray-100);
+        }
+
+        .wrong-item:hover {
+            border-color: var(--primary);
+            transform: translateX(4px);
+        }
+
+        .wrong-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .wrong-item-type {
+            font-size: var(--fs-sm);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .wrong-item-count {
+            font-size: var(--fs-sm);
+            color: var(--danger);
+            font-weight: 500;
+        }
+
+        .wrong-item-text {
+            font-size: var(--fs-base);
+            color: var(--gray-700);
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .wrong-item-accuracy {
+            font-size: var(--fs-sm);
+            color: var(--gray-400);
+            margin-top: 6px;
+        }
+
+        /* ===== 题目卡片区 ===== */
+        .question-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            padding: 0 4px;
+        }
+
+        .question-number {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            font-size: var(--fs-sm);
+            font-weight: 500;
+            cursor: pointer;
+            border: 2px solid var(--gray-200);
+            background: white;
+            transition: all 0.2s;
+        }
+
+        .question-number:hover {
+            border-color: var(--primary);
+        }
+
+        .question-number.correct {
+            background: var(--success-light);
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        .question-number.wrong {
+            background: var(--danger-light);
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        .question-number.current {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        /* ===== 空状态 ===== */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--gray-400);
+        }
+
+        .empty-state-icon {
+            font-size: var(--fs-4xl);
+            margin-bottom: 16px;
+        }
+
+        .empty-state-text {
+            font-size: var(--fs-md);
+        }
+
+        /* ===== 收藏按钮 ===== */
+        .favorite-btn {
+            background: none;
+            border: none;
+            font-size: var(--fs-2xl);
+            cursor: pointer;
+            color: var(--gray-300);
+            transition: all 0.2s;
+            padding: 4px;
+        }
+
+        .favorite-btn.active {
+            color: var(--warning);
+        }
+
+        /* ===== 搜索 ===== */
+        .search-box {
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 16px 12px 44px;
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            font-size: var(--fs-md);
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-400);
+            font-size: var(--fs-lg);
+        }
+
+        /* ===== 排行榜 ===== */
+        .leaderboard-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .leaderboard-rank {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--fs-base);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .rank-1 { background: linear-gradient(135deg, #fbbf24, #f59e0b); color: white; }
+        .rank-2 { background: linear-gradient(135deg, #e5e7eb, #9ca3af); color: white; }
+        .rank-3 { background: linear-gradient(135deg, #fdba74, #ea580c); color: white; }
+        .rank-other { background: var(--gray-100); color: var(--gray-500); }
+
+        /* ===== 夜间模式 ===== */
+        body.dark-mode {
+            background: #0f172a;
+            color: #e2e8f0;
+        }
+
+        body.dark-mode .header,
+        body.dark-mode .home-hero,
+        body.dark-mode .stats-hero {
+            background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%);
+        }
+
+        body.dark-mode .stat-card,
+        body.dark-mode .menu-card,
+        body.dark-mode .question-card,
+        body.dark-mode .stats-detail-card,
+        body.dark-mode .chart-container,
+        body.dark-mode .wrong-item,
+        body.dark-mode .modal-content,
+        body.dark-mode .quiz-footer {
+            background: #1e293b;
+            border-color: #334155;
+        }
+
+        body.dark-mode .question-text,
+        body.dark-mode .menu-title,
+        body.dark-mode .stats-detail-number,
+        body.dark-mode .chart-title,
+        body.dark-mode .modal-title {
+            color: #f1f5f9;
+        }
+
+        body.dark-mode .option-text,
+        body.dark-mode .wrong-item-text {
+            color: #cbd5e1;
+        }
+
+        body.dark-mode .option-item {
+            background: #1e293b;
+            border-color: #334155;
+        }
+
+        body.dark-mode .option-item:hover {
+            background: #334155;
+        }
+
+        /* ===== 响应式 ===== */
+        @media (min-width: 768px) {
+            .menu-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .stats-overview {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .stats-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        /* 2K屏幕优化 */
+        @media (min-width: 1400px) {
+            .header-content,
+            .content,
+            .quiz-container,
+            .quiz-footer {
+                max-width: 1000px;
+            }
+            .home-hero {
+                padding: 60px 40px 40px;
+            }
+            .home-hero h2 {
+                font-size: var(--fs-4xl);
+            }
+            .stats-overview {
+                margin: -40px 40px 32px;
+                gap: 16px;
+            }
+            .stat-card {
+                padding: 24px 16px;
+            }
+            .stat-number {
+                font-size: var(--fs-4xl);
+            }
+            .menu-grid {
+                gap: 16px;
+            }
+            .menu-card {
+                padding: 28px 20px;
+            }
+            .question-card {
+                margin: 24px 40px;
+                padding: 32px 28px;
+            }
+            .option-item {
+                padding: 18px 20px;
+            }
+            .quiz-footer {
+                padding: 16px 40px 24px;
+            }
+            .content {
+                padding: 28px 40px;
+            }
+        }
+
+        /* ===== 滚动条美化 ===== */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--gray-300);
+            border-radius: 3px;
+        }
+
+        /* ===== 动画 ===== */
+        .shake {
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
+        }
+
+        .pulse {
+            animation: pulse 0.3s;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* 答题卡 */
+        .answer-sheet-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 6px;
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 4px;
+        }
+
+        .answer-sheet-item {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-size: var(--fs-sm);
+            font-weight: 500;
+            cursor: pointer;
+            border: 1.5px solid var(--gray-200);
+            background: white;
+            transition: all 0.15s;
+        }
+
+        .answer-sheet-item:hover {
+            border-color: var(--primary);
+        }
+
+        .answer-sheet-item.answered {
+            background: var(--primary-light);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .answer-sheet-item.correct {
+            background: var(--success-light);
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        .answer-sheet-item.wrong {
+            background: var(--danger-light);
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        /* 练习模式标签 */
+        .mode-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: var(--fs-xs);
+            font-weight: 500;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            margin-left: 8px;
+        }
+
+        /* 计时器 */
+        .timer {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: var(--fs-base);
+            font-weight: 500;
+            color: white;
+            background: rgba(255,255,255,0.15);
+            padding: 4px 10px;
+            border-radius: 8px;
+        }
+
+        /* 连续正确 */
+        .streak-badge {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--warning), #ea580c);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-size: var(--fs-base);
+            font-weight: 600;
+            box-shadow: var(--shadow-lg);
+            z-index: 150;
+            display: none;
+            animation: slideInRight 0.3s ease;
+        }
+
+        .streak-badge.active {
+            display: block;
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* 难度标签 */
+        .difficulty-badge {
+            font-size: var(--fs-xs);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .difficulty-easy { background: var(--success-light); color: var(--success); }
+        .difficulty-medium { background: var(--warning-light); color: var(--warning); }
+        .difficulty-hard { background: var(--danger-light); color: var(--danger); }
+
+        /* 练习记录 */
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 16px;
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .history-info {
+            flex: 1;
+        }
+
+        .history-title {
+            font-size: var(--fs-base);
+            font-weight: 500;
+            color: var(--gray-800);
+        }
+
+        .history-meta {
+            font-size: var(--fs-sm);
+            color: var(--gray-400);
+            margin-top: 2px;
+        }
+
+        .history-score {
+            font-size: var(--fs-xl);
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* 重置按钮 */
+        .reset-btn {
+            margin-top: 8px;
+            padding: 4px 10px;
+            border: 1px solid var(--gray-300);
+            background: var(--gray-100);
+            border-radius: 6px;
+            font-size: var(--fs-sm);
+            color: var(--gray-600);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .reset-btn:hover {
+            background: var(--danger-light);
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+    </style>
+</head>
+<body>
+    <!-- 公共头部 -->
+    <header class="header" id="commonHeader" style="display:none;">
+        <div class="header-content">
+            <button class="header-back" onclick="goBack()">返回</button>
+            <h1 id="headerTitle">刷题</h1>
+            <div class="header-right">
+                <span class="timer" id="timerDisplay" style="display:none;">00:00</span>
+                <button class="header-icon-btn" onclick="toggleAnswerSheet()" title="答题卡">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 连续正确提示 -->
+    <div class="streak-badge" id="streakBadge">🔥 连续正确 <span id="streakCount">0</span> 题</div>
+
+    <!-- ===== 首页 ===== -->
+    <div class="page active" id="pageHome">
+        <div class="home-hero">
+            <h2>四川公司大模型竞赛</h2>
+            <p>理论题库刷题系统</p>
+        </div>
+
+        <div class="stats-overview">
+            <div class="stat-card">
+                <div class="stat-number" id="homeTotalQuestions">0/0</div>
+                <div class="stat-label">已刷/总题数</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="homeDoneCount">0</div>
+                <div class="stat-label">累计刷题数</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="homeAccuracy">0%</div>
+                <div class="stat-label">正确率</div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="section-title">刷题模式</div>
+            <div class="menu-grid">
+                <div class="menu-card" onclick="startQuiz('sequence')">
+                    <div class="menu-icon blue">📚</div>
+                    <div class="menu-title">顺序刷题</div>
+                    <div class="menu-desc">从头开始系统学习</div>
+                    <button class="reset-btn" onclick="event.stopPropagation(); resetSequenceProgress()">🔄 重置进度</button>
+                </div>
+                <div class="menu-card" onclick="startQuiz('random')">
+                    <div class="menu-icon green">🎲</div>
+                    <div class="menu-title">随机刷题</div>
+                    <div class="menu-desc">随机抽取题目练习</div>
+                </div>
+                <div class="menu-card" onclick="showCustomModal()">
+                    <div class="menu-icon orange">📝</div>
+                    <div class="menu-title">自由组卷</div>
+                    <div class="menu-desc">自定义题目数量和类型</div>
+                </div>
+                <div class="menu-card" onclick="startQuiz('wrong')">
+                    <div class="menu-icon red">❌</div>
+                    <div class="menu-title">错题重做</div>
+                    <div class="menu-desc">针对薄弱点强化训练</div>
+                </div>
+                <div class="menu-card" onclick="startQuiz('favorite')">
+                    <div class="menu-icon purple">⭐</div>
+                    <div class="menu-title">收藏题目</div>
+                    <div class="menu-desc">查看收藏的重点题目</div>
+                </div>
+                <div class="menu-card" onclick="showPage('pageStats')">
+                    <div class="menu-icon teal">📊</div>
+                    <div class="menu-title">学习统计</div>
+                    <div class="menu-desc">查看详细学习数据</div>
+                </div>
+            </div>
+
+            <div class="section-title">快捷功能</div>
+            <div class="menu-grid">
+                <div class="menu-card" onclick="showPage('pageSearch')">
+                    <div class="menu-icon blue" style="background:#dbeafe;">🔍</div>
+                    <div class="menu-title">题目搜索</div>
+                    <div class="menu-desc">按关键词查找题目</div>
+                </div>
+                <div class="menu-card" onclick="showPage('pageHistory')">
+                    <div class="menu-icon green" style="background:#d1fae5;">📋</div>
+                    <div class="menu-title">练习记录</div>
+                    <div class="menu-desc">查看历史练习记录</div>
+                </div>
+                <div class="menu-card" onclick="showPage('pageSettings')">
+                    <div class="menu-icon orange" style="background:#fef3c7;">⚙️</div>
+                    <div class="menu-title">设置</div>
+                    <div class="menu-desc">应用偏好设置</div>
+                </div>
+                <div class="menu-card" onclick="showPage('pageAbout')">
+                    <div class="menu-icon purple" style="background:#f3e8ff;">ℹ️</div>
+                    <div class="menu-title">关于</div>
+                    <div class="menu-desc">题库信息和使用说明</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== 刷题页面 ===== -->
+    <div class="page" id="pageQuiz">
+        <div class="quiz-progress">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width:0%"></div>
+            </div>
+            <div class="progress-info">
+                <span id="progressText">第 1 / 10 题</span>
+                <span id="progressPercent">0%</span>
+            </div>
+        </div>
+
+        <div class="quiz-container" id="quizContainer">
+            <!-- 题目内容动态插入 -->
+        </div>
+
+        <div class="quiz-footer">
+            <button class="btn btn-secondary" onclick="prevQuestion()" id="btnPrev">上一题</button>
+            <button class="btn btn-primary" onclick="submitAnswer()" id="btnSubmit">提交答案</button>
+            <button class="btn btn-success" onclick="nextQuestion()" id="btnNext" style="display:none;">下一题</button>
+        </div>
+    </div>
+
+    <!-- ===== 统计页面 ===== -->
+    <div class="page" id="pageStats">
+        <div class="stats-hero">
+            <div class="accuracy-ring">
+                <svg width="120" height="120" viewBox="0 0 120 120">
+                    <circle class="accuracy-ring-bg" cx="60" cy="60" r="52"/>
+                    <circle class="accuracy-ring-fill" id="accuracyRing" cx="60" cy="60" r="52"
+                        stroke-dasharray="326.73" stroke-dashoffset="326.73"/>
+                </svg>
+                <div class="accuracy-text" id="statsAccuracy">0%</div>
+            </div>
+            <div class="stats-hero-label">整体正确率</div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stats-detail-card">
+                <div class="stats-detail-number" id="statsTotal">0</div>
+                <div class="stats-detail-label">总题数</div>
+            </div>
+            <div class="stats-detail-card">
+                <div class="stats-detail-number" id="statsDone">0</div>
+                <div class="stats-detail-label">已刷题数</div>
+            </div>
+            <div class="stats-detail-card">
+                <div class="stats-detail-number" id="statsCorrect">0</div>
+                <div class="stats-detail-label">正确数</div>
+            </div>
+            <div class="stats-detail-card">
+                <div class="stats-detail-number" id="statsWrong">0</div>
+                <div class="stats-detail-label">错误数</div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="chart-container">
+                <div class="chart-title">各题型正确率</div>
+                <div class="bar-chart" id="typeAccuracyChart">
+                    <!-- 动态生成 -->
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-title">错误次数最多的题目 TOP10</div>
+                <div class="wrong-list" id="topWrongList">
+                    <!-- 动态生成 -->
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-title">每日刷题量（最近7天）</div>
+                <div class="bar-chart" id="dailyChart">
+                    <!-- 动态生成 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== 错题本页面 ===== -->
+    <div class="page" id="pageWrong">
+        <div class="content">
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" class="search-input" placeholder="搜索错题..." id="wrongSearchInput" oninput="filterWrongQuestions()">
+            </div>
+            <div class="wrong-list" id="wrongList">
+                <!-- 动态生成 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== 搜索页面 ===== -->
+    <div class="page" id="pageSearch">
+        <div class="content">
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" class="search-input" placeholder="输入关键词搜索题目..." id="searchInput" oninput="searchQuestions()">
+            </div>
+            <div id="searchResults">
+                <!-- 动态生成 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== 练习记录页面 ===== -->
+    <div class="page" id="pageHistory">
+        <div class="content">
+            <div id="historyList">
+                <!-- 动态生成 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== 设置页面 ===== -->
+    <div class="page" id="pageSettings">
+        <div class="content">
+            <div class="chart-container">
+                <div class="chart-title">显示设置</div>
+                <div class="setting-group">
+                    <label class="setting-label">字体大小（适合2K屏幕）</label>
+                    <div class="setting-options" id="fontSizeOptions">
+                        <button class="setting-chip" onclick="setFontSize('small')">小</button>
+                        <button class="setting-chip active" onclick="setFontSize('normal')">中</button>
+                        <button class="setting-chip" onclick="setFontSize('large')">大</button>
+                        <button class="setting-chip" onclick="setFontSize('xlarge')">特大</button>
+                    </div>
+                </div>
+                <div class="setting-group">
+                    <label class="setting-label">答题后自动显示解析</label>
+                    <div class="setting-options">
+                        <button class="setting-chip active" onclick="toggleSetting(this, 'autoShowAnalysis', true)">开启</button>
+                        <button class="setting-chip" onclick="toggleSetting(this, 'autoShowAnalysis', false)">关闭</button>
+                    </div>
+                </div>
+                <div class="setting-group">
+                    <label class="setting-label">答错时震动提示</label>
+                    <div class="setting-options">
+                        <button class="setting-chip active" onclick="toggleSetting(this, 'vibrateOnWrong', true)">开启</button>
+                        <button class="setting-chip" onclick="toggleSetting(this, 'vibrateOnWrong', false)">关闭</button>
+                    </div>
+                </div>
+                <div class="setting-group">
+                    <label class="setting-label">夜间模式</label>
+                    <div class="setting-options">
+                        <button class="setting-chip" onclick="toggleSetting(this, 'darkMode', true)">开启</button>
+                        <button class="setting-chip active" onclick="toggleSetting(this, 'darkMode', false)">关闭</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-title">数据管理</div>
+                <div class="setting-group">
+                    <button class="btn btn-danger" onclick="clearAllData()" style="width:100%;">清除所有学习数据</button>
+                </div>
+                <div class="setting-group">
+                    <button class="btn btn-secondary" onclick="exportData()" style="width:100%;margin-top:8px;">导出学习数据</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== 关于页面 ===== -->
+    <div class="page" id="pageAbout">
+        <div class="content">
+            <div class="chart-container" style="text-align:center;padding:40px 20px;">
+                <div style="font-size:48px;margin-bottom:16px;">📚</div>
+                <h2 style="font-size:20px;margin-bottom:8px;">四川公司26年大模型竞赛</h2>
+                <p style="color:var(--gray-500);margin-bottom:24px;">理论题库刷题系统</p>
+                <div style="text-align:left;font-size:14px;color:var(--gray-600);line-height:2;">
+                    <p><strong>题库信息：</strong></p>
+                    <p>单选题：870道</p>
+                    <p>多选题：974道</p>
+                    <p>判断题：931道</p>
+                    <p>总题数：2775道</p>
+                    <br>
+                    <p><strong>功能说明：</strong></p>
+                    <p>1. 支持顺序刷题、随机刷题、自由组卷</p>
+                    <p>2. 错题自动收录，支持错题重做</p>
+                    <p>3. 实时统计正确率、刷题量</p>
+                    <p>4. 支持题目收藏和搜索</p>
+                    <p>5. 数据本地存储，保护隐私</p>
+                    <br>
+                    <p><strong>使用提示：</strong></p>
+                    <p style="color:var(--danger);">⚠️ 直接双击打开文件无法保存学习数据！</p>
+                    <p>请通过以下方式使用：</p>
+                    <p>1. 电脑端：使用 VS Code Live Server 等插件</p>
+                    <p>2. 命令行：python -m http.server 8080</p>
+                    <p>3. 手机端：用浏览器访问电脑IP:端口</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== 组卷模态框 ===== -->
+    <div class="modal-overlay" id="customModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">自由组卷</div>
+                <button class="modal-close" onclick="closeCustomModal()">✕</button>
+            </div>
+
+            <div class="setting-group">
+                <label class="setting-label">选择题型</label>
+                <div class="setting-options">
+                    <button class="setting-chip active" onclick="toggleChip(this, 'customType', 'single')" data-value="single">单选题</button>
+                    <button class="setting-chip active" onclick="toggleChip(this, 'customType', 'multi')" data-value="multi">多选题</button>
+                    <button class="setting-chip active" onclick="toggleChip(this, 'customType', 'judge')" data-value="judge">判断题</button>
+                </div>
+            </div>
+
+            <div class="setting-group">
+                <label class="setting-label">题目数量</label>
+                <input type="number" class="number-input" id="customCount" value="20" min="1" max="100" placeholder="输入题目数量">
+            </div>
+
+            <div class="setting-group">
+                <label class="setting-label">抽题方式</label>
+                <div class="setting-options">
+                    <button class="setting-chip active" onclick="toggleChip(this, 'customMode', 'random')" data-value="random">随机抽取</button>
+                    <button class="setting-chip" onclick="toggleChip(this, 'customMode', 'sequence')" data-value="sequence">顺序抽取</button>
+                </div>
+            </div>
+
+            <button class="btn btn-primary" onclick="startCustomQuiz()" style="width:100%;margin-top:16px;">开始组卷练习</button>
+        </div>
+    </div>
+
+    <!-- ===== 答题卡模态框 ===== -->
+    <div class="modal-overlay" id="answerSheetModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">答题卡</div>
+                <button class="modal-close" onclick="closeAnswerSheet()">✕</button>
+            </div>
+            <div class="answer-sheet-grid" id="answerSheetGrid">
+                <!-- 动态生成 -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== 内嵌题库数据（file:// 协议备用） =====
+        const EMBEDDED_QUESTIONS = [{"id": 0, "type": "单选题", "question": "数据中台是企业级（ ）共享平台。", "options": ["业务能力", "数据能力", "技术能力", "管理能力"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 1, "type": "单选题", "question": "（  ）是数据中台体系结构的基础层，存储源业务系统数据，数据结构与源系统保持一致。", "options": ["贴源层", "共享层", "分析层", "数据服务"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 2, "type": "单选题", "question": "（  ）是数据中台体系结构的标准模型层，存储企业级模型表数据。", "options": ["贴源层", "共享层", "分析层", "数据服务"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 3, "type": "单选题", "question": "（  ）是数据中台体系结构的数据应用层，对明细数据再加工。", "options": ["贴源层", "共享层", "分析层", "数据服务"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 4, "type": "单选题", "question": "（  ）提供对API服务接口的统一注册、管理和调度。", "options": ["贴源层", "共享层", "分析层", "数据服务"], "answer": "D", "analysis": "", "sheet": "单选题"}, {"id": 5, "type": "单选题", "question": "以下哪些是数据中台技术能力（  ）。", "options": ["数据接入", "存储计算", "数据服务", "以上都是"], "answer": "D", "analysis": "", "sheet": "单选题"}, {"id": 6, "type": "单选题", "question": "分析应用计算后的分析主题数据存储在（ ）。", "options": ["贴源层", "共享层", "分析层", "数据集市"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 7, "type": "单选题", "question": "以下（ ）不属于数据中台分层架构。", "options": ["贴源层", "共享层", "分析层", "数据集市"], "answer": "D", "analysis": "", "sheet": "单选题"}, {"id": 8, "type": "单选题", "question": "在增量同步阶段，源数据库和目标数据库之间的同步有时会存在一个时间差，称为:（　　），单位为秒。", "options": ["延误", "延后", "延迟", "时延"], "answer": "D", "analysis": "", "sheet": "单选题"}, {"id": 9, "type": "单选题", "question": "公共数据是指什么？", "options": ["公司内部管理产生的数据", "电网企业在依法提供供电公共服务过程中收集、产生的，具有公共利用价值的数据集合", "员工个人信息", "企业财务数据"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 10, "type": "单选题", "question": "以下哪项针对数据中台的描述是错误的?（  ）", "options": ["数据中台是企业级业务能力共享平台。", "数据中台是企业级数据能力共享平台。", "数据中台的数据通过分层与水平分解，经过汇聚、存储、整合、分析、加工，沉淀公共的数据能力。", "数据中台根据业务场景进行服务封装，支撑前端应用敏捷迭代和快速构建，实现数据价值共享。"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 11, "type": "单选题", "question": "个人数据是指什么？", "options": ["所有用户数据", "与已识别或可识别的自然人有关的各种信息，不包括匿名化处理后的信息", "企业档案数据", "设备运行数据"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 12, "type": "单选题", "question": "危害程度识别包括哪些等级？", "options": ["严重危害、一般危害、轻微危害", "高、中、低", "一级、二级、三级", "重大、较大、一般"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 13, "type": "单选题", "question": "公司商密数据的存储要求是什么？", "options": ["可存储在互联网大区", "禁止传输和存储至互联网大区", "可存储在任意大区", "必须存储在互联网大区"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 14, "type": "单选题", "question": "四川电力数据中台采用主要哪个公司的产品?", "options": ["华为", "阿里", "腾讯", "百度"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 15, "type": "单选题", "question": "数据中台“流处理”能力使用是中台哪个组件?", "options": ["DAYU", "DRS", "DLI(Spark)", "DLI(Flink)"], "answer": "D", "analysis": "", "sheet": "单选题"}, {"id": 16, "type": "单选题", "question": "数据分域工作的核心目标是（）", "options": ["降低数据存储成本", "提升市（州）公司数据班服务能力", "业务系统改造", "减少基层员工数量"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 17, "type": "单选题", "question": "数据中台定位于提供数据接入、__、处理、管理并沉淀共性数据服务能力，提供数据共享和分析应用服务，满足横向跨专业间、纵向不同层级间数据共享、分析挖掘和融通需求。", "options": ["加工", "存储", "上传", "以上都不对"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 18, "type": "单选题", "question": "在数据接入中，结构化数据经DRS实时抽取至__，经DAYU内置程序并行写入MRS和DWS中", "options": ["DWS", "MRS", "HBASE", "Kafka"], "answer": "D", "analysis": "", "sheet": "单选题"}, {"id": 19, "type": "单选题", "question": "国网公司全域模型名为（ ）。", "options": ["SG-CIM", "CIM", "UN-CIM", "CIM-SG"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 20, "type": "单选题", "question": "以下（）不属于数据分域的三大工作原则？", "options": ["需求导向，控制范围", "强化协同，高效运营", "全面开放，随意共享", "分级分类，安全管控"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 21, "type": "单选题", "question": "华为8.0数据中台数据复制产品是（　　）。", "options": ["OGG", "Informatica", "SDR", "DRS"], "answer": "D", "analysis": "", "sheet": "单选题"}, {"id": 22, "type": "单选题", "question": "以下（　　）组件不是华为数据中台产品的。", "options": ["CDM", "DRS", "RDS", "SG-ETL"], "answer": "D", "analysis": "", "sheet": "单选题"}, {"id": 23, "type": "单选题", "question": "DAYU批量数据迁移（Cloud Data Migration）提供（　　）数据源之间批量数据迁移服务，帮助您实现数据自由流动。", "options": ["同构", "异构", "同构/异构", "架构"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 24, "type": "单选题", "question": "一级系统数据从总部数据中台下发到省侧数据中台，使用的工具是（  ）。", "options": ["OGG", "DRS", "UEP", "Informatica"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 25, "type": "单选题", "question": "华为8.0数据中台架构中，贴源层数据存储产品是（　　）。", "options": ["MRS", "GBase 8A", "DWS", "DAYU"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 26, "type": "单选题", "question": "以下（　　）能力不属于数据中台能力架构中存储计算能力?", "options": ["分布式数据仓库", "分布式关系数据库", "流计算", "任务调度"], "answer": "D", "analysis": "", "sheet": "单选题"}, {"id": 27, "type": "单选题", "question": "脱敏处理后的数据级别如何变化？", "options": ["级别上升", "级别不变", "级别下降", "级别清零"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 28, "type": "单选题", "question": "数据中台DWS数据库实现表数据增量抽取需要满足的条件有（ ）。", "options": ["主键", "时间戳", "物理删除标记", "以上都是"], "answer": "D", "analysis": "", "sheet": "单选题"}, {"id": 29, "type": "单选题", "question": "下面（　　）子句专用于Group By操作中的条件过滤功能。", "options": ["WHERE子句", "HAVING子句", "LIMIT子句", "ORDER BY子句"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 30, "type": "单选题", "question": "数据中台DWS数据库中，CREATE TABLE AS创建表，后面需要添加查询语句类型是：（　　）。", "options": ["INSERT", "UPDATE", "SELECT", "DELETE"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 31, "type": "单选题", "question": "数据中台DWS数据库执行引擎的类型包括（　　）。", "options": ["行执行引擎", "向量化执行引擎", "行列混合执行引擎", "以上都是"], "answer": "D", "analysis": "", "sheet": "单选题"}, {"id": 32, "type": "单选题", "question": "以下（　　）能力不属于数据中台能力架构能力。", "options": ["数据接入", "存储计算", "数据服务", "应用研发"], "answer": "D", "analysis": "", "sheet": "单选题"}, {"id": 33, "type": "单选题", "question": "DAYU数据开发中，新建SQL脚本支持新建（　　）。", "options": ["Oracle SQL脚本", "DWS SQL脚本", "MySql SQL脚本", "MongoDB SQL脚本"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 34, "type": "单选题", "question": "Hive中的这条命令“ALTER TABLE EMPLOYEEL ADD COLUMNS (columns string)”,是（　　）含义。", "options": ["创建表", "删除表", "添加列", "修改文件格式"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 35, "type": "单选题", "question": "非居民用户的档案及电力消费数据属于哪类数据？", "options": ["公共数据", "企业数据", "个人数据", "国家秘密"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 36, "type": "单选题", "question": "报表中心是基于（）输出报表权威数据源和服务能力的“数据+服务”集合。", "options": ["业务中台", "项目中台", "数据中台", "技术中台"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 37, "type": "单选题", "question": "如果要在数据中台DWS数据库某个模式下创建对象，该用户对此模式应具有（　　）权限。", "options": ["EXECUTE", "SELECT", "CREATE", "USAGE"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 38, "type": "单选题", "question": "Hbase的底层以（　　）形式存在。", "options": ["keyvalue", "列存储", "行存储", "实时存储"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 39, "type": "单选题", "question": "下列选项中适合Map Reduce的场景有：（　　）。", "options": ["实时交互计算", "迭代计算", "流式计算", "离线计算"], "answer": "D", "analysis": "", "sheet": "单选题"}, {"id": 40, "type": "单选题", "question": "DWS数据库查询集合操作中，表示交集的是（　　）。", "options": ["INTERSECT", "MINUS", "EXCEPT", "UNION"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 41, "type": "单选题", "question": "数据中台DWS数据库中，实现2个表数据左连接使用（  ）。", "options": ["JOIN", "RIGHT JOIN", "FULL JOIN", "LEFT JOIN"], "answer": "D", "analysis": "", "sheet": "单选题"}, {"id": 42, "type": "单选题", "question": "在DRS中，以下迁移任务命名错误的是:（　　）。", "options": ["ABCed", "abcd", "abcd001", "abcd#001"], "answer": "D", "analysis": "", "sheet": "单选题"}, {"id": 43, "type": "单选题", "question": "关于dayu数据服务创建api，以下描述正确的是:（　　）。", "options": ["创建api只能通过脚本模式创建", "创建api只能通过向导模式创建", "创建api可以通过脚本模式和向导模式两种方式创建", "以上说法均不正确"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 44, "type": "单选题", "question": "数据中台中，Hive常被用来处理（　　）场景。", "options": ["事务性处理", "批量计算", "实时性计算", "流计算"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 45, "type": "单选题", "question": "按照《关于进一步加强公司数据安全的通知》，应严格电网省侧和经营管理数据对外发布共享。遵循（  ）的原则，确保生产经营数据及分析结果数据不出网（管理信息大区和生产控制大区）、不触媒。", "options": ["以共享为原则、不共享为例外", "最小化授权", "明细业务数据不出中台", "谁主管谁负责，谁使用谁负责"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 46, "type": "单选题", "question": "国网公司数据管理以数据资产（  ）为目标。", "options": ["易懂", "易取", "易用", "易懂、易取、易用"], "answer": "D", "analysis": "", "sheet": "单选题"}, {"id": 47, "type": "单选题", "question": "国网公司数据管理坚持(  )的原则。", "options": ["面向专业", "面向基层", "面向应用", "面向专业、面向基层、面向应用"], "answer": "D", "analysis": "", "sheet": "单选题"}, {"id": 48, "type": "单选题", "question": "国网公司为进一步强化数据资产基础管理，落实基层一线员工数据责任，结合数据定源定责工作，将在基层一线推行（  ），细化数据定责认责颗粒度。", "options": ["数据主人制", "负面清单制", "数据治理", "数据目录"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 49, "type": "单选题", "question": "国网公司坚持数据“一处生成、多处使用”，明确权威数据源引用规范，开展权威数据源中台标注，推进权威数据源在中台的落地应用，常态推进（  ）治理。", "options": ["数据源头", "数据中台", "业务中台", "数据应用"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 50, "type": "单选题", "question": "按照“明细数据不出中台”原则，各业务系统调用中台数据时，应开展（），减少数据重复存储。", "options": ["线下导数", "在线导数", "线下应用", "在线应用"], "answer": "D", "analysis": "", "sheet": "单选题"}, {"id": 51, "type": "单选题", "question": "按照“以共享为原则，不共享为例外”，各业务部门应梳理形成最小化的专业负面清单，负面清单外的数据应在（）。同时，应在保证安全合规的前提下，推动公司数据有序开放。", "options": ["公司内部充分共享", "公司外部充分共享", "公司内部按需共享", "公司外部按需共享"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 52, "type": "单选题", "question": "针对各方需求，按照“一类一策”原则，在保证（）的前提下，从数据开放需求、数据开放策略、数据开放流程三个方面全力推进公司数据对外开放规范管理。", "options": ["运行效率", "安全合规", "对外开放", "质量"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 53, "type": "单选题", "question": "报表中心（）支持直接在网页端进行拖拉拽操作。", "options": ["固定报表", "灵活报表", "填报报表", "多维报表"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 54, "type": "单选题", "question": "（）是指公司各部门数据交互的行为。", "options": ["数据共享", "数据应用", "数据提取", "数据分析"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 55, "type": "单选题", "question": "主数据是用来描述公司（）业务实体的数据，是各业务应用和各系统之间进行信息交互的基础。", "options": ["核心", "边缘", "广泛", "所有"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 56, "type": "单选题", "question": "对于跨专业的典型数据质量问题，数字化部协同相关（），共同组织开展数据质量专项整治，推动重点领域数据问题整改。", "options": ["业务部门", "主要部门", "管理部门", "业务负责人"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 57, "type": "单选题", "question": "数据安全管理是遵从国家法律法规，通过制定和实施相关安全策略和措施，确保数据在收集、传输、（）、处理、使用和销毁各环节的安全。", "options": ["归纳", "分析", "存储", "分类"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 58, "type": "单选题", "question": "元数据的本质定义是（）", "options": ["描述数据的数据", "存储数据的数据", "计算数据的数据", "传输数据的数据"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 59, "type": "单选题", "question": "按照《国家电网有限公司数据共享负面清单管理细则》，纳入公司负面清单的数据主要有（ ）。", "options": ["商业秘密和工作秘密", "个人隐私", "相关敏感事项", "以上都是"], "answer": "D", "analysis": "", "sheet": "单选题"}, {"id": 60, "type": "单选题", "question": "以下哪类负面清单属于商业秘密和工作秘密。（  ）", "options": ["密钥密码、境外投资、“三重一大”事项", "个人证件号码、家庭住址、银行账户等", "投标标底、审计事项、问题线索", "以上都是"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 61, "type": "单选题", "question": "SQL语言集数据定义功能、数据操纵功能和数据控制功能于一体。如下所列语句中， 哪一个是属于数据控制功能的?(   )", "options": ["GRANT", "CREATE", "INSERT", "SELECT"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 62, "type": "单选题", "question": "如果有两个事务，同时对数据库中同一数据进行操作，不会引起冲突的操作是(   )", "options": ["其中有一个是DELETE", "一个是SELECT，另一个是UPDATE", "两个都是SELECT", "两个都是UPDATE"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 63, "type": "单选题", "question": "《国家电网有限公司数据管理办法》中提出的数据管理原则不包括以下哪一项?", "options": ["统一管理、分级负责", "集中共享、服务应用", "分散管理、自由使用", "D夯实基础、持续推进"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 64, "type": "单选题", "question": "公司数据归集共享的主要依托平台是（  ）?", "options": ["数据中台", "各业务部门独立的信息系统", "外部第三方数据平台", "公司总部独立服务器"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 65, "type": "单选题", "question": "根据《国家电网有限公司数据管理办法》，公司数据标准不包括以下哪一项（  ）?", "options": ["统一数据模型", "企业级主数据", "参考数据标准", "数据共享负面清单"], "answer": "D", "analysis": "", "sheet": "单选题"}, {"id": 66, "type": "单选题", "question": "根据《国家电网有限公司数据管理办法》，参考数据的主要功能是规范以下哪一项?（  ）", "options": ["数据存储的物理结构", "特定数据项的允许取值集合", "数据共享的审批流程", "数据质量核查规则"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 67, "type": "单选题", "question": "根据《国家电网有限公司数据管理办法》，数据质量管理的主要组成部分不包括以下哪一项?（  ）", "options": ["数据质量规则管理", "数据质量核查", "数据问题整改", "数据共享负面清单管理"], "answer": "D", "analysis": "", "sheet": "单选题"}, {"id": 68, "type": "单选题", "question": "根据《国家电网有限公司数据管理办法》，数据问题整改过程中，确保问题闭环的核心要求是?（  ）", "options": ["质量问题需在限期范围内反馈处理结果", "仅由技术部门独立完成整改", "无需记录整改过程", "仅针对非关键数据问题"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 69, "type": "单选题", "question": "根据《国家电网有限公司数据管理办法》，数据共享管理的主要组成部分不包括以下哪一项（   ）?", "options": ["数据目录", "数据共享需求清单", "数据安全标准", "数据归集管理"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 70, "type": "单选题", "question": "根据数据共享负面清单制度，原则上可以在公司内部共享的数据是（  ）?", "options": ["列入负面清单的数据", "未列入负面清单的数据", "所有数据均不可共享", "仅管理层批准的数据"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 71, "type": "单选题", "question": "数据归集共享的主要目标是（  ）?", "options": ["实现数据一次采集、多处使用", "提高数据存储成本", "限制数据访问权限", "增加数据冗余"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 72, "type": "单选题", "question": "公司整体数据目录体系的梳理基础是（  ）?", "options": ["外部第三方数据", "业务系统数据库表", "员工个人数据", "临时数据存储"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 73, "type": "单选题", "question": "数据共享负面清单的制定原则是（  ）?", "options": ["以不共享为原则，共享为例外", "以共享为原则，不共享为例外", "完全由技术部门自主决定", "仅允许管理层提出需求"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 74, "type": "单选题", "question": "数据归集共享的核心要求是（  ）?", "options": ["数据多次采集、分散存储", "仅限单一系统使用", "完全依赖外部数据平台", "数据一次采集、多处使用"], "answer": "D", "analysis": "", "sheet": "单选题"}, {"id": 75, "type": "单选题", "question": "数据集的定义核心是对（）成果进行统一收集、验证与管理。", "options": ["仅业务部门数据", "数字化成果", "仅个人设计数据", "仅项目数据"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 76, "type": "单选题", "question": "数据共享负面清单的更新方式是（  ）?", "options": ["统一发布后不再更新", "定期更新", "由员工个人决定", "仅限外部机构修改"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 77, "type": "单选题", "question": "数据安全管理的主要目标是确保数据在哪些环节的安全与合规?（ ）", "options": ["仅存储和使用", "收集、传输、存储、处理、使用和销毁", "仅对外提供时", "仅在内部共享时"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 78, "type": "单选题", "question": "数据安全管理的总体原则是（  ）?", "options": ["“谁提出需求谁负责”", "“统一由技术部门全权负责”", "“谁主管谁负责，谁运行谁负责，谁使用谁负责”", "仅管理层承担责任”"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 79, "type": "单选题", "question": "对内使用负面清单数据时，数据使用方必须（ ）?", "options": ["直接拷贝数据并分享他人", "在受控环境中在线查询和应用，禁止自行拷贝", "无需审批即可自由使用", "仅需口头申请即可获取"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 80, "type": "单选题", "question": "数据对外使用时，必须采取的措施不包括以下哪一项（   ）?", "options": ["完全公开所有数据细节", "采取重要数据保护措施", "符合隐私保护和公司保密要求", "履行对外提供数据的审批"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 81, "type": "单选题", "question": "数据使用安全管理的核心要求是（  ）?", "options": ["允许数据自由拷贝和传播", "基于内部受控环境进行在线操作", "仅限管理层使用数据", "完全依赖外部安全工具"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 82, "type": "单选题", "question": "数据共享负面清单的完善依据是（   ）?", "options": ["公司商业秘密和工作秘密清单", "员工个人偏好"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 83, "type": "单选题", "question": "数据共享负面清单的制定要求中，强调遵循的“最小化”原则是指（  ）?", "options": ["共享数据范围应尽量缩小，仅限必需内容", "数据存储容量最小化", "数据共享流程步骤最少化", "数据使用权限最大化"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 84, "type": "单选题", "question": "数据共享流程中“安全可控”的具体措施是（  ）?", "options": ["允许离线拷贝数据并随意传播", "仅由单一部门独立管理所有数据", "取消数据安全防护要求", "基于数据中台实现在线审批、获取和应用"], "answer": "D", "analysis": "", "sheet": "单选题"}, {"id": 85, "type": "单选题", "question": "以下哪项是“统一管理、分级负责”原则的具体体现?（  ）", "options": ["公司统一制定规章制度，各单位负责落实负面清单管理", "所有数据共享决策由外部机构审批", "数据共享无需明确责任分工", "数据共享仅限单一层级管理"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 86, "type": "单选题", "question": "数据共享负面清单的优化目标是?", "options": ["提升数据共享效率，推进制度化和规范化", "完全禁止所有数据共享", "增加数据冗余存储", "简化数据质量核查流程"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 87, "type": "单选题", "question": "关于涉及国家秘密的数据管理要求，以下描述正确的是（  ）?", "options": ["完全遵循公司内部规定即可", "需遵循国家有关法律法规要求", "可自由共享给所有员工", "无需额外保护措施"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 88, "type": "单选题", "question": "以下哪项是负面清单中“相关敏感事项”的数据?（  ）", "options": ["公司日常考勤记录", "员工培训课程内容", "投标标底和审计事项", "公共节假日安排"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 89, "type": "单选题", "question": "以下哪项数据是个人隐私数据?（  ）", "options": ["企业公开的招标信息", "个人证件号码和家庭住址", "公司内部部门名称", "公共政策文件"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 90, "type": "单选题", "question": "哪些是不属于负面清单范围", "options": ["商业秘密", "工作秘密", "个人隐私", "计量信息"], "answer": "D", "analysis": "", "sheet": "单选题"}, {"id": 91, "type": "单选题", "question": "以下哪一项属于负面清单中“商业秘密和工作秘密”的具体内容?", "options": ["密钥密码和境外投资事项", "公司公开的年度报告", "员工公开社交媒体账号", "普通会议记录"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 92, "type": "单选题", "question": "根据公司负面清单管理规定，以下哪类数据不属于负面清单的主要范围?", "options": ["涉及个人隐私的数据", "涉及商业秘密和工作秘密的数据", "涉及企业公开年报数据", "涉及相关敏感事项的数据"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 93, "type": "单选题", "question": "数据中台运营能力提升的核心目标是实现数据的高效接入与（   ）?", "options": ["分散存储", "精准共享", "完全开放", "随机删除"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 94, "type": "单选题", "question": "下列哪项属于业务元数据范畴（）", "options": ["数据存储位置", "数据业务含义", "字段类型长度", "数据责任人信息"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 95, "type": "单选题", "question": "以下哪类数据表被定义为无效表？", "options": ["业务数据表", "报表数据表", "临时表", "主数据表"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 96, "type": "单选题", "question": "元数据的核心作用是以下哪项？", "options": ["存储业务交易数据", "描述数据的数据，帮助用户更好地组织、查找、理解和管理数据", "替代业务数据库", "仅用于数据加密和权限控制"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 97, "type": "单选题", "question": "元数据主要分为哪三类？", "options": ["技术元数据、业务元数据、管理元数据", "结构元数据、存储元数据、安全元数据", "基础元数据、扩展元数据、应用元数据", "静态元数据、动态元数据、历史元数据"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 98, "type": "单选题", "question": "技术元数据的主要采集来源是以下哪项？", "options": ["业务部门提供的需求文档", "数据库内置元数据字典表", "用户手动录入的字段说明", "第三方数据服务接口"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 99, "type": "单选题", "question": "在技术元数据管控中，系统上线环节要求承建单位提供以下哪项信息？", "options": ["业务术语表", "源端系统及其数据库基本信息", "数据质量规则清单", "负面清单发文"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 100, "type": "单选题", "question": "以下哪项属于数据表级别的业务元数据项？", "options": ["字段中文名", "计量单位", "表中文名", "参考数据映射关系"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 101, "type": "单选题", "question": "核心数据的包括哪些(    )?", "options": ["所有业务系统的临时数据", "业务系统的主数据和核心业务（交易）数据", "员工个人隐私数据", "外部第三方数据"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 102, "type": "单选题", "question": "“数据中台瘦身健体”的核心措施是什么(    )?", "options": ["增加数据冗余", "清退无效数据表并接入核心数据", "完全开放所有数据", "停止数据共享"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 103, "type": "单选题", "question": "数据质量校核的技术类规则包括哪些(    )?", "options": ["空表检查", "关键字段完整性", "主键唯一性", "以上都是"], "answer": "D", "analysis": "", "sheet": "单选题"}, {"id": 104, "type": "单选题", "question": "《国网四川省电力公司数据质量提升行动方案》三年目标不包括以下哪些内容？", "options": ["初步建立公司数据治理机制", "系统推进基础数据治理和共享", "全面释放基础数据价值", "完成数据资产全生命周期管理"], "answer": "D", "analysis": "", "sheet": "单选题"}, {"id": 105, "type": "单选题", "question": "《中华人民共和国数据安全法》明确规定国家建立什么制度？", "options": ["数据备份制度", "数据分类分级保护制度", "数据加密制度", "数据访问控制制度"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 106, "type": "单选题", "question": "数据脱敏策略的制定依据是(    )?", "options": ["数据存储容量", "应用场景安全防护需求", "员工个人偏好", "随机选择"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 107, "type": "单选题", "question": "根据\"管业务必须管数据\"原则，业务部门的首要责任是（）。", "options": ["制定公司级数据质量标准", "确保本专业数据真实可用", "统一建设数据治理平台"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 108, "type": "单选题", "question": "数据中台运营评价指标体系的核心要求是(    )?", "options": ["指标定义模糊", "指标采集全网可信", "仅地方自主定义", "完全依赖人工填报"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 109, "type": "单选题", "question": "数据中台运营监测的主要模式是(    )?", "options": ["省侧自评估+总部通报评价", "完全由总部独立评估", "仅地方自主评估", "仅外部审计评估"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 110, "type": "单选题", "question": "数据中台运营规范化的核心目标是(    )?", "options": ["实现数据完全封闭", "标准统一、质量可控、服务高效、应用规范", "仅支持单一业务领域", "降低数据存储成本"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 111, "type": "单选题", "question": "无效数据表清退的判定依据是(    )?", "options": ["无业务使用、非核心数据表", "数据表名称长度", "数据生成时间", "数据存储位置"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 112, "type": "单选题", "question": "数据接入即校核机制的核心要求是(    )?", "options": ["仅校核数据颜色", "技术类和业务类质量校核并行", "取消校核流程", "仅总部负责校核"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 113, "type": "单选题", "question": "《GB/T 43697-2024 数据安全技术 数据分类分级规则》将数据从高到低分为哪三个级别？", "options": ["一级、二级、三级", "核心数据、重要数据、一般数据", "高、中、低", "A级、B级、C级"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 114, "type": "单选题", "question": "数据中台“接、治、用、管”全环节中，“治”的核心任务是(    )?", "options": ["数据质量协同治理", "数据完全开放", "数据随机删除", "数据加密存储"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 115, "type": "单选题", "question": "数据共享效率提升的关键措施是(    )?", "options": ["增加数据冗余", "沉淀共性数据服务", "完全禁止数据共享", "依赖人工审批"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 116, "type": "单选题", "question": "数据中台运营能力提升的最终目标是(    )?", "options": ["促进数据要素价值释放", "增加数据存储成本", "限制数据应用范围", "完全依赖外部平台"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 117, "type": "单选题", "question": "数据血缘信息的总部-省市两级贯通要求是(    )?", "options": ["仅在地方存储", "核心数据表血缘全量上传总部", "完全由外部机构管理", "仅总部独立维护"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 118, "type": "单选题", "question": "共性数据服务的构建方法是基于(    )?", "options": ["随机数据抽样", "维度建模", "外部第三方模板", "员工个人经验"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 119, "type": "单选题", "question": "以下哪个关键字用于从数据库中选择数据(    )(    )?", "options": ["INSERT", "UPDATE", "SELECT", "DELETE"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 120, "type": "单选题", "question": "在SQL中，删除表中所有记录但保留表结构的语句是(    )?", "options": ["TRUNCATE TABLE", "DROP TABLE", "DELETE TABLE", "REMOVE TABLE"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 121, "type": "单选题", "question": "以下哪个函数用于计算某列的平均值(    )?", "options": ["SUM()", "AVG()", "COUNT()", "MAX()"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 122, "type": "单选题", "question": "以下哪种JOIN会返回左表所有记录及右表匹配的记录(    )?", "options": ["INNER JOIN", "FULL JOIN", "RIGHT JOIN", "LEFT JOIN"], "answer": "D", "analysis": "", "sheet": "单选题"}, {"id": 123, "type": "单选题", "question": "哪个SQL语句用于向表中插入新记录(    )?", "options": ["ADD INTO", "INSERT INTO", "UPDATE INTO", "CREATE INTO"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 124, "type": "单选题", "question": "要删除名为students的表，正确的语句是(    )?", "options": ["DELETE TABLE students", "DROP TABLE students", "REMOVE TABLE students", "TRUNCATE TABLE students"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 125, "type": "单选题", "question": "哪个子句用于对结果集按某列排序(    )?", "options": ["GROUP BY", "HAVING", "ORDER BY", "WHERE"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 126, "type": "单选题", "question": "以下哪个SQL语句可以修改表中现有数据(    )?", "options": ["UPDATE", "ALTER", "MODIFY", "CHANGE"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 127, "type": "单选题", "question": "要查询employees表中所有不重复的部门名称，应使用(    )?", "options": ["SELECT ALL department FROM employees", "SELECT DISTINCT department FROM employees", "SELECT UNIQUE department FROM employees", "SELECT DIFFERENT department FROM employees"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 128, "type": "单选题", "question": "SQL语法中，以下哪个是聚合函数(    )?", "options": ["CONCAT()", "UPPER()", "SUM()", "SUBSTRING()"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 129, "type": "单选题", "question": "要查询orders表中价格大于100且小于500的记录，正确的条件是(    )?", "options": ["WHERE price > 100 AND price < 500", "WHERE price > 100 OR price < 500", "WHERE price in （50，100）", "以上均可"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 130, "type": "单选题", "question": "以下哪个语句用于创建索引(    )?", "options": ["CREATE INDEX idx_name ON table(column)", "ADD INDEX idx_name ON table(column)", "INDEX idx_name ON table(column)", "MAKE INDEX idx_name FOR table(column)"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 131, "type": "单选题", "question": "以下哪个函数可以将字符串转换为大写(    )?", "options": ["LOWER()", "UPPER()", "INITCAP()", "CAPITALIZE()"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 132, "type": "单选题", "question": "将 sales_raw 表（含 product_id, sale_time, price）与 product_dim（含 product_id, category）左关联生成宽表。以下SQL正确的是?", "options": ["SELECT * FROM sales_raw;", "SELECT s.product_id, s.sale_time,s.price,p.category FROM sales_raw s LEFT JOIN product_dim p ON s.product_id = p.product_id;", "SELECT s.product_id, COUNT(*) FROM sales_raw s GROUP BY product_id;", "INSERT INTO sales_wide SELECT * FROM sales_raw;"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 133, "type": "单选题", "question": "在数据质量规则中，需检查 customer 表的 phone 字段是否为11位数字。以下SQL可用的校验条件是?", "options": ["WHERE phone IS NULL", "WHERE phone LIKE '%@%'", "WHERE phone = '00000000000'", "WHERE LENGTH(phone) != 11 OR phone NOT REGEXP '^[0-9]+", "'"], "answer": "D", "analysis": "", "sheet": "单选题"}, {"id": 134, "type": "单选题", "question": "需为前端提供“近30天用户消费总额”服务，基于 order 表（含 user_id, amount, order_time），正确的SQL是?", "options": ["SELECT user_id, SUM(amount) FROM order GROUP BY user_id;", "SELECT * FROM order ORDER BY order_time DESC LIMIT 30;", "SELECT user_id, SUM(amount) FROM order WHERE order_time >= DATE_SUB(CURRENT_DATE, INTERVAL 30 DAY) GROUP BY user_id;", "UPDATE order SET amount = amount * 0.9 WHERE order_time > '2023-01-01';"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 135, "type": "单选题", "question": "以下（   ）是针对数据中台的数据接入技术能力描述?", "options": ["接入公司结构化、采集量测类等数据。", "对已接入的各类数据进行加工计算和落地存储。", "提供Restful、Webservice等协议的API服务接口。", "提供链路监测、监控告警、任务调度、安全管理等。"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 136, "type": "单选题", "question": "以下（   ）是针对数据中台的数据存储技术能力描述?", "options": ["接入公司结构化、采集量测类等数据。", "对已接入的各类数据进行加工计算和落地存储。", "提供Restful、Webservice等协议的API服务接口。", "提供链路监测、监控告警、任务调度、安全管理等。"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 137, "type": "单选题", "question": "以下（   ）是针对数据中台的数据服务技术能力描述?", "options": ["接入公司结构化、采集量测类等数据。", "对已接入的各类数据进行加工计算和落地存储。", "提供Restful、Webservice等协议的API服务接口。", "提供链路监测、监控告警、任务调度、安全管理等。"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 138, "type": "单选题", "question": "以下（   ）是针对数据中台的数据运营管理的技术能力描述?", "options": ["接入公司结构化、采集量测类等数据。", "对已接入的各类数据进行加工计算和落地存储。", "提供Restful、Webservice等协议的API服务接口。", "提供链路监测、监控告警、任务调度、安全管理等。"], "answer": "D", "analysis": "", "sheet": "单选题"}, {"id": 139, "type": "单选题", "question": "数据库表中索引过多可能导致的问题是（  ）?", "options": ["查询速度显著提升", "数据插入、更新操作变慢", "存储空间占用减少", "数据一致性增强"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 140, "type": "单选题", "question": "在频繁读取但极少更新的场景下，数据中台数据表的设计更应侧重?", "options": ["严格遵守第三范式", "适当反规范化以提升查询效率", "完全避免使用索引", "随机分配表结构"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 141, "type": "单选题", "question": "制定《中华人民共和国数据安全法》的目的是为了规范数据处理活动，保障数据安全，促进数据开发和利用，保护个人、组织的(    )，维护国家主权、安全和(    )。", "options": ["财产权益，发展利益", "财产权益，长远利益", "合法权益，发展利益", "合法权益，长远利益"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 142, "type": "单选题", "question": "依据《中华人民共和国数据安全法》的相关规定，开展数据处理活动应当依照法律、法规的规定，建立健全(    )管理制度。", "options": ["全流程数据安全", "“谁处理谁负责”", "风险评估", "应急处理"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 143, "type": "单选题", "question": "《中华人民共和国数据安全法》中的数据，是指任何以电子或者其他方式对(    )的记录。", "options": ["事实", "信息", "文件", "知识"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 144, "type": "单选题", "question": "《中华人民共和国数据安全法》是为了规范数据处理活动，保障数据安全，促进数据开发利用，保护个人、组织的合法权益，维护国家(    )，制定的法律。", "options": ["主权、安全、发展利益", "安全、权利", "主权、安全", "安全、权利"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 145, "type": "单选题", "question": "信息系统中员工的身份信息与身份证件上的信息不一致，属于数据质量（   ）的问题。", "options": ["完整性", "唯一性", "准确性", "及时性"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 146, "type": "单选题", "question": "以下数据质量规则中，不属于数据一致性规则的是（   ）。", "options": ["合同的金额与合同按产品拆分后的金额之和不一致", "合同信息中的合同类型不应为空", "合同的关闭日期不能早于合同的创建日期", "合同的签约金额与合同单价*数量不一致"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 147, "type": "单选题", "question": "以下（　　）组件不是华为产品的。", "options": ["CDM", "DRS", "RDS", "SG-ETL"], "answer": "D", "analysis": "", "sheet": "单选题"}, {"id": 148, "type": "单选题", "question": "数据在传输过程中容易发生哪些安全事故?", "options": ["数据泄漏", "窃取", "篡改", "以上都是"], "answer": "D", "analysis": "", "sheet": "单选题"}, {"id": 149, "type": "单选题", "question": "数据主人制的核心管理原则是(   )?", "options": ["谁使用，谁负责", "管业务必须管数据，管数据就是管业务", "数据集中管理，统一维护", "以技术部门为主导"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 150, "type": "单选题", "question": "数据定源定责的原则是(   )?", "options": ["一数多源、多源共责", "一数一源、一源一责", "数据共享、责任分散", "动态调整、灵活管理"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 151, "type": "单选题", "question": "国家电网有限公司数据分类分级工作指引将公司数据划分为哪三大类别？", "options": ["内部数据、外部数据、混合数据", "公共数据、企业数据、个人数据", "业务数据、管理数据、技术数据", "结构化数据、半结构化数据、非结构化数据"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 152, "type": "单选题", "question": "录入类数据生产主人的认定依据是(   )?", "options": ["谁维护设备，谁负责数据", "谁计算指标，谁负责数据", "谁产生数据，谁负责数据", "谁审核数据，谁负责数据"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 153, "type": "单选题", "question": "数据定源定责中“权威数据源”是指(   )?", "options": ["多个系统共享的数据源", "首次正式发布并唯一被引用的数据源头", "临时生成的数据表", "外部第三方提供的数据"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 154, "type": "单选题", "question": "数据分级时采用的原则是什么？", "options": ["就低不就高原则", "就高不就低原则", "平均原则", "随机原则"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 155, "type": "单选题", "question": "数据主人认责清单的形成方式是(   )?", "options": ["随机分配数据责任", "基于“数据表（字段）-班组”映射矩阵", "由数字化部门单独制定", "仅覆盖省级单位"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 156, "type": "单选题", "question": "数据主人制推广的“事后评价”主要关注(   )?", "options": ["数据录入速度和数量", "数据质量保障和整改时效性", "系统开发成本", "外部用户满意度"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 157, "type": "单选题", "question": "以下哪项不属于数据生产主人的职责(   )?", "options": ["数据录入与维护", "数据质量验收审核", "制定数据质量标准", "问题治理"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 158, "type": "单选题", "question": "数据主人制要求“新（改）建业务系统”需在哪个阶段审查数据主人认定(   )?", "options": ["系统上线后", "可研、概要设计阶段", "仅验收阶段", "无需审查"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 159, "type": "单选题", "question": "数据主人制中“贴近基层，赋能一线”的原则强调(   )?", "options": ["减少基层数据录入工作", "强化数据源端治理和以用促治", "完全依赖自动化采集", "仅关注高层管理需求"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 160, "type": "单选题", "question": "数据定源定责的“一数一源”原则要求(   )?", "options": ["允许多系统维护同一数据", "数据统一在源头维护，禁止多源维护", "仅允许省级系统维护数据", "动态调整数据来源"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 161, "type": "单选题", "question": "在数据主人制推广中，数字化部门的主要职责是(   )?", "options": ["直接录入数据", "整体推广实施和建立工作体系", "制定业务规则", "维护硬件设备"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 162, "type": "单选题", "question": "提升数据录入准确度的措施包括(   )?", "options": ["取消数据校验功能", "允许随意修改数据源", "仅依赖自动化采集", "制定录入作业指导书并强化培训"], "answer": "D", "analysis": "", "sheet": "单选题"}, {"id": 163, "type": "单选题", "question": "数据主人制中“工单驱动”模式的目的是(   )?", "options": ["增加工单数量", "简化业务流程审批", "实现增量数据及时维护和存量数据闭环治理", "降低系统开发成本"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 164, "type": "单选题", "question": "数据管理工作中的“四清”指(   )?", "options": ["资源清、血缘清、流向清、责任清", "数据清、流程清、责任清、标准清", "采集清、存储清、共享清、应用清", "问题清、规则清、整改清、评价清"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 165, "type": "单选题", "question": "数据质量管理中，“以用促治”原则是指：", "options": ["以技术驱动治理", "以业务使用促进数据治理", "以数据量决定治理范围", "以工具替代人工治理"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 166, "type": "单选题", "question": "数据治理中，“管业务必须管数据”的含义是：", "options": ["业务部门不参与数据管理", "数据管理与业务管理分离", "业务部门应承担数据管理责任", "数据管理由IT部门独立负责"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 167, "type": "单选题", "question": "数据质量的评价维度中，“数据是否在规定时间内更新”属于(    )?", "options": ["有效性", "及时性", "唯一性", "一致性"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 168, "type": "单选题", "question": "数字化部在基础数据治理中的职责是(    )?", "options": ["制定业务规则", "组织数据质量监测与跨专业治理", "维护硬件设备", "直接管理基层班组"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 169, "type": "单选题", "question": "业务部门在基础数据治理中的职责是(    )?", "options": ["负责跨专业数据共享", "制定本专业数据质量标准，治理本专业数据问题", "开发数据稽核工具", "管理数据退役流程"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 170, "type": "单选题", "question": "数据标准不包含以下哪项(    )?", "options": ["统一数据模型", "主数据标准", "数据采集设备型号", "参考数据标准"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 171, "type": "单选题", "question": "数据质量管理的主要活动不包括(    )?", "options": ["数据质量规则管理", "数据问题整改", "数据存储扩容", "数据质量评估"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 172, "type": "单选题", "question": "下列哪类问题属于“跨系统数据不一致”的典型表现？", "options": ["设备名称不完整", "退役日期不合理", "设备与营销专变数据不一致", "最大允许电流不准确"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 173, "type": "单选题", "question": "“以用促治，以用提质”的核心含义是(    )?", "options": ["通过应用场景发现问题并推动治理", "仅依赖技术工具提升质量", "限制数据共享以保障安全", "完全自动化数据管理"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 174, "type": "单选题", "question": "权威数据源的管控要求是(    )?", "options": ["允许多系统维护同一数据", "所有应用必须从权威源引用数据", "可随意变更数据格式", "无需审批即可调整"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 175, "type": "单选题", "question": "数据质量评估的指标不包括(    )?", "options": ["问题发生数", "整改及时率", "数据存储容量", "整改完成率"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 176, "type": "单选题", "question": "基础数据管理要求“数据变更留痕”是为了(    )?", "options": ["增加数据录入工作量", "确保每次更新可追溯", "限制数据共享", "简化系统设计"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 177, "type": "单选题", "question": "数据管理中“刚性执行”的含义是(    )?", "options": ["灵活调整规则", "严格遵循既定要求", "仅适用于高层管理", "无需监督"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 178, "type": "单选题", "question": "数据质量规则管理由谁主导(    )?", "options": ["数字化部与业务部门协同", "仅数字化部", "仅业务部门", "外部审计机构"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 179, "type": "单选题", "question": "基础数据管理要求“数出同源”是为了保障(    )?", "options": ["数据多样性", "数据唯一性", "数据动态性", "数据冗余性"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 180, "type": "单选题", "question": "数据质量治理中“数据有效性”关注(    )?", "options": ["数据是否真实反映业务", "数据是否符合语法规则", "数据是否唯一", "数据是否及时更新"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 181, "type": "单选题", "question": "数据质量治理中“数据一致性”指(    )?", "options": ["不同系统相同数据项取值一致", "数据录入速度快", "数据存储容量一致", "数据格式多样化"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 182, "type": "单选题", "question": "数据质量治理中“数据完整性”指(    )?", "options": ["数据是否真实准确", "业务所需数据项是否被采集", "数据更新是否及时", "数据是否加密存储"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 183, "type": "单选题", "question": "数据管理中“源头治理”要求(    )?", "options": ["问题整改推诿至下游", "强化数据源头数据问题治理", "仅关注数据存储", "忽略数据录入环节"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 184, "type": "单选题", "question": "数据质量治理中“数据准确性”关注(    )?", "options": ["数据是否遵循语法规则", "数据是否真实反映业务", "数据是否完整采集", "数据是否及时更新"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 185, "type": "单选题", "question": "数据中台提供的服务不包括(    )?", "options": ["硬件设备维护", "数据查询服务", "数据分析服务", "指标报表服务"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 186, "type": "单选题", "question": "实现中台数据“可视、可查、易取”的措施不包括(    )?", "options": ["动态更新数据目录", "推进数据关联贯通", "忽略数据异常监测", "强化数据治理成果"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 187, "type": "单选题", "question": "数据中台快速应用模式中的“配置化场景构建”依赖(    )?", "options": ["手工编码开发", "外部数据接口", "随机数据生成", "可快速迭代的数据集"], "answer": "D", "analysis": "", "sheet": "单选题"}, {"id": 188, "type": "单选题", "question": "数据共享面临的挑战不包括(    )?", "options": ["不愿共享开放", "数据存储空间不足", "不敢共享开放", "不会共享开放"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 189, "type": "单选题", "question": "数据共享等级中“有条件共享”指(    )?", "options": ["对所有人员开放", "仅限特定人员或部分数据", "完全禁止共享", "仅限外部使用"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 190, "type": "单选题", "question": "数据服务API的管理机制中，技术层面的要求是(    )?", "options": ["允许所有用户发布服务", "仅运营团队有生产环境发布权限", "开放测试环境调用地址", "无需权限控制"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 191, "type": "单选题", "question": "数据中台运营作业不包括(    )?", "options": ["用户需求受理", "数据质量问题监测", "硬件设备采购", "数据共享服务"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 192, "type": "单选题", "question": "分析应用类数据需求应优先基于(    )?", "options": ["独立数据库", "数据中台", "手工台账", "外部平台"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 193, "type": "单选题", "question": "数据资源目录的搜索方式不包括(    )?", "options": ["目录分类树展开搜索", "关键字全局搜索", "过滤条件筛选", "随机抽样查询”"], "answer": "D", "analysis": "", "sheet": "单选题"}, {"id": 194, "type": "单选题", "question": "面向基层的数据服务目标包括（   ）?", "options": ["解决数据应用难问题", "实现基层减负增效", "打造数据服务品牌", "以上都是"], "answer": "D", "analysis": "", "sheet": "单选题"}, {"id": 195, "type": "单选题", "question": "数据服务发布的流程不包括（   ）?", "options": ["服务开发", "服务审核", "硬件采购", "服务发布"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 196, "type": "单选题", "question": "国网四川电力基层数据服务的统一入口是（   ）?", "options": ["独立外部平台", "数据超市CBD基层数据服务专区", "手工台账系统", "硬件维护中心"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 197, "type": "单选题", "question": "基层数据服务的工作强调（   ）?", "options": ["增加流程复杂度", "降门槛、减流程、优服务", "仅服务高层需求", "限制数据共享范围"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 198, "type": "单选题", "question": "基层数据服务的核心模块不包括（   ）?", "options": ["数据看板", "场景应用", "硬件监控", "数据探索"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 199, "type": "单选题", "question": "共性数据集的构建流程中，第一步是（   ）?", "options": ["提炼共性数据集需求", "直接发布数据集", "忽略业务场景", "随机生成数据"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 200, "type": "单选题", "question": "典型数据场景分为哪两类（   ）?", "options": ["辅助管理类和监测分析类", "硬件维护类和数据存储类", "外部服务类和内部审计类", "随机生成类和手工录入类"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 201, "type": "单选题", "question": "用户权限拆分的核心目的是（   ）?", "options": ["增加数据冗余", "保障数据开放安全", "限制所有数据访问", "替代业务流程"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 202, "type": "单选题", "question": "需求管理机制包含的需求类型不包括（   ）?", "options": ["数据治理需求", "硬件采购需求", "账号/资源需求", "应用支撑需求"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 203, "type": "单选题", "question": "基层数据服务建设运营的工作思路是（   ）?", "options": ["夯基础、促应用、强运营", "增加流程复杂度", "仅依赖外部平台", "忽略基层需求"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 204, "type": "单选题", "question": "建立基层用数响应机制的核心是（   ）?", "options": ["需求线上提报与闭环管控", "随机分配需求", "限制数据共享", "仅总部直接处理"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 205, "type": "单选题", "question": "高价值数据成果推广机制的第一步是（   ）?", "options": ["成果申报与评审", "直接跨省推广", "忽略成果质量", "仅由基层班组完成"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 206, "type": "单选题", "question": "基层数据服务运营团队的组成结构是（   ）?", "options": ["总部-省-市-县协同联动", "仅总部独立负责", "忽略基层参与", "仅外部顾问团队"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 207, "type": "单选题", "question": "“数据到基层”主题活动不包括（   ）?", "options": ["数据文化到基层", "硬件维护培训", "创新论坛", "知识竞赛"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 208, "type": "单选题", "question": "基层数据服务标杆评选的类别是（   ）?", "options": ["服务质效标杆和应用质效标杆", "硬件维护标杆和随机数据标杆", "仅总部评选", "忽略基层参与"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 209, "type": "单选题", "question": "“金牌数据服务团队”的评选依据不包括（   ）?", "options": ["成果质量与服务成效", "硬件采购数量", "技能水平", "专区运营贡献"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 210, "type": "单选题", "question": "用户权限拆分的方式不包括（   ）?", "options": ["统一权限+业务角色", "统一权限+数据标签", "随机分配权限", "统一权限+拓展字段"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 211, "type": "单选题", "question": "分析应用场景建设的第一步是（   ）?", "options": ["数据溯源", "硬件采购", "数据销毁", "随机生成报表"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 212, "type": "单选题", "question": "数据服务API的发布权限属于（   ）?", "options": ["所有用户", "数据中台运营团队", "外部供应商", "随机分配"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 213, "type": "单选题", "question": "ER图的作用是（）", "options": ["编辑SQL语句", "验证SQL有效性", "直观展示数据集中数据之间的关系", "管理组"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 214, "type": "单选题", "question": "数据服务API的“服务开发”基于（   ）?", "options": ["数据中台分析层表", "随机生成数据", "外部硬件接口", "手工台账录入"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 215, "type": "单选题", "question": "数据合规管理的首要目的是（   ）?", "options": ["提高数据处理速度", "防控数据合规风险", "增加数据存储容量", "简化数据录入流程"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 216, "type": "单选题", "question": "数据分类分级的法律依据是（   ）?", "options": ["《数据安全法》", "《劳动法》", "《商标法》", "《合同法》"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 217, "type": "单选题", "question": "数据分类分级的核心原则是（   ）?", "options": ["合法合规、分类多维", "动态调整、灵活管理", "仅关注技术手段", "忽略业务需求"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 218, "type": "单选题", "question": "数据需要重新分类的情况不包括（   ）?", "options": ["数据内容未变化但时效性变化", "数据内容发生变化", "数据存储位置变更", "不同数据汇聚形成新类别"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 219, "type": "单选题", "question": "脱敏数据的定级规则是（   ）?", "options": ["级别必须与原始数据一致", "级别可比原始数据降低", "级别必须升高", "无需定级"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 220, "type": "单选题", "question": "数据分类分级的流程第一步是（   ）?", "options": ["梳理数据资产", "数据定级", "发布分类目录", "审核清单"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 221, "type": "单选题", "question": "数字化部在数据合规管理中的角色是（   ）?", "options": ["归口管理部门", "直接录入数据", "仅负责硬件维护", "忽略合规风险"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 222, "type": "单选题", "question": "数据安全合规管理制度不包括（   ）?", "options": ["《数据安全法》", "《保密法》", "《商标法》", "《个人信息保护法》"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 223, "type": "单选题", "question": "数据分类分级的“动态调整”原则要求（   ）?", "options": ["根据数据变化及时更新分类", "固定分类不变", "仅由总部决定", "忽略业务需求"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 224, "type": "单选题", "question": "数据分类分级的“就高从严”原则指（   ）?", "options": ["按最高风险级别定级", "按最低风险级别定级", "随机定级", "仅由技术部门决定"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 225, "type": "单选题", "question": "数据分类分级的“合法合规”原则要求（   ）?", "options": ["遵守法律法规", "仅公司内部规定", "忽略行业标准", "灵活调整法律要求"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 226, "type": "单选题", "question": "数据分类分级的“分类多维”指（   ）?", "options": ["多维度划分数据类别", "单一维度分类", "忽略业务特性", "仅按存储时间分类"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 227, "type": "单选题", "question": "数据合规管理的“严格管控”强调（   ）?", "options": ["事前防范和过程管控", "仅事后处理", "忽略风险识别", "随机应对事件"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 228, "type": "单选题", "question": "数据管理人才能力提升的途径不包括（   ）?", "options": ["常态培训和竞赛比武", "参加内部赛事", "参与外部大赛", "以上都有"], "answer": "D", "analysis": "", "sheet": "单选题"}, {"id": 229, "type": "单选题", "question": "岗位技能培训的层级不包括（   ）?", "options": ["基础级", "能手级", "专家级", "随机级"], "answer": "D", "analysis": "", "sheet": "单选题"}, {"id": 230, "type": "单选题", "question": "公司级数字化柔性团队的管理模式是（   ）?", "options": ["任务动态管控、人员灵活管理", "固定任务分配", "仅由外部顾问管理", "忽略人员协调"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 231, "type": "单选题", "question": "数据管理人才团队集中攻坚的工作模式不包括（   ）?", "options": ["现场集中办公", "集中与远程结合", "随机分配任务", "前期试点后集中攻关"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 232, "type": "单选题", "question": "数据管理人才“常态培训”的主线是（   ）?", "options": ["岗位技能和任务技能", "硬件维护与软件开发", "仅理论知识", "忽略实际操作"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 233, "type": "单选题", "question": "数据管理人才团队评价的维度不包括（   ）?", "options": ["管理效能提升", "推广成效", "服务成效", "以上都有"], "answer": "D", "analysis": "", "sheet": "单选题"}, {"id": 234, "type": "单选题", "question": "公司级数据管理人才队伍建设的总体思路是（   ）?", "options": ["选、用、练、管", "仅招聘外部专家", "忽略人才培养", "随机分配任务"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 235, "type": "单选题", "question": "数据管理人才团队在竞赛比武中主要锻炼（   ）?", "options": ["数据服务运营能力", "硬件维护技能", "随机任务处理", "忽略实际操作"], "answer": "A", "analysis": "", "sheet": "单选题"}, {"id": 236, "type": "单选题", "question": "数据分类分级工作流程的第一步是什么？", "options": ["数据分级", "数据分类", "危害程度识别", "分类分级管控"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 237, "type": "单选题", "question": "以下关于负面清单描述不正确的是（ ）。", "options": ["国网公司坚持“以共享为原则、不共享为例外”，遵循“最小化”要求，建立数据共享负面清单", "纳入公司负面清单的数据主要包括：涉及商业秘密和工作秘密、个人隐私及相关敏感事项的数据", "负面清单数据在公司范围内可直接共享使用", "投标标底、审计事项、问题线索等未涉及相关敏感事项的负面清单数据"], "answer": "C", "analysis": "", "sheet": "单选题"}, {"id": 238, "type": "单选题", "question": "在数据管理中，“一次审批、长期使用”适用于哪种情况？", "options": ["所有数据申请", "审批后的负面清单分域数据", "临时数据查询", "外部数据采购"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 239, "type": "单选题", "question": "数据分域空间的硬件条件和网络环境配置模式为（）。", "options": ["多人一机一号", "专人-专机-专账号", "一人多机多账号", "随机分配模式"], "answer": "B", "analysis": "", "sheet": "单选题"}, {"id": 240, "type": "判断题", "question": "严格电网生产和经营管理数据对外发布共享。遵循“明细业务数据不出中台”的原则，确保生产经营数据及分析结果数据不出网（管理信息大区和生产控制大区）、不触媒。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 241, "type": "判断题", "question": "各类账号均应采取最小化原则授权，不得超越数据使用范围和目的进行赋权，禁止各类账号越级授权、越权使用、交叉混用和复用。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 242, "type": "判断题", "question": "可将涉及公司电网生产和经营管理的敏感数据、重要数据，以及数据产品、数据分析结果部署于社会网络（或系统）或托管于外单位。", "options": ["对", "错"], "answer": "B", "analysis": "", "sheet": "判断题"}, {"id": 243, "type": "判断题", "question": "《中华人民共和国数据安全法》是我国第一部数据安全相关的专门法律，为国家重要数据保护和各行业数据安全监管提供了依据，标志着我国在数据安全领域有法可依。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 244, "type": "判断题", "question": "《数据安全法》是我国数据领域的基础性法律，是构建国家安全法律制度体系、维护企业和人民群众利益、推动数字经济高质量发展的重要举措。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 245, "type": "判断题", "question": "数据是国家基础性战略资源，没有数据安全就没有国家安全。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 246, "type": "判断题", "question": "《数据安全法》中明确数据的概念，即：任何以电子或者其他方式对信息的记录。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 247, "type": "判断题", "question": "《数据安全法》要求建立健全全流程数据安全管理制度，采取相应的技术措施和其他必要措施，加强数据风险评估、应急响应和事件处置。重要数据处理需要明确安全负责人。明确数据收集应当合法、正当，交易数据应当要求数据提供方说明数据来源。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 248, "type": "判断题", "question": "《中华人民共和国个人信息保护法》是我国第一部公民个人信息安全相关的专门法律，与《中华人民共和国网络安全法》、《中华人民共和国数据安全法》共同确立了我国数据安全法律框架。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 249, "type": "判断题", "question": "在一个表上可以有多个唯一约束。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 250, "type": "判断题", "question": "华为云数据湖探索（Data Lake Insight,DLI）仅支持SQL查询作业。", "options": ["对", "错"], "answer": "B", "analysis": "", "sheet": "判断题"}, {"id": 251, "type": "判断题", "question": "信息管理和数据管理含义相同。", "options": ["对", "错"], "answer": "B", "analysis": "", "sheet": "判断题"}, {"id": 252, "type": "判断题", "question": "数据质量管理不是数据管理的职能。", "options": ["对", "错"], "answer": "B", "analysis": "", "sheet": "判断题"}, {"id": 253, "type": "判断题", "question": "报表中心设计器FineReport支持多张数据表作为数据源。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 254, "type": "判断题", "question": "\"管业务必须管数据\"意味着业务部门只需关注本部门的数据，无需关注其他部门的数据质量需求。", "options": ["对", "错"], "answer": "B", "analysis": "", "sheet": "判断题"}, {"id": 255, "type": "判断题", "question": "数据管理制度是确保对数据资产进行有效控制和使用的业务职责问责制度", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 256, "type": "判断题", "question": "数据库支持是数据管理的核心。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 257, "type": "判断题", "question": "数据安全管理的最终目标是保护信息资产符合隐私及保密法规要求，并与业务要求相一致。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 258, "type": "判断题", "question": "无效表包括备份表、临时表/中间表、测试表、长期空表、系统配置表和系统日志表。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 259, "type": "判断题", "question": "技术元数据采集是通过用户手动录入方式获取的。", "options": ["对", "错"], "answer": "B", "analysis": "", "sheet": "判断题"}, {"id": 260, "type": "判断题", "question": "低质量的数据不会影响业务目标的达成。", "options": ["对", "错"], "answer": "B", "analysis": "", "sheet": "判断题"}, {"id": 261, "type": "判断题", "question": "数据治理是一个一次性项目，完成后无需持续优化。", "options": ["对", "错"], "answer": "B", "analysis": "", "sheet": "判断题"}, {"id": 262, "type": "判断题", "question": "国网四川电力基于阿里的组件产品构建数据中台。", "options": ["对", "错"], "answer": "B", "analysis": "", "sheet": "判断题"}, {"id": 263, "type": "判断题", "question": "数据超市CBD是公司数字化专业打造的面向全省的数据服务平台。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 264, "type": "判断题", "question": "数据中台是企业级数据能力共享平台。数据通过分层与水平分解，经过汇聚、存储、整合、分析、加工，沉淀公共的数据能力，根据业务场景进行服务封装，形成企业级数据服务，支撑前端应用敏捷迭代和快速构建，实现数据价值共享。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 265, "type": "判断题", "question": "数据中台由贴源层、共享层、分析层、统一数据服务调度和数据资产管理等板块组成，采用总部一级部署模式构建。", "options": ["对", "错"], "answer": "B", "analysis": "", "sheet": "判断题"}, {"id": 266, "type": "判断题", "question": "数据中台分层结构中，贴源层是数据中台体系结构的标准模型层，存储企业级模型表数据。", "options": ["对", "错"], "answer": "B", "analysis": "", "sheet": "判断题"}, {"id": 267, "type": "判断题", "question": "数据中台定位于将公司各专业、各单位数据汇聚整合为企业级数据服务，提供便捷应用能力，满足跨专业数据需求，主要侧重于支撑前端业务处理。", "options": ["对", "错"], "answer": "B", "analysis": "", "sheet": "判断题"}, {"id": 268, "type": "判断题", "question": "数据中台汇聚数据类型包括结构化、非结构化、采集量测。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 269, "type": "判断题", "question": "推动数据权威源落地应用，应坚持数据“一处生成、多处使用”。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 270, "type": "判断题", "question": "基层单位的数据质量管控可以与业务开展分离，先专注业务完成，再单独进行数据质量检查。", "options": ["对", "错"], "answer": "B", "analysis": "", "sheet": "判断题"}, {"id": 271, "type": "判断题", "question": "数据质量规则包括完整性、规范性、准确性、唯一性、一致性、时效性等方面的规则。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 272, "type": "判断题", "question": "数据准确性是指真实、准确地记录原始数据，无虚假数据及信息。例如员工的身份信息必须与身份证件上的信息保持一致。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 273, "type": "判断题", "question": "健全数据合规管理制度体系，按照“一般数据一类一审、重要数据一事一审、核心数据从严从紧”的原则，加强重要和核心数据安全管理，严格数据对外提供审批。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 274, "type": "判断题", "question": "禁止将涉及公司电网生产和经营管理的敏感数据、重要数据，以及数据产品、数据分析结果部署于社会网络（或系统）或托管于外单位。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 275, "type": "判断题", "question": "对外提供的数据无需采取加密、隔离、备份等安全技术手段，保障数据传输、存储安全。", "options": ["对", "错"], "answer": "B", "analysis": "", "sheet": "判断题"}, {"id": 276, "type": "判断题", "question": "主数据用来描述公司核心业务实体、共享于多个业务流程或业务系统且具有高业务价值的标准数据，具有共享性、稳定性、必要性和及时性，是各业务应用之间进行信息交互的基础。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 277, "type": "判断题", "question": "公司应结合数据目录更新和数据共享应用情况，常态开展负面清单更新维护。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 278, "type": "判断题", "question": "数据中台主要覆盖数据接入、存储计算、数据分析、数据资产管理、数据运营管理以及数据服务等方面能力。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 279, "type": "判断题", "question": "公司数字化部是数据主人制管理的归口部门，负责组织制定数据主人制相关的规章制度和标准规范。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 280, "type": "判断题", "question": "基础数据是指公司主要生产经营活动中直接产生的数据，反映业务实体特性和运行工况，具有唯一性、原生性、稳定性、高价值、高共享特性，包括台账、编码、拓扑、量测等数据。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 281, "type": "判断题", "question": "数据定源定责要坚持“一数一源、一源一责”的原则。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 282, "type": "判断题", "question": "数据生产主人是基础数据维护主体，负责职责范围内基础数据的生产、维护及问题治理工作。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 283, "type": "判断题", "question": "数据治理只需要IT部门参与，业务部门无需负责。", "options": ["对", "错"], "answer": "B", "analysis": "", "sheet": "判断题"}, {"id": 284, "type": "判断题", "question": "数据主人制，借鉴“设备主人制”管理理念，将数据主人作用延伸至数据管理全局工作中，解决基层数据管理职能薄弱、数据维护分散、治理层级冗长等问题。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 285, "type": "判断题", "question": "数据接口管理要求，对60天内无访问行为的数据接口及时处理。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 286, "type": "判断题", "question": "数据主人制借鉴电网设备主人管理模式，结合数据定源定责，按照“管业务必须管数据，管数据就是管业务”“谁产生、谁负责”的原则，依据数据产生、专业归属认定数据主人并形成闭环管理的一种数据管理机制。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 287, "type": "判断题", "question": "涉及负面清单的数据分域需求，无需向省级对应业务部门申请。", "options": ["对", "错"], "answer": "B", "analysis": "", "sheet": "判断题"}, {"id": 288, "type": "判断题", "question": "主数据用来描述公司核心业务实体、共享于多个业务流程或业务系统且具有高业务价值的标准数据，具有共享性、稳定性、必要性和及时性，是各业务应用之间进行信息交互的基础。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 289, "type": "判断题", "question": "数据合规管理是指以有效防控数据合规风险为首要目的，以公司及其员工的数据处理活动为对象，在法律、法规、规范性文件及标准的共同指引下，开展的有组织、有计划的管理活动。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 290, "type": "判断题", "question": "权威数据源指的是在信息学领域中，指具有权威性、可信度高、信息准确的原始信息来源。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 291, "type": "判断题", "question": "数据超市CBD是国网公司统推一级系统。", "options": ["对", "错"], "answer": "B", "analysis": "", "sheet": "判断题"}, {"id": 292, "type": "判断题", "question": "为进一步加强数据管理体系建设，互联网部组织制定了《国家电网有限公司数据管理办法》,明确建立数据共享负面清单，坚持“以共享为原则、不共享为例外”，原则上除列入负面清单的数据，其余数据均可在公司内部共享使用。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 293, "type": "判断题", "question": "数据集分为个人数据集和公共数据集两个模块。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 294, "type": "判断题", "question": "共享数据集取数分为，线下表格形式取数，api接口取数", "options": ["对", "错"], "answer": "B", "analysis": "", "sheet": "判断题"}, {"id": 295, "type": "判断题", "question": "数据分域工作要守好的底线是安全规范底线。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 296, "type": "判断题", "question": "Hive是一种数据仓库处理工具，使用类似SQL的HiveSQL语言实现数据查询功能，所有Hice的数据存储都存储在HDFS中。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 297, "type": "判断题", "question": "执行引擎的主要功能是解析用户输入的SQL查询，生成执行计划。", "options": ["对", "错"], "answer": "B", "analysis": "", "sheet": "判断题"}, {"id": 298, "type": "判断题", "question": "省信通公司负责\"审批-封装-发布\"流程处置的对象是数据接口。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 299, "type": "判断题", "question": "数据核验可以通过自动和手动执行核验过程，可以选择sql或存储过程。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 300, "type": "判断题", "question": "涉密事项目录仅需上级单位制定，基层单位无需参照执行。", "options": ["对", "错"], "answer": "B", "analysis": "", "sheet": "判断题"}, {"id": 301, "type": "判断题", "question": "数据准确性是指真实、准确地记录原始数据，无虚假数据及信息。例如员工的身份信息不必与身份证件上的信息保持一致。", "options": ["对", "错"], "answer": "B", "analysis": "", "sheet": "判断题"}, {"id": 302, "type": "判断题", "question": "权威数据源指的是在信息学领域中，指具有权威性、可信度高、信息准确的原始信息来源。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 303, "type": "判断题", "question": "数据定源定责要坚持“一数一源、一源一责”的原则。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 304, "type": "判断题", "question": "省信通公司是数据分域工作的技术支撑机构,省信通公司负责数据接口审批、封装、发布流程处理。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 305, "type": "判断题", "question": "数据运营是公司数据专业团队数据为核心生产要素，以工具和技术为生产工具，构建和维护数据全链条组织生态，通过数据融通沉淀共享，实现数据业务化和业务数据化的持续闭环，驱动公司数字化转型。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 306, "type": "判断题", "question": "数据合规管理是指以有效防控数据合规风险为首要目的，以公司及其员工的数据处理活动为对象，在法律、法规、规范性文件及标准的共同指引下，开展的有组织、有计划的管理活动。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 307, "type": "判断题", "question": "数据合规管理工作只遵循管技结合的原则即可。", "options": ["对", "错"], "answer": "B", "analysis": "", "sheet": "判断题"}, {"id": 308, "type": "判断题", "question": "在内网中，可以不经过领导同意，导出数据中台数据", "options": ["对", "错"], "answer": "B", "analysis": "", "sheet": "判断题"}, {"id": 309, "type": "判断题", "question": "《中华人民共和国网络安全法》就个人隐私保护做出了具体规定，要求搜集个人隐私信息应遵循“合法、正当、必要的原则”，“建立健全用户信息保护制度”。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 310, "type": "判断题", "question": "基层单位业务人员只能通过数据超市CBD中的数据目录申请数据资源。", "options": ["对", "错"], "answer": "B", "analysis": "", "sheet": "判断题"}, {"id": 311, "type": "判断题", "question": "对外提供的数据无需采取加密、隔离、备份等安全技术手段，保障数据传输、存储安全。", "options": ["对", "错"], "answer": "B", "analysis": "", "sheet": "判断题"}, {"id": 312, "type": "判断题", "question": "健全数据合规管理制度体系，按照“一般数据一类一审、重要数据一事一审、核心数据从严从紧”的原则，加强重要和核心数据安全管理，严格数据对外提供审批。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 313, "type": "判断题", "question": "数据中台对外提供可复用的数据处理服务。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 314, "type": "判断题", "question": "数据分级时采用就低不就高原则。", "options": ["对", "错"], "answer": "B", "analysis": "", "sheet": "判断题"}, {"id": 315, "type": "判断题", "question": "基层数据服务专区整体架构包含核心模块和辅助功能两部分，“数据看板、场景应用”两个核心模块遵循设计框架进行构建，“个人中心、需求提报、公共功能”等辅助模块按需构建。", "options": ["对", "错"], "answer": "B", "analysis": "", "sheet": "判断题"}, {"id": 316, "type": "判断题", "question": "共性数据集是通过提取热门数据公共业务逻辑，加入维度进行冗余和封装，形成便于快速查询和分析的一种数据集。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 317, "type": "判断题", "question": "为保障基层服务专区数据开放安全，需要根据数据使用范围进行用户权限拆分。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 318, "type": "判断题", "question": "数据服务管理发布流程主要包含服务开发、发布申请、服务审核、发布确认四个环节", "options": ["对", "错"], "answer": "B", "analysis": "", "sheet": "判断题"}, {"id": 319, "type": "判断题", "question": "围绕专区应用规模、基层覆盖率、成果规模、基层需求活跃度、公司级成果应用情况、跨单位成果推广情况及相关活动情况，打造基层服务监测运营看板；", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 320, "type": "判断题", "question": "基础数据管理主要包括数据主人制、数据源管理、数据质量管理、数据共享管理、保障与监督等", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 321, "type": "判断题", "question": "《中华人民共和国数据安全法》明确规定国家建立数据分类分级保护制度。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 322, "type": "判断题", "question": "数据处理者应当对其数据处理活动进行安全监测，发现数据安全缺陷、漏洞等风险时，应当立即采取补救措施。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 323, "type": "判断题", "question": "公司一般数据由低到高划分为 I 级到 IV 级四个级别。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 324, "type": "判断题", "question": "基础数据是指公司主要生产经营活动中直接产生的数据，反映业务实体特性和运行工况，具有唯一性、原生性、高价值、共享性", "options": ["对", "错"], "answer": "B", "analysis": "", "sheet": "判断题"}, {"id": 325, "type": "判断题", "question": "为保障基层服务专区数据开放安全，不需根据数据使用范围进行用户权限拆分。", "options": ["对", "错"], "answer": "B", "analysis": "", "sheet": "判断题"}, {"id": 326, "type": "判断题", "question": "共性数据集是通过提取热门数据公共业务逻辑，加入维度进行封装，形成便于快速查询和分析的一种数据集。", "options": ["对", "错"], "answer": "B", "analysis": "", "sheet": "判断题"}, {"id": 327, "type": "判断题", "question": "数据对外提供应遵守国家有关政策法规和公司管理规定要求，除国家机关依法调取数据外，原则上公司明细业务数据不对外提供。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 328, "type": "判断题", "question": "数据使用环节，应结合数据业务场景采用脱敏、水印、审计等技术手段实现差异化防护，遵循最小授权原则访问和处理个人信息和企业重要数据。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 329, "type": "判断题", "question": "将数据管理作为一项长期的持续性工作，加强数据盘点、数据标准、数据质量等基础建设工作，打造可靠的数据基础。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 330, "type": "判断题", "question": "公司各业务部门负责组织开展公司数据质量评估工作", "options": ["对", "错"], "answer": "B", "analysis": "", "sheet": "判断题"}, {"id": 331, "type": "判断题", "question": "数据是公司的战略性核心资源，属于公司重要资产。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 332, "type": "判断题", "question": "公司负面清单梳理遵循“最小化”原则，纳入负面清单的数据，均应有法律、法规或公司规章制度等依据。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 333, "type": "判断题", "question": "各单位数据共享应用遵循统一的数据共享应用流程，采取线上管理手段，数据需求方基于数据资源目录工具进行流程的发起、审批及授权使用。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 334, "type": "判断题", "question": "按照“统一规范”原则，新建数字化项目应全面应用公司统一数据模型（SG-CIM）、主数据和参考数据，做到公司数据标准统一。各业务部门应负责制定本专业数据质量标准，满足本专业数据共享应用需求。", "options": ["对", "错"], "answer": "B", "analysis": "", "sheet": "判断题"}, {"id": 335, "type": "判断题", "question": "按照“成本最优”原则，应根据业务使用数据情况，制定各业务系统数据资源管理策略，节约数据存放、算力、运维等成本。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 336, "type": "判断题", "question": "允许外部合作单位和供应商在对互联网提供服务的网络和信息系统中存储或运行公司商业秘密数据和重要数据。", "options": ["对", "错"], "answer": "B", "analysis": "", "sheet": "判断题"}, {"id": 337, "type": "判断题", "question": "公司商密数据可以传输和存储至互联网大区。", "options": ["对", "错"], "answer": "B", "analysis": "", "sheet": "判断题"}, {"id": 338, "type": "判断题", "question": "数据主人制借鉴电网设备主人管理模式，结合数据定源定责，按照“管业务必须管数据，管数据就是管业务”“谁产生、谁负责”的原则，依据数据产生、专业归属认定数据主人并形成闭环管理的一种数据管理机制。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 339, "type": "判断题", "question": "所有基础数据仅能在数据源进行录入和修改。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 340, "type": "判断题", "question": "“合同信息中的合同类型必须是合同类型基础数据中定义的枚举值”为数据完整性质量规则。", "options": ["对", "错"], "answer": "B", "analysis": "", "sheet": "判断题"}, {"id": 341, "type": "判断题", "question": "健全数据合规管理制度体系，按照“一般数据一类一审、重要数据一事一审、核心数据从严从紧”的原则，加强重要和核心数据安全管理，严格数据对外提供审批。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 342, "type": "判断题", "question": "禁止将涉及公司电网生产和经营管理的敏感数据、重要数据，以及数据产品、数据分析结果部署于社会网络（或系统）或托管于外单位。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 343, "type": "判断题", "question": "主数据用来描述公司核心业务实体、共享于多个业务流程或业务系统且具有高业务价值的标准数据，具有共享性、稳定性、必要性和及时性，是各业务应用之间进行信息交互的基础。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 344, "type": "判断题", "question": "公司应结合数据目录更新和数据共享应用情况，常态开展负面清单更新维护。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 345, "type": "判断题", "question": "基层单位业务人员只能通过数据超市CBD中的数据目录申请数据资源。", "options": ["对", "错"], "answer": "B", "analysis": "", "sheet": "判断题"}, {"id": 346, "type": "判断题", "question": "权威数据源指的是在信息学领域中，指具有权威性、可信度高、信息准确的原始信息来源。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 347, "type": "判断题", "question": "数据定源定责要坚持“一数一源、一源一责”的原则。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 348, "type": "判断题", "question": "数据运营是公司数据专业团队数据为核心生产要素，以工具和技术为生产工具，构建和维护数据全链条组织生态，通过数据融通沉淀共享，实现数据业务化和业务数据化的持续闭环，驱动公司数字化转型。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 349, "type": "判断题", "question": "数据合规管理是指以有效防控数据合规风险为首要目的，以公司及其员工的数据处理活动为对象，在法律、法规、规范性文件及标准的共同指引下，开展的有组织、有计划的管理活动。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 350, "type": "判断题", "question": "数据合规管理工作只遵循管技结合的原则即可。", "options": ["对", "错"], "answer": "B", "analysis": "", "sheet": "判断题"}, {"id": 351, "type": "判断题", "question": "做好数据识别和分类分级，通过数据盘点理清数据状况，建立数据目录，以数据目录为基础梳理形成数据共享负面清单，结合负面清单明细进行数据安全分级，识别数据保护对象。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 352, "type": "判断题", "question": "加强数据安全标识、数据源鉴别等技术应用，对采集数据进行有效性、合理性校验。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 353, "type": "判断题", "question": "数据传输环节，在互联网大区传输重要数据时应加密保护。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 354, "type": "判断题", "question": "落实重要数据备份、访问控制、安全审计等技术应用。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 355, "type": "判断题", "question": "数据使用环节，应结合数据业务场景采用脱敏、水印、审计等技术手段实现差异化防护，遵循最小授权原则访问和处理个人信息和企业重要数据。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 356, "type": "判断题", "question": "加强数据安全监测、预警、审计和处置能力建设，提高对各类数据安全事件发现、响应和溯源能力。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 357, "type": "判断题", "question": "分析应用类需求建设实施过程中，应按照“一源多用”的原则，开展数据需求审查，避免重复建设。（）", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 358, "type": "判断题", "question": "数据质量是指数据及时、准确、完整、合规反映业务运行和满足各类应用的程度。（）", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 359, "type": "判断题", "question": "SG-CIM数据模型是对公司运营和管理过程中涉及的业务概念、逻辑规则等进行的抽象和模拟，分为概念模型、逻辑模型和底层模型。（）", "options": ["对", "错"], "answer": "B", "analysis": "", "sheet": "判断题"}, {"id": 360, "type": "判断题", "question": "禁止将涉及公司电网生产和经营管理的敏感数据、重要数据，以及数据产品、数据分析结果部署于社会网络（或系统）或托管于外单位。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 361, "type": "判断题", "question": "基层单位业务人员可以通过数字化能力开放平台进入基层服务专区，也可从数据超市CBD进入基层服务专区。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}, {"id": 362, "type": "判断题", "question": "元数据只需采集一次，后续无需维护更新。", "options": ["对", "错"], "answer": "B", "analysis": "", "sheet": "判断题"}, {"id": 363, "type": "判断题", "question": "数据中台主要覆盖数据接入、存储计算、数据分析、数据资产管理、数据运营管理以及数据服务等方面能力。", "options": ["对", "错"], "answer": "A", "analysis": "", "sheet": "判断题"}];
+
+        let currentStreak = 0;
+
+        // 检测 localStorage 是否可用
+        function isLocalStorageAvailable() {
+            try {
+                const test = '__storage_test__';
+                localStorage.setItem(test, test);
+                localStorage.removeItem(test);
+                return true;
+            } catch (e) {
+                return false;
+            }
+        }
+        const storageAvailable = isLocalStorageAvailable();
+        let memoryStorage = null; // file:// 协议下的备用存储
+
+        // ===== 初始化 =====
+        async function init() {
+            loadUserData();
+            await loadQuestions();
+            updateHomeStats();
+            applySettings();
+        }
+
+        // ===== 加载题目 =====
+        async function loadQuestions() {
+            // 统一题型名称
+            function normalizeTypes(qs) {
+                qs.forEach(q => {
+                    if (q.type === '单选') q.type = '单选题';
+                    if (q.type === '多选') q.type = '多选题';
+                    if (q.type === '判断') q.type = '判断题';
+                });
+            }
+
+            // 优先尝试 fetch 加载（HTTP 服务器下更高效）
+            try {
+                const response = await fetch('questions.json');
+                if (response.ok) {
+                    questions = await response.json();
+                    normalizeTypes(questions);
+                    console.log('通过 fetch 加载题库成功，共 ' + questions.length + ' 题');
+                    return;
+                }
+            } catch (e) {
+                console.log('fetch 加载失败，尝试内嵌数据:', e.message);
+            }
+
+            // fetch 失败时使用内嵌数据（支持 file:// 协议直接打开）
+            if (typeof EMBEDDED_QUESTIONS !== 'undefined' && EMBEDDED_QUESTIONS.length > 0) {
+                questions = EMBEDDED_QUESTIONS;
+                normalizeTypes(questions);
+                console.log('使用内嵌题库数据，共 ' + questions.length + ' 题');
+            } else {
+                console.error('加载题目失败');
+                alert('加载题库失败，请检查questions.json文件是否存在');
+            }
+        }
+
+        // ===== 本地存储 =====
+        function saveUserData() {
+            try {
+                const data = {
+                    doneQuestions: Array.from(userData.doneQuestions),
+                    correctQuestions: Array.from(userData.correctQuestions),
+                    wrongQuestions: Array.from(userData.wrongQuestions.entries()),
+                    favoriteQuestions: Array.from(userData.favoriteQuestions),
+                    questionStats: userData.questionStats,
+                    history: userData.history,
+                    settings: userData.settings,
+                    dailyStats: userData.dailyStats,
+                    totalAnswerCount: userData.totalAnswerCount || 0,
+                    sequenceProgress: userData.sequenceProgress || 0
+                };
+                if (storageAvailable) {
+                    localStorage.setItem('quizUserData', JSON.stringify(data));
+                } else {
+                    memoryStorage = data;
+                }
+            } catch (e) {
+                console.error('保存数据失败:', e);
+            }
+        }
+
+        function loadUserData() {
+            let data = null;
+            if (storageAvailable) {
+                const saved = localStorage.getItem('quizUserData');
+                if (saved) data = JSON.parse(saved);
+            } else {
+                data = memoryStorage;
+            }
+            if (data) {
+                userData.doneQuestions = new Set(data.doneQuestions || []);
+                userData.correctQuestions = new Set(data.correctQuestions || []);
+                userData.wrongQuestions = new Map(data.wrongQuestions || []);
+                userData.favoriteQuestions = new Set(data.favoriteQuestions || []);
+                userData.questionStats = data.questionStats || {};
+                userData.history = data.history || [];
+                userData.settings = data.settings || { autoShowAnalysis: true, vibrateOnWrong: true, darkMode: false };
+                userData.dailyStats = data.dailyStats || {};
+                userData.totalAnswerCount = data.totalAnswerCount || 0;
+                userData.sequenceProgress = data.sequenceProgress || 0;
+            }
+        }
+
+        // ===== 页面导航 =====
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+
+            const header = document.getElementById('commonHeader');
+            const titles = {
+                pageHome: '四川公司大模型竞赛题库',
+                pageQuiz: '刷题中',
+                pageStats: '学习统计',
+                pageWrong: '错题本',
+                pageSearch: '题目搜索',
+                pageHistory: '练习记录',
+                pageSettings: '设置',
+                pageAbout: '关于'
+            };
+
+            if (pageId === 'pageHome') {
+                header.style.display = 'none';
+                updateHomeStats();
+            } else {
+                header.style.display = 'block';
+                document.getElementById('headerTitle').textContent = titles[pageId] || '刷题';
+                document.getElementById('timerDisplay').style.display = 'none';
+            }
+
+            if (pageId === 'pageStats') renderStats();
+            if (pageId === 'pageWrong') renderWrongList();
+            if (pageId === 'pageHistory') renderHistory();
+
+            window.scrollTo(0, 0);
+        }
+
+        function goBack() {
+            const activePage = document.querySelector('.page.active');
+            if (activePage.id === 'pageQuiz') {
+                if (confirm('确定要退出当前练习吗？进度将保存。')) {
+                    stopTimer();
+                    // 保存所有模式的进度和数据
+                    if (currentQuiz.mode === 'sequence') {
+                        userData.sequenceProgress = currentQuiz.currentIndex;
+                    }
+                    saveUserData();
+                    showPage('pageHome');
+                }
+            } else {
+                showPage('pageHome');
+            }
+        }
+
+        // ===== 首页统计 =====
+        function updateHomeStats() {
+            const doneCount = userData.doneQuestions.size;
+            const totalCount = questions.length;
+            document.getElementById('homeTotalQuestions').textContent = doneCount + '/' + totalCount;
+            document.getElementById('homeDoneCount').textContent = userData.totalAnswerCount || 0;
+
+            // 正确率 = 累计正确数 / 累计刷题数
+            const totalAnswered = userData.totalAnswerCount || 0;
+            const accuracy = totalAnswered > 0
+                ? Math.round((userData.correctQuestions.size / totalAnswered) * 100)
+                : 0;
+            document.getElementById('homeAccuracy').textContent = accuracy + '%';
+        }
+
+        // ===== 开始刷题 =====
+        function startQuiz(mode) {
+            if (questions.length === 0) {
+                alert('题库加载中，请稍后再试');
+                return;
+            }
+
+            let quizQuestions = [];
+
+            switch (mode) {
+                case 'sequence':
+                    quizQuestions = [...questions];
+                    break;
+                case 'random':
+                    quizQuestions = shuffleArray([...questions]).slice(0, Math.min(50, questions.length));
+                    break;
+                case 'wrong':
+                    const wrongIds = Array.from(userData.wrongQuestions.keys());
+                    if (wrongIds.length === 0) {
+                        alert('暂无错题，先去刷题吧！');
+                        return;
+                    }
+                    quizQuestions = questions.filter(q => wrongIds.includes(q.id));
+                    break;
+                case 'favorite':
+                    if (userData.favoriteQuestions.size === 0) {
+                        alert('暂无收藏题目');
+                        return;
+                    }
+                    quizQuestions = questions.filter(q => userData.favoriteQuestions.has(q.id));
+                    break;
+            }
+
+            if (quizQuestions.length === 0) {
+                alert('没有符合条件的题目');
+                return;
+            }
+
+            currentQuiz = {
+                mode: mode,
+                questions: quizQuestions,
+                currentIndex: 0,
+                answers: {},
+                results: {},
+                startTime: Date.now(),
+                timerInterval: null
+            };
+
+            // 顺序刷题恢复进度：与已刷题数保持一致
+            if (mode === 'sequence') {
+                // 确保 sequenceProgress 和 doneQuestions.size 同步
+                const progress = Math.max(userData.sequenceProgress || 0, userData.doneQuestions.size);
+                userData.sequenceProgress = progress;
+                currentQuiz.currentIndex = progress;
+            }
+
+            showPage('pageQuiz');
+            document.getElementById('timerDisplay').style.display = 'flex';
+            startTimer();
+            renderQuestion();
+        }
+
+        // ===== 自由组卷 =====
+        function showCustomModal() {
+            document.getElementById('customModal').classList.add('active');
+        }
+
+        function closeCustomModal() {
+            document.getElementById('customModal').classList.remove('active');
+        }
+
+        function toggleChip(el, group, value) {
+            if (group === 'customType') {
+                el.classList.toggle('active');
+                customSettings.types = Array.from(document.querySelectorAll('#customModal .setting-chip[data-value="single"], #customModal .setting-chip[data-value="multi"], #customModal .setting-chip[data-value="judge"]'))
+                    .filter(c => c.classList.contains('active'))
+                    .map(c => c.dataset.value);
+            } else if (group === 'customMode') {
+                document.querySelectorAll('#customModal .setting-chip[data-value="random"], #customModal .setting-chip[data-value="sequence"]').forEach(c => c.classList.remove('active'));
+                el.classList.add('active');
+                customSettings.mode = value;
+            }
+        }
+
+        function startCustomQuiz() {
+            const count = parseInt(document.getElementById('customCount').value) || 20;
+            const typeMap = { 'single': '单选题', 'multi': '多选题', 'judge': '判断题' };
+            const selectedTypes = customSettings.types.map(t => typeMap[t]).filter(Boolean);
+
+            if (selectedTypes.length === 0) {
+                alert('请至少选择一种题型');
+                return;
+            }
+
+            let filtered = questions.filter(q => selectedTypes.includes(q.type));
+            if (filtered.length === 0) {
+                alert('没有符合条件的题目');
+                return;
+            }
+
+            if (customSettings.mode === 'random') {
+                filtered = shuffleArray(filtered);
+            }
+
+            currentQuiz = {
+                mode: 'custom',
+                questions: filtered.slice(0, Math.min(count, filtered.length)),
+                currentIndex: 0,
+                answers: {},
+                results: {},
+                startTime: Date.now(),
+                timerInterval: null
+            };
+
+            closeCustomModal();
+            showPage('pageQuiz');
+            document.getElementById('timerDisplay').style.display = 'flex';
+            startTimer();
+            renderQuestion();
+        }
+
+        // ===== 渲染题目 =====
+        function renderQuestion() {
+            const q = currentQuiz.questions[currentQuiz.currentIndex];
+            const container = document.getElementById('quizContainer');
+            const isAnswered = currentQuiz.results[q.id] !== undefined;
+            const result = currentQuiz.results[q.id];
+
+            // 更新进度
+            const progress = ((currentQuiz.currentIndex + 1) / currentQuiz.questions.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('progressText').textContent = `第 ${currentQuiz.currentIndex + 1} / ${currentQuiz.questions.length} 题`;
+            document.getElementById('progressPercent').textContent = Math.round(progress) + '%';
+
+            // 题型标签
+            const typeClass = q.type === '单选题' ? 'badge-single' : q.type === '多选题' ? 'badge-multi' : 'badge-judge';
+            const typeIcon = q.type === '单选题' ? '●' : q.type === '多选题' ? '◆' : '▲';
+
+            // 选项渲染
+            let optionsHtml = '';
+            if (q.type === '判断题') {
+                const judgeOptions = [
+                    { letter: 'A', text: '正确' },
+                    { letter: 'B', text: '错误' }
+                ];
+                optionsHtml = judgeOptions.map(opt => {
+                    const selected = currentQuiz.answers[q.id] === opt.letter;
+                    let cls = 'option-item';
+                    if (isAnswered) {
+                        cls += ' disabled';
+                        if (opt.letter === q.answer) cls += ' correct';
+                        else if (selected && opt.letter !== q.answer) cls += ' wrong';
+                    } else if (selected) {
+                        cls += ' selected';
+                    }
+                    return `<div class="${cls}" onclick="selectOption('${opt.letter}')">
+                        <div class="option-letter">${opt.letter}</div>
+                        <div class="option-text">${opt.text}</div>
+                    </div>`;
+                }).join('');
+            } else {
+                const isMulti = q.type === '多选题';
+                const userAnswer = currentQuiz.answers[q.id] || '';
+                optionsHtml = q.options.map((opt, idx) => {
+                    const letter = String.fromCharCode(65 + idx);
+                    const selected = isMulti ? userAnswer.includes(letter) : userAnswer === letter;
+                    let cls = 'option-item';
+                    if (isAnswered) {
+                        cls += ' disabled';
+                        if (q.answer.includes(letter)) cls += ' correct';
+                        else if (selected && !q.answer.includes(letter)) cls += ' wrong';
+                    } else if (selected) {
+                        cls += ' selected';
+                    }
+                    return `<div class="${cls}" onclick="selectOption('${letter}')">
+                        <div class="option-letter">${letter}</div>
+                        <div class="option-text">${opt}</div>
+                    </div>`;
+                }).join('');
+            }
+
+            // 累计答题统计
+            const qStats = userData.questionStats[q.id] || { correct: 0, wrong: 0, total: 0 };
+            const qAccuracy = qStats.total > 0 ? Math.round((qStats.correct / qStats.total) * 100) : 0;
+            const statsHtml = `
+                <div style="margin-top:16px;padding:12px 16px;background:var(--gray-50);border-radius:10px;font-size:13px;color:var(--gray-600);display:flex;gap:16px;flex-wrap:wrap;">
+                    <span>📊 累计答对：<strong style="color:var(--success);">${qStats.correct}</strong> 次</span>
+                    <span>📝 总答题：<strong>${qStats.total}</strong> 次</span>
+                    <span>🎯 正确率：<strong style="color:var(--primary);">${qAccuracy}%</strong></span>
+                </div>
+            `;
+
+            // 解析
+            let analysisHtml = '';
+            if (isAnswered && result !== undefined) {
+                const isCorrect = result === true;
+                analysisHtml = `
+                    <div class="answer-analysis">
+                        <div class="answer-result ${isCorrect ? 'result-correct' : 'result-wrong'}">
+                            ${isCorrect ? '✓ 回答正确' : '✗ 回答错误'}
+                            <span style="color:var(--gray-500);font-weight:400;margin-left:8px;">正确答案：${q.answer}</span>
+                        </div>
+                        ${q.analysis ? `<div class="analysis-title">📖 答案解析</div><div class="analysis-content">${q.analysis}</div>` : ''}
+                    </div>
+                `;
+            }
+
+            // 收藏按钮
+            const isFav = userData.favoriteQuestions.has(q.id);
+
+            container.innerHTML = `
+                <div class="question-card">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                        <span class="question-type-badge ${typeClass}">${typeIcon} ${q.type}</span>
+                        <button class="favorite-btn ${isFav ? 'active' : ''}" onclick="toggleFavorite(${q.id})">
+                            ${isFav ? '★' : '☆'}
+                        </button>
+                    </div>
+                    <div class="question-text">${q.question}</div>
+                    ${q.type === '多选题' && !isAnswered ? '<div style="font-size:12px;color:var(--gray-400);margin-bottom:12px;">提示：多选题可选择多个选项，点击已选选项可取消</div>' : ''}
+                    <div class="options-list">${optionsHtml}</div>
+                    ${analysisHtml}
+                    ${statsHtml}
+                </div>
+            `;
+
+            // 按钮状态
+            document.getElementById('btnPrev').style.display = currentQuiz.currentIndex > 0 ? 'flex' : 'none';
+            if (isAnswered) {
+                document.getElementById('btnSubmit').style.display = 'none';
+                document.getElementById('btnNext').style.display = 'flex';
+                if (currentQuiz.currentIndex === currentQuiz.questions.length - 1) {
+                    document.getElementById('btnNext').textContent = '完成练习';
+                } else {
+                    document.getElementById('btnNext').textContent = '下一题';
+                }
+            } else {
+                document.getElementById('btnSubmit').style.display = 'flex';
+                document.getElementById('btnNext').style.display = 'none';
+            }
+        }
+
+        // ===== 选择选项 =====
+        function selectOption(letter) {
+            const q = currentQuiz.questions[currentQuiz.currentIndex];
+            if (currentQuiz.results[q.id] !== undefined) return;
+
+            if (q.type === '多选题') {
+                // 多选题：toggle选择/取消
+                let selected = currentQuiz.answers[q.id] || '';
+                if (selected.includes(letter)) {
+                    selected = selected.replace(letter, '');
+                } else {
+                    selected += letter;
+                }
+                // 按字母顺序排序
+                currentQuiz.answers[q.id] = selected.split('').sort().join('');
+                renderQuestion();
+            } else {
+                // 单选/判断：直接替换并自动提交
+                currentQuiz.answers[q.id] = letter;
+                renderQuestion();
+                // 自动提交答案
+                setTimeout(() => submitAnswer(), 100);
+            }
+        }
+
+        // ===== 提交答案 =====
+        function submitAnswer() {
+            const q = currentQuiz.questions[currentQuiz.currentIndex];
+            const userAnswer = currentQuiz.answers[q.id];
+            if (!userAnswer) {
+                alert('请先选择答案');
+                return;
+            }
+
+            // 多选题答案比较：排序后对比
+            const correctAnswer = q.answer.split('').sort().join('');
+            const userAnswerSorted = userAnswer.split('').sort().join('');
+            const isCorrect = userAnswerSorted === correctAnswer;
+            currentQuiz.results[q.id] = isCorrect;
+
+            // 更新统计数据
+            userData.doneQuestions.add(q.id);
+            if (!userData.questionStats[q.id]) {
+                userData.questionStats[q.id] = { correct: 0, wrong: 0, total: 0 };
+            }
+            userData.questionStats[q.id].total++;
+            userData.totalAnswerCount = (userData.totalAnswerCount || 0) + 1;
+
+            if (isCorrect) {
+                userData.correctQuestions.add(q.id);
+                userData.questionStats[q.id].correct++;
+                userData.wrongQuestions.delete(q.id);
+                currentStreak++;
+                showStreak();
+            } else {
+                userData.wrongQuestions.set(q.id, (userData.wrongQuestions.get(q.id) || 0) + 1);
+                userData.questionStats[q.id].wrong++;
+                currentStreak = 0;
+                hideStreak();
+
+                if (userData.settings.vibrateOnWrong && navigator.vibrate) {
+                    navigator.vibrate(200);
+                }
+            }
+
+            // 每日统计
+            const today = new Date().toISOString().split('T')[0];
+            if (!userData.dailyStats[today]) userData.dailyStats[today] = 0;
+            userData.dailyStats[today]++;
+
+            // 顺序刷题实时保存进度
+            if (currentQuiz.mode === 'sequence') {
+                userData.sequenceProgress = currentQuiz.currentIndex;
+            }
+
+            saveUserData();
+            renderQuestion();
+        }
+
+        // ===== 上一题/下一题 =====
+        function prevQuestion() {
+            if (currentQuiz.currentIndex > 0) {
+                currentQuiz.currentIndex--;
+                renderQuestion();
+                window.scrollTo(0, 0);
+            }
+        }
+
+        function nextQuestion() {
+            if (currentQuiz.currentIndex < currentQuiz.questions.length - 1) {
+                currentQuiz.currentIndex++;
+                // 顺序刷题实时保存进度
+                if (currentQuiz.mode === 'sequence') {
+                    userData.sequenceProgress = currentQuiz.currentIndex;
+                    saveUserData();
+                }
+                renderQuestion();
+                window.scrollTo(0, 0);
+            } else {
+                finishQuiz();
+            }
+        }
+
+        // ===== 完成练习 =====
+        function finishQuiz() {
+            stopTimer();
+            const correct = Object.values(currentQuiz.results).filter(r => r).length;
+            const total = currentQuiz.questions.length;
+            const accuracy = Math.round((correct / total) * 100);
+            const duration = Math.floor((Date.now() - currentQuiz.startTime) / 1000);
+
+            // 保存记录
+            userData.history.unshift({
+                date: new Date().toISOString(),
+                mode: currentQuiz.mode,
+                total: total,
+                correct: correct,
+                accuracy: accuracy,
+                duration: duration
+            });
+            if (userData.history.length > 50) userData.history.pop();
+            saveUserData();
+
+            alert(`练习完成！\n共 ${total} 题，正确 ${correct} 题\n正确率：${accuracy}%\n用时：${formatTime(duration)}`);
+            showPage('pageHome');
+        }
+
+        // ===== 计时器 =====
+        function startTimer() {
+            stopTimer();
+            currentQuiz.timerInterval = setInterval(() => {
+                const elapsed = Math.floor((Date.now() - currentQuiz.startTime) / 1000);
+                document.getElementById('timerDisplay').textContent = formatTime(elapsed);
+            }, 1000);
+        }
+
+        function stopTimer() {
+            if (currentQuiz.timerInterval) {
+                clearInterval(currentQuiz.timerInterval);
+                currentQuiz.timerInterval = null;
+            }
+        }
+
+        function formatTime(seconds) {
+            const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+            const s = (seconds % 60).toString().padStart(2, '0');
+            return `${m}:${s}`;
+        }
+
+        // ===== 连续正确提示 =====
+        function showStreak() {
+            if (currentStreak >= 3) {
+                document.getElementById('streakCount').textContent = currentStreak;
+                document.getElementById('streakBadge').classList.add('active');
+                setTimeout(hideStreak, 2000);
+            }
+        }
+
+        function hideStreak() {
+            document.getElementById('streakBadge').classList.remove('active');
+        }
+
+        // ===== 收藏 =====
+        function toggleFavorite(qid) {
+            if (userData.favoriteQuestions.has(qid)) {
+                userData.favoriteQuestions.delete(qid);
+            } else {
+                userData.favoriteQuestions.add(qid);
+            }
+            saveUserData();
+            renderQuestion();
+        }
+
+        // ===== 答题卡 =====
+        function toggleAnswerSheet() {
+            const modal = document.getElementById('answerSheetModal');
+            if (modal.classList.contains('active')) {
+                closeAnswerSheet();
+            } else {
+                renderAnswerSheet();
+                modal.classList.add('active');
+            }
+        }
+
+        function closeAnswerSheet() {
+            document.getElementById('answerSheetModal').classList.remove('active');
+        }
+
+        function renderAnswerSheet() {
+            const grid = document.getElementById('answerSheetGrid');
+            grid.innerHTML = currentQuiz.questions.map((q, idx) => {
+                const answered = currentQuiz.answers[q.id] !== undefined;
+                const result = currentQuiz.results[q.id];
+                let cls = 'answer-sheet-item';
+                if (result === true) cls += ' correct';
+                else if (result === false) cls += ' wrong';
+                else if (answered) cls += ' answered';
+                if (idx === currentQuiz.currentIndex) cls += ' current';
+                return `<div class="${cls}" onclick="jumpToQuestion(${idx})">${idx + 1}</div>`;
+            }).join('');
+        }
+
+        function jumpToQuestion(index) {
+            currentQuiz.currentIndex = index;
+            closeAnswerSheet();
+            renderQuestion();
+            window.scrollTo(0, 0);
+        }
+
+        // ===== 统计页面 =====
+        function renderStats() {
+            const total = questions.length;
+            const done = userData.doneQuestions.size;
+            const correct = userData.correctQuestions.size;
+            const wrong = userData.wrongQuestions.size;
+            const accuracy = done > 0 ? Math.round((correct / done) * 100) : 0;
+
+            document.getElementById('statsAccuracy').textContent = accuracy + '%';
+            document.getElementById('statsTotal').textContent = total;
+            document.getElementById('statsDone').textContent = done;
+            document.getElementById('statsCorrect').textContent = correct;
+            document.getElementById('statsWrong').textContent = wrong;
+
+            // 环形进度
+            const circumference = 2 * Math.PI * 52;
+            const offset = circumference - (accuracy / 100) * circumference;
+            document.getElementById('accuracyRing').style.strokeDashoffset = offset;
+
+            // 各题型正确率
+            const typeStats = {};
+            questions.forEach(q => {
+                if (!typeStats[q.type]) typeStats[q.type] = { total: 0, correct: 0 };
+                if (userData.doneQuestions.has(q.id)) {
+                    typeStats[q.type].total++;
+                    if (userData.correctQuestions.has(q.id)) {
+                        typeStats[q.type].correct++;
+                    }
+                }
+            });
+
+            const chartContainer = document.getElementById('typeAccuracyChart');
+            const colors = ['blue', 'green', 'orange'];
+            chartContainer.innerHTML = Object.entries(typeStats).map(([type, stat], idx) => {
+                const pct = stat.total > 0 ? Math.round((stat.correct / stat.total) * 100) : 0;
+                return `
+                    <div class="bar-item">
+                        <div class="bar-label">${type}</div>
+                        <div class="bar-track">
+                            <div class="bar-fill ${colors[idx % colors.length]}" style="width:${pct}%">
+                                <span class="bar-value">${pct}%</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // TOP10错题
+            const wrongList = Array.from(userData.wrongQuestions.entries())
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 10);
+
+            const topWrongContainer = document.getElementById('topWrongList');
+            if (wrongList.length === 0) {
+                topWrongContainer.innerHTML = '<div class="empty-state"><div class="empty-state-icon">🎉</div><div class="empty-state-text">太棒了！还没有错题</div></div>';
+            } else {
+                topWrongContainer.innerHTML = wrongList.map(([qid, count]) => {
+                    const q = questions.find(q => q.id === qid);
+                    if (!q) return '';
+                    const stats = userData.questionStats[qid] || { correct: 0, wrong: count, total: count };
+                    const acc = stats.total > 0 ? Math.round((stats.correct / stats.total) * 100) : 0;
+                    const typeClass = q.type === '单选题' ? 'badge-single' : q.type === '多选题' ? 'badge-multi' : 'badge-judge';
+                    return `
+                        <div class="wrong-item" onclick="startQuizWithQuestion(${qid})">
+                            <div class="wrong-item-header">
+                                <span class="wrong-item-type ${typeClass}">${q.type}</span>
+                                <span class="wrong-item-count">错 ${count} 次</span>
+                            </div>
+                            <div class="wrong-item-text">${q.question}</div>
+                            <div class="wrong-item-accuracy">该题正确率：${acc}%（${stats.correct}/${stats.total}）</div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            // 每日刷题量
+            const dates = [];
+            for (let i = 6; i >= 0; i--) {
+                const d = new Date();
+                d.setDate(d.getDate() - i);
+                dates.push(d.toISOString().split('T')[0]);
+            }
+
+            const maxDaily = Math.max(...dates.map(d => userData.dailyStats[d] || 0), 1);
+            const dailyContainer = document.getElementById('dailyChart');
+            dailyContainer.innerHTML = dates.map(date => {
+                const count = userData.dailyStats[date] || 0;
+                const pct = (count / maxDaily) * 100;
+                const label = date.slice(5).replace('-', '/');
+                return `
+                    <div class="bar-item">
+                        <div class="bar-label">${label}</div>
+                        <div class="bar-track">
+                            <div class="bar-fill blue" style="width:${Math.max(pct, 5)}%">
+                                <span class="bar-value">${count}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ===== 错题本 =====
+        function renderWrongList() {
+            const wrongIds = Array.from(userData.wrongQuestions.keys());
+            const container = document.getElementById('wrongList');
+
+            if (wrongIds.length === 0) {
+                container.innerHTML = '<div class="empty-state"><div class="empty-state-icon">🎉</div><div class="empty-state-text">太棒了！还没有错题</div></div>';
+                return;
+            }
+
+            container.innerHTML = wrongIds.map(qid => {
+                const q = questions.find(q => q.id === qid);
+                if (!q) return '';
+                const count = userData.wrongQuestions.get(qid) || 0;
+                const stats = userData.questionStats[qid] || { correct: 0, wrong: count, total: count };
+                const acc = stats.total > 0 ? Math.round((stats.correct / stats.total) * 100) : 0;
+                const typeClass = q.type === '单选题' ? 'badge-single' : q.type === '多选题' ? 'badge-multi' : 'badge-judge';
+                return `
+                    <div class="wrong-item" onclick="startQuizWithQuestion(${qid})">
+                        <div class="wrong-item-header">
+                            <span class="wrong-item-type ${typeClass}">${q.type}</span>
+                            <span class="wrong-item-count">错 ${count} 次</span>
+                        </div>
+                        <div class="wrong-item-text">${q.question}</div>
+                        <div class="wrong-item-accuracy">正确率：${acc}% | 总练习：${stats.total} 次</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function filterWrongQuestions() {
+            const keyword = document.getElementById('wrongSearchInput').value.toLowerCase();
+            const items = document.querySelectorAll('#wrongList .wrong-item');
+            items.forEach(item => {
+                const text = item.querySelector('.wrong-item-text').textContent.toLowerCase();
+                item.style.display = text.includes(keyword) ? 'block' : 'none';
+            });
+        }
+
+        // ===== 搜索 =====
+        function searchQuestions() {
+            const keyword = document.getElementById('searchInput').value.toLowerCase().trim();
+            const container = document.getElementById('searchResults');
+
+            if (!keyword) {
+                container.innerHTML = '';
+                return;
+            }
+
+            const results = questions.filter(q =>
+                q.question.toLowerCase().includes(keyword) ||
+                q.options.some(o => o.toLowerCase().includes(keyword))
+            ).slice(0, 20);
+
+            if (results.length === 0) {
+                container.innerHTML = '<div class="empty-state"><div class="empty-state-icon">🔍</div><div class="empty-state-text">未找到相关题目</div></div>';
+                return;
+            }
+
+            container.innerHTML = results.map(q => {
+                const typeClass = q.type === '单选题' ? 'badge-single' : q.type === '多选题' ? 'badge-multi' : 'badge-judge';
+                return `
+                    <div class="wrong-item" onclick="startQuizWithQuestion(${q.id})">
+                        <div class="wrong-item-header">
+                            <span class="wrong-item-type ${typeClass}">${q.type}</span>
+                        </div>
+                        <div class="wrong-item-text">${highlightText(q.question, keyword)}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function highlightText(text, keyword) {
+            const regex = new RegExp(`(${keyword})`, 'gi');
+            return text.replace(regex, '<mark style="background:var(--warning-light);color:var(--warning);padding:1px 3px;border-radius:3px;">$1</mark>');
+        }
+
+        // ===== 从指定题目开始 =====
+        function startQuizWithQuestion(qid) {
+            const index = questions.findIndex(q => q.id === qid);
+            if (index === -1) return;
+
+            currentQuiz = {
+                mode: 'sequence',
+                questions: [questions[index]],
+                currentIndex: 0,
+                answers: {},
+                results: {},
+                startTime: Date.now(),
+                timerInterval: null
+            };
+
+            showPage('pageQuiz');
+            document.getElementById('timerDisplay').style.display = 'flex';
+            startTimer();
+            renderQuestion();
+        }
+
+        // ===== 练习记录 =====
+        function renderHistory() {
+            const container = document.getElementById('historyList');
+            if (userData.history.length === 0) {
+                container.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📋</div><div class="empty-state-text">暂无练习记录</div></div>';
+                return;
+            }
+
+            const modeNames = {
+                'sequence': '顺序刷题',
+                'random': '随机刷题',
+                'custom': '自由组卷',
+                'wrong': '错题重做',
+                'favorite': '收藏题目'
+            };
+
+            container.innerHTML = userData.history.slice(0, 20).map(h => {
+                const date = new Date(h.date);
+                const dateStr = `${date.getMonth() + 1}/${date.getDate()} ${date.getHours()}:${date.getMinutes().toString().padStart(2, '0')}`;
+                return `
+                    <div class="history-item">
+                        <div class="history-info">
+                            <div class="history-title">${modeNames[h.mode] || h.mode}</div>
+                            <div class="history-meta">${dateStr} · ${h.total}题 · ${formatTime(h.duration)}</div>
+                        </div>
+                        <div class="history-score">${h.accuracy}%</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ===== 设置 =====
+        function toggleSetting(el, key, value) {
+            const parent = el.parentElement;
+            parent.querySelectorAll('.setting-chip').forEach(c => c.classList.remove('active'));
+            el.classList.add('active');
+            userData.settings[key] = value;
+
+            if (key === 'darkMode') {
+                document.body.classList.toggle('dark-mode', value);
+            }
+
+            saveUserData();
+        }
+
+        function setFontSize(size) {
+            document.body.setAttribute('data-font-size', size === 'normal' ? '' : size);
+            userData.settings.fontSize = size;
+
+            // 更新设置页面按钮状态
+            const container = document.getElementById('fontSizeOptions');
+            if (container) {
+                container.querySelectorAll('.setting-chip').forEach(c => c.classList.remove('active'));
+                const labels = { small: 0, normal: 1, large: 2, xlarge: 3 };
+                const idx = labels[size];
+                if (idx !== undefined && container.children[idx]) {
+                    container.children[idx].classList.add('active');
+                }
+            }
+
+            saveUserData();
+        }
+
+        function applySettings() {
+            if (userData.settings.darkMode) {
+                document.body.classList.add('dark-mode');
+            }
+            // 应用字体大小
+            const fontSize = userData.settings.fontSize || 'normal';
+            if (fontSize !== 'normal') {
+                document.body.setAttribute('data-font-size', fontSize);
+            }
+        }
+
+        function resetSequenceProgress() {
+            if (confirm('确定要重置顺序刷题进度吗？已刷题数将清零，但累计刷题数和正确率统计保留。')) {
+                userData.sequenceProgress = 0;
+                userData.doneQuestions = new Set(); // 已刷题数清零
+                saveUserData();
+                updateHomeStats();
+                alert('顺序刷题进度已重置，已刷题数清零');
+            }
+        }
+
+        function clearAllData() {
+            if (confirm('确定要清除所有学习数据吗？此操作不可恢复！')) {
+                if (storageAvailable) {
+                    localStorage.removeItem('quizUserData');
+                }
+                memoryStorage = null;
+                userData = {
+                    doneQuestions: new Set(),
+                    correctQuestions: new Set(),
+                    wrongQuestions: new Map(),
+                    favoriteQuestions: new Set(),
+                    questionStats: {},
+                    history: [],
+                    settings: { autoShowAnalysis: true, vibrateOnWrong: true, darkMode: false },
+                    dailyStats: {},
+                    totalAnswerCount: 0,
+                    sequenceProgress: 0
+                };
+                updateHomeStats();
+                alert('数据已清除');
+            }
+        }
+
+        function exportData() {
+            const data = {
+                doneQuestions: Array.from(userData.doneQuestions),
+                correctQuestions: Array.from(userData.correctQuestions),
+                wrongQuestions: Array.from(userData.wrongQuestions.entries()),
+                favoriteQuestions: Array.from(userData.favoriteQuestions),
+                questionStats: userData.questionStats,
+                history: userData.history,
+                dailyStats: userData.dailyStats,
+                exportDate: new Date().toISOString()
+            };
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `刷题数据_${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // ===== 工具函数 =====
+        function shuffleArray(arr) {
+            const result = [...arr];
+            for (let i = result.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [result[i], result[j]] = [result[j], result[i]];
+            }
+            return result;
+        }
+
+        // ===== 启动 =====
+        document.addEventListener('DOMContentLoaded', init);
+        // 页面关闭或刷新前保存数据
+        window.addEventListener('beforeunload', function() {
+            if (currentQuiz.mode) {
+                if (currentQuiz.mode === 'sequence') {
+                    userData.sequenceProgress = currentQuiz.currentIndex;
+                }
+                saveUserData();
+            }
+        });
+    </script>
+</body>
+</html>
