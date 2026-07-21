@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>博客管理 | 苦瓜与吉姆餐厅</title>
+<style>
+:root {
+  --bg: #f5f6fa; --surface: #fff; --ink: #1a1a2e; --muted: #888;
+  --accent: #2563eb; --accent2: #7c3aed; --danger: #dc2626;
+  --success: #059669; --warning: #d97706;
+  --rule: #e5e7eb; --radius: 10px; --shadow: 0 1px 3px rgba(0,0,0,.08);
+  --sidebar-w: 240px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;display:flex}
+
+/* Login */
+.login-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;z-index:9999;backdrop-filter:blur(4px)}
+.login-box{background:var(--surface);border-radius:16px;padding:40px 36px;width:380px;max-width:90vw;box-shadow:0 20px 60px rgba(0,0,0,.15);text-align:center}
+.login-box h2{font-size:22px;margin-bottom:6px}
+.login-box p{color:var(--muted);font-size:14px;margin-bottom:24px}
+.login-box input{width:100%;padding:12px 16px;border:2px solid var(--rule);border-radius:10px;font-size:16px;outline:none;transition:border-color .2s;text-align:center;letter-spacing:4px}
+.login-box input:focus{border-color:var(--accent)}
+.login-box .login-btn{width:100%;margin-top:16px;padding:12px;background:var(--accent);color:#fff;border:none;border-radius:10px;font-size:16px;cursor:pointer;transition:opacity .2s}
+.login-box .login-btn:hover{opacity:.9}
+.login-error{color:var(--danger);font-size:13px;margin-top:10px;display:none}
+
+/* Sidebar */
+.sidebar{width:var(--sidebar-w);background:var(--surface);border-right:1px solid var(--rule);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:100}
+.sidebar-brand{padding:24px 20px;border-bottom:1px solid var(--rule)}
+.sidebar-brand h3{font-size:16px;color:var(--ink)}
+.sidebar-brand span{font-size:12px;color:var(--muted)}
+.sidebar-nav{flex:1;padding:12px 0;overflow-y:auto}
+.nav-item{display:flex;align-items:center;gap:10px;padding:12px 20px;cursor:pointer;color:var(--muted);font-size:14px;transition:all .15s;border-left:3px solid transparent;margin:2px 0}
+.nav-item:hover{background:#f0f1f5;color:var(--ink)}
+.nav-item.active{background:#eff6ff;color:var(--accent);border-left-color:var(--accent);font-weight:600}
+.nav-item .icon{font-size:16px;width:20px;text-align:center}
+.sidebar-footer{padding:16px 20px;border-top:1px solid var(--rule);font-size:12px;color:var(--muted);display:flex;justify-content:space-between}
+.sidebar-footer a{color:var(--accent);text-decoration:none;cursor:pointer}
+
+/* Main */
+.main{flex:1;margin-left:var(--sidebar-w);padding:32px;overflow-y:auto;min-height:100vh}
+.page-title{font-size:24px;font-weight:700;margin-bottom:24px}
+
+/* Cards */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-bottom:28px}
+.stat-card{background:var(--surface);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);display:flex;align-items:center;gap:14px}
+.stat-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.stat-icon.blue{background:#eff6ff;color:var(--accent)}
+.stat-icon.purple{background:#f3e8ff;color:var(--accent2)}
+.stat-icon.green{background:#ecfdf5;color:var(--success)}
+.stat-icon.orange{background:#fff7ed;color:var(--warning)}
+.stat-info .stat-val{font-size:22px;font-weight:700;line-height:1.2}
+.stat-info .stat-label{font-size:12px;color:var(--muted)}
+
+/* Panel */
+.panel{background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:24px;overflow:hidden}
+.panel-header{padding:16px 20px;border-bottom:1px solid var(--rule);font-size:15px;font-weight:600;display:flex;align-items:center;gap:8px}
+.panel-body{padding:20px}
+
+/* File Tree */
+.tree{font-size:14px;line-height:2}
+.tree-dir,.tree-file{display:flex;align-items:center;gap:6px;cursor:pointer;padding:4px 8px;border-radius:6px;transition:background .15s}
+.tree-dir:hover,.tree-file:hover{background:#f0f1f5}
+.tree-dir .arrow{font-size:10px;width:14px;text-align:center;transition:transform .2s;display:inline-block}
+.tree-dir.open>.arrow{transform:rotate(90deg)}
+.tree-children{display:none;padding-left:20px}
+.tree-children.show{display:block}
+.tree-icon{width:18px;text-align:center;font-size:13px}
+.tree-icon.dir{color:var(--warning)}
+.tree-icon.file{color:var(--muted)}
+.tree-size{font-size:11px;color:var(--muted);margin-left:auto}
+.tree-file a{color:var(--ink);text-decoration:none}
+.tree-file a:hover{color:var(--accent)}
+
+/* Storage bar */
+.storage-bars{display:flex;flex-direction:column;gap:12px}
+.storage-row{display:flex;align-items:center;gap:12px}
+.storage-label{width:140px;font-size:13px;flex-shrink:0}
+.storage-bar-wrap{flex:1;height:22px;background:#f0f1f5;border-radius:6px;overflow:hidden;position:relative}
+.storage-bar{height:100%;border-radius:6px;transition:width .5s}
+.storage-bar.blue{background:var(--accent)}
+.storage-bar.purple{background:var(--accent2)}
+.storage-bar.green{background:var(--success)}
+.storage-bar.orange{background:var(--warning)}
+.storage-val{font-size:12px;color:var(--muted);width:60px;text-align:right;flex-shrink:0}
+
+/* Page list */
+.page-table{width:100%;border-collapse:collapse;font-size:14px}
+.page-table th{text-align:left;padding:10px 12px;border-bottom:2px solid var(--rule);color:var(--muted);font-weight:600;font-size:12px;text-transform:uppercase}
+.page-table td{padding:10px 12px;border-bottom:1px solid var(--rule)}
+.page-table tr:hover td{background:#f8f9fb}
+.page-table .type-badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600}
+.type-badge.article{background:#eff6ff;color:var(--accent)}
+.type-badge.study{background:#f3e8ff;color:var(--accent2)}
+.type-badge.quiz{background:#ecfdf5;color:var(--success)}
+.type-badge.system{background:#fef3c7;color:var(--warning)}
+.page-table a{color:var(--accent);text-decoration:none}
+.page-table a:hover{text-decoration:underline}
+
+/* Sections */
+.section{display:none}
+.section.active{display:block}
+
+/* Responsive */
+@media(max-width:768px){
+  .sidebar{width:60px;overflow:hidden}
+  .sidebar .nav-item span:not(.icon),.sidebar-brand h3,.sidebar-brand span{display:none}
+  .sidebar .nav-item{justify-content:center;padding:12px}
+  .main{margin-left:60px;padding:16px}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+/* Back to blog */
+.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--muted);text-decoration:none;font-size:13px;margin-bottom:20px;transition:color .15s}
+.back-link:hover{color:var(--accent)}
+</style>
+</head>
+<body>
+
+<!-- Login Overlay -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-box">
+    <h2>🔐 博客管理</h2>
+    <p>请输入管理密码</p>
+    <input type="password" id="pwdInput" placeholder="输入密码" maxlength="20" autofocus>
+    <button class="login-btn" id="loginBtn">进入管理</button>
+    <div class="login-error" id="loginError">密码错误，请重试</div>
+  </div>
+</div>
+
+<!-- Sidebar -->
+<aside class="sidebar">
+  <div class="sidebar-brand">
+    <h3>苦瓜与吉姆餐厅</h3>
+    <span>管理控制台</span>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-item active" data-section="dashboard">
+      <span class="icon">📊</span><span>仪表盘</span>
+    </div>
+    <div class="nav-item" data-section="files">
+      <span class="icon">📁</span><span>文件管理</span>
+    </div>
+    <div class="nav-item" data-section="storage">
+      <span class="icon">💾</span><span>存储分析</span>
+    </div>
+    <div class="nav-item" data-section="pages">
+      <span class="icon">📄</span><span>页面管理</span>
+    </div>
+  </nav>
+  <div class="sidebar-footer">
+    <span id="lastUpdate">加载中...</span>
+    <a id="logoutBtn">退出</a>
+  </div>
+</aside>
+
+<!-- Main Content -->
+<div class="main">
+
+  <!-- Dashboard -->
+  <div class="section active" id="section-dashboard">
+    <a class="back-link" href="/">← 返回博客首页</a>
+    <div class="page-title">仪表盘</div>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon blue">📁</div>
+        <div class="stat-info"><div class="stat-val" id="statFiles">-</div><div class="stat-label">文件总数</div></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon purple">💾</div>
+        <div class="stat-info"><div class="stat-val" id="statSize">-</div><div class="stat-label">总占用空间</div></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon green">📄</div>
+        <div class="stat-info"><div class="stat-val" id="statPages">-</div><div class="stat-label">内容页面</div></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon orange">📚</div>
+        <div class="stat-info"><div class="stat-val" id="statQuiz">-</div><div class="stat-label">题库数量</div></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">📋 快速概览</div>
+      <div class="panel-body" id="quickOverview"></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">🕒 最近更新</div>
+      <div class="panel-body" id="recentUpdates"></div>
+    </div>
+  </div>
+
+  <!-- File Manager -->
+  <div class="section" id="section-files">
+    <a class="back-link" href="/">← 返回博客首页</a>
+    <div class="page-title">文件管理</div>
+    <div class="panel">
+      <div class="panel-header">📁 目录结构</div>
+      <div class="panel-body"><div class="tree" id="fileTree"></div></div>
+    </div>
+  </div>
+
+  <!-- Storage Analysis -->
+  <div class="section" id="section-storage">
+    <a class="back-link" href="/">← 返回博客首页</a>
+    <div class="page-title">存储分析</div>
+    <div class="panel">
+      <div class="panel-header">📊 各目录占用</div>
+      <div class="panel-body"><div class="storage-bars" id="storageBars"></div></div>
+    </div>
+    <div class="panel">
+      <div class="panel-header">🔝 大文件 TOP 10</div>
+      <div class="panel-body" id="largeFiles"></div>
+    </div>
+  </div>
+
+  <!-- Page Management -->
+  <div class="section" id="section-pages">
+    <a class="back-link" href="/">← 返回博客首页</a>
+    <div class="page-title">页面管理</div>
+    <div class="panel">
+      <div class="panel-header">📄 所有页面</div>
+      <div class="panel-body" style="overflow-x:auto">
+        <table class="page-table">
+          <thead><tr><th>名称</th><th>类型</th><th>路径</th><th>大小</th></tr></thead>
+          <tbody id="pageTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== Auth =====
+const CORRECT_PWD = '223511';
+const SESSION_KEY = 'blog_admin_authed';
+
+if (sessionStorage.getItem(SESSION_KEY) === '1') {
+  document.getElementById('loginOverlay').style.display = 'none';
+}
+
+document.getElementById('loginBtn').addEventListener('click', function() {
+  var input = document.getElementById('pwdInput').value;
+  if (input === CORRECT_PWD) {
+    sessionStorage.setItem(SESSION_KEY, '1');
+    document.getElementById('loginOverlay').style.display = 'none';
+  } else {
+    document.getElementById('loginError').style.display = 'block';
+    document.getElementById('pwdInput').value = '';
+    document.getElementById('pwdInput').focus();
+  }
+});
+
+document.getElementById('pwdInput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') document.getElementById('loginBtn').click();
+});
+
+document.getElementById('logoutBtn').addEventListener('click', function() {
+  sessionStorage.removeItem(SESSION_KEY);
+  location.reload();
+});
+
+// ===== Navigation =====
+document.querySelectorAll('.nav-item').forEach(function(item) {
+  item.addEventListener('click', function() {
+    document.querySelectorAll('.nav-item').forEach(function(n) { n.classList.remove('active'); });
+    this.classList.add('active');
+    document.querySelectorAll('.section').forEach(function(s) { s.classList.remove('active'); });
+    document.getElementById('section-' + this.dataset.section).classList.add('active');
+  });
+});
+
+// ===== File Data =====
+var fileData = {
+  totalSize: 13 * 1024 * 1024, // 13MB
+  totalFiles: 79,
+  contentPages: 25,
+  quizCount: 3,
+  lastUpdate: '2026-07-21',
+  dirs: [
+    { name: 'ai-study-guide', size: '5.1 MB', files: 12, color: 'blue', path: '/ai-study-guide/' },
+    { name: 'quiz-bank-v2', size: '476 KB', files: 4, color: 'purple', path: '/quiz-bank-v2/' },
+    { name: 'css', size: '80 KB', files: 2, color: 'green', path: '/css/' },
+    { name: 'js', size: '68 KB', files: 8, color: 'orange', path: '/js/' },
+    { name: 'images', size: '32 KB', files: 6, color: 'green', path: '/images/' },
+    { name: 'tags', size: '88 KB', files: 3, color: 'orange', path: '/tags/' },
+    { name: '其他（根目录/文章/归档等）', size: '~1.1 MB', files: 44, color: 'blue', path: '/' }
+  ],
+  largeFiles: [
+    { name: 'echarts.min.js', path: '/ai-study-guide/shared/js/echarts.min.js', size: '1008 KB' },
+    { name: 'quiz.html', path: '/ai-study-guide/quiz/quiz.html', size: '956 KB' },
+    { name: 'ml-basics.html', path: '/ai-study-guide/ml-basics.html', size: '300 KB' },
+    { name: 'cnn-basics.html (root)', path: '/cnn-basics.html', size: '288 KB' },
+    { name: 'katex.min.js', path: '/ai-study-guide/shared/js/katex.min.js', size: '268 KB' },
+    { name: 'cnn-study.html', path: '/ai-study-guide/cnn-study.html', size: '264 KB' },
+    { name: 'cnn-basics.html', path: '/ai-study-guide/cnn-basics.html', size: '264 KB' },
+    { name: 'data-processing.html', path: '/ai-study-guide/data-processing.html', size: '224 KB' },
+    { name: 'ai-study-guide.html', path: '/ai-study-guide/ai-study-guide.html', size: '212 KB' },
+    { name: 'python-basics.html', path: '/ai-study-guide/python-basics.html', size: '200 KB' }
+  ],
+  pages: [
+    { name: '首页', type: 'system', path: '/', size: '16 KB' },
+    { name: '文章列表', type: 'system', path: '/articles/', size: '16 KB' },
+    { name: '归档', type: 'system', path: '/archives/', size: '12 KB' },
+    { name: '学习资料', type: 'system', path: '/study/', size: '14 KB' },
+    { name: '题库', type: 'system', path: '/quiz/', size: '14 KB' },
+    { name: '如何使用 Github + Hexo 搭建个人博客', type: 'article', path: '/2018/06/06/2018-06-07-如何使用Github+Hexo搭建个人博客/', size: '36 KB' },
+    { name: '从走格子到网格哈密顿路径问题', type: 'article', path: '/hamiltonian-path.html', size: '56 KB' },
+    { name: 'CNN基础知识教程', type: 'article', path: '/cnn-basics.html', size: '288 KB' },
+    { name: '26年人工智能基础学习资料', type: 'study', path: '/ai-study-guide/ai-study-guide.html', size: '212 KB' },
+    { name: '26年电网python基础', type: 'study', path: '/ai-study-guide/python-basics.html', size: '200 KB' },
+    { name: '26年电网java基础', type: 'study', path: '/ai-study-guide/java-basics.html', size: '164 KB' },
+    { name: '26年电网SQL教程', type: 'study', path: '/ai-study-guide/sql-basics.html', size: '156 KB' },
+    { name: '26年电网机器学习教程', type: 'study', path: '/ai-study-guide/ml-basics.html', size: '300 KB' },
+    { name: '26年电网数据处理教程', type: 'study', path: '/ai-study-guide/data-processing.html', size: '224 KB' },
+    { name: '26年电网CNN基础知识', type: 'study', path: '/ai-study-guide/cnn-basics.html', size: '264 KB' },
+    { name: 'CNN深度学习资料', type: 'study', path: '/ai-study-guide/cnn-study.html', size: '264 KB' },
+    { name: '26年电网Excel数据处理基础教程', type: 'study', path: '/ai-study-guide/excel-basics.html', size: '168 KB' },
+    { name: '26年省公司人工智能竞赛理论题库', type: 'quiz', path: '/ai-study-guide/quiz/quiz.html', size: '956 KB' },
+    { name: '数据管理-2026修编（498道）', type: 'quiz', path: '/quiz-bank-v2/dm/', size: '220 KB' },
+    { name: '数据分析-498道', type: 'quiz', path: '/quiz-bank-v2/da/', size: '220 KB' },
+    { name: '管理页面', type: 'system', path: '/admin.html', size: '16 KB' }
+  ],
+  tree: {
+    name: '/ (根目录)',
+    type: 'dir',
+    children: [
+      { name: 'index.html', type: 'file', size: '16 KB', path: '/' },
+      { name: 'cnn-basics.html', type: 'file', size: '288 KB', path: '/cnn-basics.html' },
+      { name: 'hamiltonian-path.html', type: 'file', size: '56 KB', path: '/hamiltonian-path.html' },
+      { name: 'admin.html', type: 'file', size: '16 KB', path: '/admin.html' },
+      { name: 'search.json', type: 'file', size: '12 KB', path: '/search.json' },
+      { name: '2018', type: 'dir', children: [
+        { name: '06/06/...', type: 'file', size: '36 KB', path: '/2018/06/06/2018-06-07-如何使用Github+Hexo搭建个人博客/' }
+      ]},
+      { name: 'articles', type: 'dir', children: [
+        { name: 'index.html', type: 'file', size: '16 KB', path: '/articles/' }
+      ]},
+      { name: 'archives', type: 'dir', children: [
+        { name: 'index.html', type: 'file', size: '12 KB', path: '/archives/' }
+      ]},
+      { name: 'study', type: 'dir', children: [
+        { name: 'index.html', type: 'file', size: '14 KB', path: '/study/' }
+      ]},
+      { name: 'quiz', type: 'dir', children: [
+        { name: 'index.html', type: 'file', size: '14 KB', path: '/quiz/' }
+      ]},
+      { name: 'tags', type: 'dir', children: [
+        { name: 'Hexo/', type: 'file', size: '8 KB', path: '/tags/Hexo/' },
+        { name: 'GitHub-Pages/', type: 'file', size: '8 KB', path: '/tags/GitHub-Pages/' },
+        { name: '教程/', type: 'file', size: '8 KB', path: '/tags/教程/' }
+      ]},
+      { name: 'css', type: 'dir', children: [
+        { name: 'main.css', type: 'file', size: '72 KB', path: '/css/main.css' },
+        { name: 'noscript.css', type: 'file', size: '8 KB', path: '/css/noscript.css' }
+      ]},
+      { name: 'js', type: 'dir', children: [
+        { name: 'config.js', type: 'file', size: '4 KB', path: '/js/' },
+        { name: 'utils.js', type: 'file', size: '4 KB', path: '/js/' },
+        { name: 'sidebar.js', type: 'file', size: '4 KB', path: '/js/' },
+        { name: 'next-boot.js', type: 'file', size: '8 KB', path: '/js/' },
+        { name: '其他 (4 files)', type: 'file', size: '48 KB', path: '/js/' }
+      ]},
+      { name: 'images', type: 'dir', children: [
+        { name: 'logo.svg', type: 'file', size: '4 KB', path: '/images/' },
+        { name: '其他 (5 files)', type: 'file', size: '28 KB', path: '/images/' }
+      ]},
+      { name: 'ai-study-guide', type: 'dir', children: [
+        { name: 'ai-study-guide.html', type: 'file', size: '212 KB', path: '/ai-study-guide/ai-study-guide.html' },
+        { name: 'cnn-basics.html', type: 'file', size: '264 KB', path: '/ai-study-guide/cnn-basics.html' },
+        { name: 'cnn-study.html', type: 'file', size: '264 KB', path: '/ai-study-guide/cnn-study.html' },
+        { name: 'data-processing.html', type: 'file', size: '224 KB', path: '/ai-study-guide/data-processing.html' },
+        { name: 'excel-basics.html', type: 'file', size: '168 KB', path: '/ai-study-guide/excel-basics.html' },
+        { name: 'java-basics.html', type: 'file', size: '164 KB', path: '/ai-study-guide/java-basics.html' },
+        { name: 'ml-basics.html', type: 'file', size: '300 KB', path: '/ai-study-guide/ml-basics.html' },
+        { name: 'python-basics.html', type: 'file', size: '200 KB', path: '/ai-study-guide/python-basics.html' },
+        { name: 'sql-basics.html', type: 'file', size: '156 KB', path: '/ai-study-guide/sql-basics.html' },
+        { name: 'shared/', type: 'dir', children: [
+          { name: 'fonts/', type: 'dir', children: [
+            { name: '5 字体文件', type: 'file', size: '~200 KB', path: '/ai-study-guide/shared/fonts/' }
+          ]},
+          { name: 'js/', type: 'dir', children: [
+            { name: 'echarts.min.js', type: 'file', size: '1008 KB', path: '/ai-study-guide/shared/js/' },
+            { name: 'katex.min.js', type: 'file', size: '268 KB', path: '/ai-study-guide/shared/js/' },
+            { name: 'auto-render.min.js', type: 'file', size: '12 KB', path: '/ai-study-guide/shared/js/' }
+          ]},
+          { name: 'katex/', type: 'dir', children: [
+            { name: '16 字体 + CSS', type: 'file', size: '~600 KB', path: '/ai-study-guide/shared/katex/' }
+          ]}
+        ]},
+        { name: 'assets/', type: 'dir', children: [
+          { name: 'charts.js', type: 'file', size: '8 KB', path: '/ai-study-guide/assets/' }
+        ]},
+        { name: 'quiz/', type: 'dir', children: [
+          { name: 'quiz.html', type: 'file', size: '956 KB', path: '/ai-study-guide/quiz/' }
+        ]}
+      ]},
+      { name: 'quiz-bank-v2', type: 'dir', children: [
+        { name: 'dm/', type: 'dir', children: [
+          { name: 'index.html', type: 'file', size: '92 KB', path: '/quiz-bank-v2/dm/' },
+          { name: 'questions.json', type: 'file', size: '128 KB', path: '/quiz-bank-v2/dm/' }
+        ]},
+        { name: 'da/', type: 'dir', children: [
+          { name: 'index.html', type: 'file', size: '92 KB', path: '/quiz-bank-v2/da/' },
+          { name: 'questions.json', type: 'file', size: '128 KB', path: '/quiz-bank-v2/da/' }
+        ]}
+      ]}
+    ]
+  }
+};
+
+// ===== Render Dashboard =====
+document.getElementById('statFiles').textContent = fileData.totalFiles;
+document.getElementById('statSize').textContent = '13 MB';
+document.getElementById('statPages').textContent = fileData.contentPages;
+document.getElementById('statQuiz').textContent = fileData.quizCount;
+document.getElementById('lastUpdate').textContent = '更新: ' + fileData.lastUpdate;
+
+var overviewHTML = '<table style="width:100%;font-size:14px;line-height:2.2">';
+overviewHTML += '<tr><td style="color:var(--muted)">总文件数</td><td><strong>' + fileData.totalFiles + '</strong> 个</td></tr>';
+overviewHTML += '<tr><td style="color:var(--muted)">总占用空间</td><td><strong>13 MB</strong>（含 Git 历史 6 MB）</td></tr>';
+overviewHTML += '<tr><td style="color:var(--muted)">内容页面</td><td><strong>' + fileData.contentPages + '</strong> 个</td></tr>';
+overviewHTML += '<tr><td style="color:var(--muted)">题库</td><td><strong>' + fileData.quizCount + '</strong> 个（共 3,773 道题）</td></tr>';
+overviewHTML += '<tr><td style="color:var(--muted)">学习资料</td><td><strong>9</strong> 个</td></tr>';
+overviewHTML += '<tr><td style="color:var(--muted)">文章</td><td><strong>3</strong> 篇</td></tr>';
+overviewHTML += '<tr><td style="color:var(--muted)">静态资源</td><td><strong>~1.5 MB</strong>（CSS/JS/字体/图片）</td></tr>';
+overviewHTML += '</table>';
+document.getElementById('quickOverview').innerHTML = overviewHTML;
+
+document.getElementById('recentUpdates').innerHTML = [
+  '<div style="font-size:14px;line-height:2.2">',
+  '<div>📅 <strong>2026-07-21</strong> — 新增管理后台页面</div>',
+  '<div>📅 <strong>2026-07-20</strong> — 新增数据管理题库（498道）和数据分析题库（498道）</div>',
+  '<div>📅 <strong>2026-07-15</strong> — 新增 Excel 数据处理基础教程</div>',
+  '<div>📅 <strong>2026-07-14</strong> — 发布「从走格子到网格哈密顿路径问题」</div>',
+  '<div>📅 <strong>2026-07-13</strong> — 新增 CNN 深度学习资料</div>',
+  '<div>📅 <strong>2026-07-12</strong> — 新增 CNN 基础知识教程</div>',
+  '<div>📅 <strong>2026-07-08</strong> — 新增数据处理教程</div>',
+  '<div>📅 <strong>2026-07-07</strong> — 新增机器学习、SQL、Java 教程</div>',
+  '<div>📅 <strong>2026-07-06</strong> — 新增 Python 基础教程</div>',
+  '<div>📅 <strong>2026-07-01</strong> — 发布人工智能竞赛理论题库</div>',
+  '</div>'
+].join('\n');
+
+// ===== Render File Tree =====
+function renderTree(nodes, container) {
+  nodes.forEach(function(node) {
+    if (node.type === 'dir') {
+      var div = document.createElement('div');
+      div.className = 'tree-dir';
+      div.innerHTML = '<span class="arrow">▶</span><span class="tree-icon dir">📁</span><span>' + node.name + '</span>';
+      var children = document.createElement('div');
+      children.className = 'tree-children';
+      if (node.children) renderTree(node.children, children);
+      div.addEventListener('click', function(e) {
+        e.stopPropagation();
+        div.classList.toggle('open');
+        children.classList.toggle('show');
+      });
+      container.appendChild(div);
+      container.appendChild(children);
+    } else {
+      var div = document.createElement('div');
+      div.className = 'tree-file';
+      var label = node.path && node.path !== '/' ? '<a href="' + node.path + '" target="_blank">' + node.name + '</a>' : node.name;
+      div.innerHTML = '<span style="width:14px"></span><span class="tree-icon file">📄</span>' + label + '<span class="tree-size">' + (node.size || '') + '</span>';
+      container.appendChild(div);
+    }
+  });
+}
+
+renderTree(fileData.tree.children, document.getElementById('fileTree'));
+
+// ===== Render Storage =====
+var totalSizeBytes = fileData.totalSize;
+var barsHTML = '';
+fileData.dirs.forEach(function(dir) {
+  var sizeBytes = parseFloat(dir.size) * (dir.size.includes('MB') ? 1024 * 1024 : 1024);
+  var pct = (sizeBytes / totalSizeBytes * 100).toFixed(1);
+  barsHTML += '<div class="storage-row">';
+  barsHTML += '<span class="storage-label">' + dir.name + '</span>';
+  barsHTML += '<div class="storage-bar-wrap"><div class="storage-bar ' + dir.color + '" style="width:' + pct + '%"></div></div>';
+  barsHTML += '<span class="storage-val">' + dir.size + '</span>';
+  barsHTML += '</div>';
+});
+document.getElementById('storageBars').innerHTML = barsHTML;
+
+var lfHTML = '<table class="page-table"><thead><tr><th>文件</th><th>路径</th><th>大小</th></tr></thead><tbody>';
+fileData.largeFiles.forEach(function(f) {
+  lfHTML += '<tr><td>' + f.name + '</td><td style="font-size:12px;color:var(--muted)">' + f.path + '</td><td>' + f.size + '</td></tr>';
+});
+lfHTML += '</tbody></table>';
+document.getElementById('largeFiles').innerHTML = lfHTML;
+
+// ===== Render Pages =====
+var ptHTML = '';
+fileData.pages.forEach(function(p) {
+  var badgeClass = '';
+  if (p.type === 'article') badgeClass = 'article';
+  else if (p.type === 'study') badgeClass = 'study';
+  else if (p.type === 'quiz') badgeClass = 'quiz';
+  else badgeClass = 'system';
+  var typeLabel = { article: '文章', study: '学习资料', quiz: '题库', system: '系统' }[p.type];
+  ptHTML += '<tr>';
+  ptHTML += '<td><a href="' + p.path + '" target="_blank">' + p.name + '</a></td>';
+  ptHTML += '<td><span class="type-badge ' + badgeClass + '">' + typeLabel + '</span></td>';
+  ptHTML += '<td style="font-size:12px;color:var(--muted)">' + p.path + '</td>';
+  ptHTML += '<td>' + p.size + '</td>';
+  ptHTML += '</tr>';
+});
+document.getElementById('pageTableBody').innerHTML = ptHTML;
+</script>
+</body>
+</html>
