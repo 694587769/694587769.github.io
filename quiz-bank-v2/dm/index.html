@@ -1805,7 +1805,7 @@
                     sequenceProgress: userData.sequenceProgress || 0
                 };
                 if (storageAvailable) {
-                    localStorage.setItem('quizUserData', JSON.stringify(data));
+                    localStorage.setItem('quizUserData_dm', JSON.stringify(data));
                 } else {
                     memoryStorage = data;
                 }
@@ -1817,7 +1817,7 @@
         function loadUserData() {
             let data = null;
             if (storageAvailable) {
-                const saved = localStorage.getItem('quizUserData');
+                const saved = localStorage.getItem('quizUserData_dm');
                 if (saved) data = JSON.parse(saved);
             } else {
                 data = memoryStorage;
@@ -2639,7 +2639,7 @@
         function clearAllData() {
             if (confirm('确定要清除所有学习数据吗？此操作不可恢复！')) {
                 if (storageAvailable) {
-                    localStorage.removeItem('quizUserData');
+                    localStorage.removeItem('quizUserData_dm');
                 }
                 memoryStorage = null;
                 userData = {
