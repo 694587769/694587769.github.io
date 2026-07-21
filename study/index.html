@@ -841,7 +841,12 @@ document.addEventListener('DOMContentLoaded', function() {
     '</a>';
   }
 
-  document.addEventListener('DOMContentLoaded', function() {
+  // 使用 readyState 检查，避免 DOMContentLoaded 竞态条件
+  (function boot() {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', boot);
+      return;
+    }
     if (window.initBlogEngine) {
       initBlogEngine({
         filterType: 'study',
@@ -851,7 +856,7 @@ document.addEventListener('DOMContentLoaded', function() {
         renderCard: renderResourceCard
       });
     }
-  });
+  })();
 })();
 </script>
 

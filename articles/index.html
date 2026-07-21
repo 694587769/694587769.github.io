@@ -919,7 +919,12 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // 初始化
-  document.addEventListener('DOMContentLoaded', function() {
+  // 使用 readyState 检查，避免 DOMContentLoaded 竞态条件
+  (function boot() {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', boot);
+      return;
+    }
     // 先渲染自定义排序栏
     var sortBarContainer = document.getElementById('sortBarContainer');
     if (sortBarContainer) {
@@ -941,7 +946,7 @@ document.addEventListener('DOMContentLoaded', function() {
         sortArticleRows();
       });
     }
-  });
+  })();
 })();
 </script>
 

@@ -842,16 +842,24 @@ document.addEventListener('DOMContentLoaded', function() {
 <!-- ================================================================ -->
 <script src="/shared/js/blog-engine.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  initBlogEngine({
-    filterType: 'all',
-    sortBy: 'date',
-    sortOrder: 'desc',
-    pageSize: 10,
-    showSortBar: true,
-    renderCard: undefined  // 使用 blog-engine 内置的 renderCard
-  });
-});
+// 使用 readyState 检查，避免 DOMContentLoaded 竞态条件
+(function() {
+  function boot() {
+    initBlogEngine({
+      filterType: 'all',
+      sortBy: 'date',
+      sortOrder: 'desc',
+      pageSize: 10,
+      showSortBar: true,
+      renderCard: undefined  // 使用 blog-engine 内置的 renderCard
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+})();
 </script>
 
 </body>
