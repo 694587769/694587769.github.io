@@ -52,6 +52,7 @@
 
 
 
+
   
   <script src="/js/utils.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
 
@@ -79,6 +80,172 @@
 
   <link rel="dns-prefetch" href="//busuanzi.ibruce.info">
   <link rel="preconnect" href="//busuanzi.ibruce.info" crossorigin>
+
+  <!-- ================================================================ -->
+  <!-- 分页控件 CSS（内嵌） -->
+  <!-- ================================================================ -->
+  <style>
+    /* ---- 分页整体容器 ---- */
+    .blog-pagination {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 32px;
+      padding: 16px 20px;
+      background: #faf9f7;
+      border: 1px solid #e8e4df;
+      border-radius: 10px;
+      font-size: 14px;
+      color: #888;
+    }
+
+    /* ---- 左侧：每页条数 + 统计 ---- */
+    .pagination-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .page-size-select {
+      padding: 6px 10px;
+      border: 1px solid #d5d0c8;
+      border-radius: 6px;
+      background: #fff;
+      color: #555;
+      font-size: 13px;
+      cursor: pointer;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .page-size-select:hover,
+    .page-size-select:focus {
+      border-color: #b5a898;
+    }
+
+    .pagination-info {
+      color: #999;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    /* ---- 中间：页码按钮 ---- */
+    .pagination-center {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .page-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 32px;
+      height: 32px;
+      padding: 0 8px;
+      border: 1px solid #d5d0c8;
+      border-radius: 6px;
+      background: #fff;
+      color: #666;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all .2s;
+      outline: none;
+      user-select: none;
+    }
+    .page-btn:hover:not(:disabled):not(.active) {
+      background: #f0ece6;
+      border-color: #b5a898;
+      color: #555;
+    }
+    .page-btn.active {
+      background: #b5a898;
+      border-color: #b5a898;
+      color: #fff;
+      font-weight: 600;
+      cursor: default;
+    }
+    .page-btn:disabled {
+      opacity: .35;
+      cursor: not-allowed;
+    }
+
+    .page-num {
+      font-weight: 500;
+    }
+
+    .page-first,
+    .page-prev,
+    .page-next,
+    .page-last {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    /* ---- 右侧：跳转 ---- */
+    .pagination-right {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .page-jump-label {
+      color: #999;
+      font-size: 13px;
+    }
+
+    .page-jump-input {
+      width: 50px;
+      height: 32px;
+      padding: 4px 6px;
+      text-align: center;
+      border: 1px solid #d5d0c8;
+      border-radius: 6px;
+      background: #fff;
+      color: #555;
+      font-size: 13px;
+      outline: none;
+      transition: border-color .2s;
+      -moz-appearance: textfield;
+    }
+    .page-jump-input::-webkit-outer-spin-button,
+    .page-jump-input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    .page-jump-input:hover,
+    .page-jump-input:focus {
+      border-color: #b5a898;
+    }
+
+    .page-go {
+      min-width: 40px;
+      font-weight: 600;
+      background: #b5a898;
+      border-color: #b5a898;
+      color: #fff;
+    }
+    .page-go:hover {
+      background: #a08e7e;
+      border-color: #a08e7e;
+      color: #fff;
+    }
+
+    /* ---- 响应式 ---- */
+    @media (max-width: 768px) {
+      .blog-pagination {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+      }
+      .pagination-left,
+      .pagination-center,
+      .pagination-right {
+        justify-content: center;
+      }
+    }
+  </style>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -106,7 +273,7 @@
   </div>
 
   <div class="site-nav-right">
-    <a href="/admin.html" class="admin-entry" title="管理" aria-label="管理" style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:6px;color:#aaa;text-decoration:none;transition:all .2s;margin-right:8px;font-size:14px;opacity:.5" onmouseover="this.style.opacity='1';this.style.color='#555';this.style.background='#f0f0f0'" onmouseout="this.style.opacity='.5';this.style.color='#aaa';this.style.background='transparent'">⚙</a>
+    <a href="/admin.html" class="admin-entry" title="管理" aria-label="管理" style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:6px;color:#aaa;text-decoration:none;transition:all .2s;margin-right:8px;font-size:14px;opacity:.5" onmouseover="this.style.opacity='1';this.style.color='#555';this.style.background='#f0f0f0'" onmouseout="this.style.opacity='.5';this.style.color='#aaa';this.style.background='transparent'">&#9881;</a>
     <div class="toggle popup-trigger" aria-label="搜索" role="button">
     </div>
   </div>
@@ -115,7 +282,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-文章"><a href="/articles/" rel="section"><i class="fa fa-file-text fa-fw"></i>文章</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-题库"><a href="/quiz/" rel="section"><i class="fa fa-book fa-fw"></i>题库</a></li><li class="menu-item menu-item-学习资料"><a href="/study/" rel="section"><i class="fa fa-folder-open fa-fw"></i>学习资料</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-文章"><a href="/articles/" rel="section"><i class="fa fa-file-text fa-fw"></i>文章</a></li><li class="menu-item menu-item-题库"><a href="/quiz/" rel="section"><i class="fa fa-book fa-fw"></i>题库</a></li><li class="menu-item menu-item-学习资料"><a href="/study/" rel="section"><i class="fa fa-folder-open fa-fw"></i>学习资料</a></li>
   </ul>
 </nav>
 
@@ -150,7 +317,7 @@
 </div>
   <div class="links-of-author animated">
       <span class="links-of-author-item">
-        <a href="https://github.com/694587769" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;694587769" rel="noopener me" target="_blank">GitHub</a>
+        <a href="https://github.com/694587769" title="GitHub &#8594; https:&#x2F;&#x2F;github.com&#x2F;694587769" rel="noopener me" target="_blank">GitHub</a>
       </span>
   </div>
 
@@ -175,130 +342,12 @@
       
       
       <div class="post-body">
-          <div class="sort-bar">
-          <button class="sort-btn active" data-sort="date" data-order="desc">
-            <i class="fa fa-calendar"></i> 时间
-          </button>
-          <button class="sort-btn" data-sort="type" data-order="asc">
-            <i class="fa fa-tag"></i> 类型
-          </button>
-          <button class="sort-btn" data-sort="size" data-order="desc">
-            <i class="fa fa-align-left"></i> 大小
-          </button>
-        </div>
-          <div class="mixed-list" id="homeMixedList">
-        <a class="mixed-card" href="https://694587769.github.io/ai-study-guide/excel-basics.html" data-date="2026-07-15" data-type="学习资料" data-size="20" target="_blank" rel="noopener">
-          <div class="mixed-card-header">
-            <span class="mixed-card-tag mixed-tag-study">学习资料</span>
-          </div>
-          <div class="mixed-card-title">26年电网Excel数据处理基础教程</div>
-          <div class="mixed-card-excerpt">2026年电网Excel数据处理基础教程</div>
-          <div class="mixed-card-meta">2026-07-15 · 外部资源</div>
-        </a>
-        <a class="mixed-card" href="https://694587769.github.io/cnn-basics.html" data-date="2026-07-12" data-type="学习资料" data-size="18" target="_blank" rel="noopener">
-          <div class="mixed-card-header">
-            <span class="mixed-card-tag mixed-tag-study">学习资料</span>
-          </div>
-          <div class="mixed-card-title">26年电网CNN基础知识</div>
-          <div class="mixed-card-excerpt">2026年电网CNN基础知识学习资料</div>
-          <div class="mixed-card-meta">2026-07-12 · 外部资源</div>
-        </a>
-        <a class="mixed-card" href="https://694587769.github.io/ai-study-guide/cnn-study.html" data-date="2026-07-13" data-type="学习资料" data-size="15" target="_blank" rel="noopener">
-          <div class="mixed-card-header">
-            <span class="mixed-card-tag mixed-tag-study">学习资料</span>
-          </div>
-          <div class="mixed-card-title">CNN深度学习资料</div>
-          <div class="mixed-card-excerpt">CNN卷积神经网络原理与深度学习教程</div>
-          <div class="mixed-card-meta">2026-07-13 · 外部资源</div>
-        </a>
-        <a class="mixed-card" href="https://694587769.github.io/ai-study-guide/data-processing.html" data-date="2026-07-08" data-type="学习资料" data-size="13" target="_blank" rel="noopener">
-          <div class="mixed-card-header">
-            <span class="mixed-card-tag mixed-tag-study">学习资料</span>
-          </div>
-          <div class="mixed-card-title">26年电网数据处理教程</div>
-          <div class="mixed-card-excerpt">2026年电网数据处理教程</div>
-          <div class="mixed-card-meta">2026-07-08 · 外部资源</div>
-        </a>
-        <a class="mixed-card" href="https://694587769.github.io/ai-study-guide/ml-basics.html" data-date="2026-07-07" data-type="学习资料" data-size="13" target="_blank" rel="noopener">
-          <div class="mixed-card-header">
-            <span class="mixed-card-tag mixed-tag-study">学习资料</span>
-          </div>
-          <div class="mixed-card-title">26年电网机器学习教程</div>
-          <div class="mixed-card-excerpt">2026年电网机器学习教程</div>
-          <div class="mixed-card-meta">2026-07-07 · 外部资源</div>
-        </a>
-        <a class="mixed-card" href="https://694587769.github.io/ai-study-guide/sql-basics.html" data-date="2026-07-07" data-type="学习资料" data-size="12" target="_blank" rel="noopener">
-          <div class="mixed-card-header">
-            <span class="mixed-card-tag mixed-tag-study">学习资料</span>
-          </div>
-          <div class="mixed-card-title">26年电网SQL教程</div>
-          <div class="mixed-card-excerpt">2026年电网SQL教程</div>
-          <div class="mixed-card-meta">2026-07-07 · 外部资源</div>
-        </a>
-        <a class="mixed-card" href="https://694587769.github.io/ai-study-guide/java-basics.html" data-date="2026-07-07" data-type="学习资料" data-size="19" target="_blank" rel="noopener">
-          <div class="mixed-card-header">
-            <span class="mixed-card-tag mixed-tag-study">学习资料</span>
-          </div>
-          <div class="mixed-card-title">26年电网java基础</div>
-          <div class="mixed-card-excerpt">2026年电网Java基础知识学习资料</div>
-          <div class="mixed-card-meta">2026-07-07 · 外部资源</div>
-        </a>
-        <a class="mixed-card" href="https://694587769.github.io/ai-study-guide/python-basics.html" data-date="2026-07-06" data-type="学习资料" data-size="21" target="_blank" rel="noopener">
-          <div class="mixed-card-header">
-            <span class="mixed-card-tag mixed-tag-study">学习资料</span>
-          </div>
-          <div class="mixed-card-title">26年电网python基础</div>
-          <div class="mixed-card-excerpt">2026年电网Python基础知识学习资料</div>
-          <div class="mixed-card-meta">2026-07-06 · 外部资源</div>
-        </a>
-        <a class="mixed-card" href="https://694587769.github.io/quiz-bank-v2/dm/" data-date="2026-07-20" data-type="题库" data-size="16" target="_blank" rel="noopener">
-          <div class="mixed-card-header">
-            <span class="mixed-card-tag mixed-tag-quiz">题库</span>
-          </div>
-          <div class="mixed-card-title">数据管理-2026修编（498道）</div>
-          <div class="mixed-card-excerpt">数据管理-2026修编题库</div>
-          <div class="mixed-card-meta">2026-07-20 · 外部资源</div>
-        </a>
-        <a class="mixed-card" href="https://694587769.github.io/quiz-bank-v2/da/" data-date="2026-07-20" data-type="题库" data-size="16" target="_blank" rel="noopener">
-          <div class="mixed-card-header">
-            <span class="mixed-card-tag mixed-tag-quiz">题库</span>
-          </div>
-          <div class="mixed-card-title">数据分析-498道</div>
-          <div class="mixed-card-excerpt">数据分析题库（498道）</div>
-          <div class="mixed-card-meta">2026-07-20 · 外部资源</div>
-        </a>
-        <a class="mixed-card" href="https://694587769.github.io/ai-study-guide/quiz/quiz.html" data-date="2026-07-01" data-type="题库" data-size="16" target="_blank" rel="noopener">
-          <div class="mixed-card-header">
-            <span class="mixed-card-tag mixed-tag-quiz">题库</span>
-          </div>
-          <div class="mixed-card-title">26年省公司人工智能竞赛理论题库</div>
-          <div class="mixed-card-excerpt">四川公司26年大模型竞赛理论题库</div>
-          <div class="mixed-card-meta">2026-07-01 · 外部资源</div>
-        </a>
-        <a class="mixed-card" href="https://694587769.github.io/ai-study-guide/ai-study-guide.html" data-date="2026-07-01" data-type="学习资料" data-size="14" target="_blank" rel="noopener">
-          <div class="mixed-card-header">
-            <span class="mixed-card-tag mixed-tag-study">学习资料</span>
-          </div>
-          <div class="mixed-card-title">26年人工智能基础学习资料</div>
-          <div class="mixed-card-excerpt">人工智能与大模型系统学习资料</div>
-          <div class="mixed-card-meta">2026-07-01 · 外部资源</div>
-        </a>
-        <a class="mixed-card" href="https://694587769.github.io/2018/06/06/2018-06-07-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Github+Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" data-date="2018-06-07" data-type="文章" data-size="2" >
-          <div class="mixed-card-header">
-            <span class="mixed-card-tag mixed-tag-post">文章</span>
-          </div>
-          <div class="mixed-card-title">如何使用 Github + Hexo 搭建个人博客（2026 图文版）</div>
-          <div class="mixed-card-excerpt">前言</div>
-          <div class="mixed-card-meta">2018-06-06</div>
-        </a>
-        <a class="mixed-card" href="https://694587769.github.io/hamiltonian-path.html" data-date="2026-07-14" data-type="文章" data-size="56" target="_blank" rel="noopener">
-          <div class="mixed-card-header">
-            <span class="mixed-card-tag mixed-tag-post">文章</span>
-          </div>
-          <div class="mixed-card-title">从走格子到网格哈密顿路径问题</div>
-          <div class="mixed-card-excerpt">给定一个 m×n 网格和若干障碍，从起点出发，能否经过所有空格恰好一次？完整理解经典图论问题，包含交互式在线工具</div>
-          <div class="mixed-card-meta">2026-07-14</div>
-        </a></div><!-- 1783909542029 -->
+          <!-- 排序栏：由 blog-engine.js 动态渲染 -->
+          <div id="sortBarContainer"></div>
+          <!-- 卡片列表：由 blog-engine.js 动态渲染 -->
+          <div class="mixed-list" id="mixedList"></div>
+          <!-- 分页控件：由 blog-engine.js 动态渲染 -->
+          <div id="paginationContainer"></div>
       </div>
       
       
@@ -730,57 +779,22 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 })();
 </script>
+
+<!-- ================================================================ -->
+<!-- 博客引擎：数据驱动的卡片列表 + 排序 + 分页 -->
+<!-- ================================================================ -->
+<script src="/shared/js/blog-engine.js"></script>
 <script>
-// ================================================================
-// 首页卡片排序：时间 / 类型 / 大小
-// ================================================================
-(function() {
-  var list = document.getElementById('homeMixedList');
-  if (!list) return;
-  var cards = Array.from(list.querySelectorAll('.mixed-card'));
-
-  function doSort(sortBy, order) {
-    cards.sort(function(a, b) {
-      var va, vb;
-      if (sortBy === 'date') {
-        va = a.dataset.date || '';
-        vb = b.dataset.date || '';
-      } else if (sortBy === 'type') {
-        va = a.dataset.type || '';
-        vb = b.dataset.type || '';
-      } else if (sortBy === 'size') {
-        va = parseInt(a.dataset.size) || 0;
-        vb = parseInt(b.dataset.size) || 0;
-      }
-      if (va < vb) return order === 'asc' ? -1 : 1;
-      if (va > vb) return order === 'asc' ? 1 : -1;
-      return 0;
-    });
-    cards.forEach(function(card) { list.appendChild(card); });
-  }
-
-  // 页面加载时默认按时间从近到远排序
-  setTimeout(function() { doSort('date', 'desc'); }, 10);
-
-  document.querySelectorAll('.sort-bar .sort-btn').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      var sortBy = this.dataset.sort;
-      var order = this.dataset.order;
-
-      // Toggle order if already active
-      if (this.classList.contains('active')) {
-        order = order === 'desc' ? 'asc' : 'desc';
-        this.dataset.order = order;
-      }
-
-      // Update active button
-      document.querySelectorAll('.sort-bar .sort-btn').forEach(function(b) { b.classList.remove('active'); });
-      this.classList.add('active');
-
-      doSort(sortBy, order);
-    });
+document.addEventListener('DOMContentLoaded', function() {
+  initBlogEngine({
+    filterType: 'all',
+    sortBy: 'date',
+    sortOrder: 'desc',
+    pageSize: 10,
+    showSortBar: true,
+    renderCard: undefined  // 使用 blog-engine 内置的 renderCard
   });
-})();
+});
 </script>
 
 </body>

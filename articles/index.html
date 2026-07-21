@@ -12,8 +12,6 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-
-
 <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
 <link rel="preconnect" href="//cdnjs.cloudflare.com" crossorigin>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" media="print" onload="this.media='all';this.onload=null;" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
@@ -24,28 +22,26 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"694587769.github.io","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.28.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":false,"padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
 
-    <meta name="description" content="名称                                    时间                                    阅读量                                                                         如何使用 Gi">
+    <meta name="description" content="文章列表 - 苦瓜与吉姆餐厅">
 <meta property="og:type" content="website">
 <meta property="og:title" content="文章">
-<meta property="og:url" content="https://694587769.github.io/articles/index.html">
+<meta property="og:url" content="https://694587769.github.io/articles/index-new.html">
 <meta property="og:site_name" content="苦瓜与吉姆餐厅">
-<meta property="og:description" content="名称                                    时间                                    阅读量                                                                         如何使用 Gi">
+<meta property="og:description" content="文章列表 - 苦瓜与吉姆餐厅">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2026-07-13T02:25:42.029Z">
 <meta property="article:author" content="Anqing Peng">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://694587769.github.io/articles/">
+<link rel="canonical" href="https://694587769.github.io/articles/index-new.html">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"articles/index.html","title":"文章"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"articles/index-new.html","title":"文章"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>文章 | 苦瓜与吉姆餐厅
 </title>
   
-
 
 
 
@@ -66,7 +62,6 @@
   
   <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" onerror="this.onerror=null;this.src='';console.log('busuanzi CDN unavailable, skipping visitor count');"></script>
   <script>
-    // 不蒜子加载超时保护：5秒后如果还没加载，隐藏统计元素
     (function(){var t=setTimeout(function(){try{var b=document.querySelectorAll('[id^=busuanzi_container_]');for(var i=0;i<b.length;i++)b[i].style.display='none';}catch(e){}},5000);if(window.busuanzi){clearTimeout(t);}})();
   </script>
 
@@ -80,6 +75,230 @@
 
   <link rel="dns-prefetch" href="//busuanzi.ibruce.info">
   <link rel="preconnect" href="//busuanzi.ibruce.info" crossorigin>
+
+<style>
+/* ================================================================
+   内嵌分页 & 文章行 & 排序栏 CSS
+   ================================================================ */
+
+/* ----- 排序栏 ----- */
+.sort-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #eee;
+  flex-wrap: wrap;
+}
+.sort-btn {
+  padding: 8px 18px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  background: #fff;
+  color: #666;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all .2s;
+  font-family: inherit;
+}
+.sort-btn:hover {
+  border-color: #bbb;
+  color: #333;
+  background: #fafafa;
+}
+.sort-btn.active {
+  background: #555;
+  color: #fff;
+  border-color: #555;
+}
+.sort-btn i { margin-right: 4px; }
+
+/* ----- 文章行样式 ----- */
+.article-row {
+  display: flex;
+  align-items: center;
+  padding: 16px 4px;
+  border-bottom: 1px solid #f0f0f0;
+  gap: 16px;
+  transition: background .15s;
+}
+.article-row:hover {
+  background: #fafbfc;
+}
+.article-row-main {
+  flex: 1;
+  min-width: 0;
+}
+.article-row-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 4px;
+  transition: color .2s;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.article-row-title:hover {
+  color: #0070f3;
+  text-decoration: underline;
+}
+.article-row-excerpt {
+  font-size: 13px;
+  color: #999;
+  line-height: 1.5;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.article-row-date {
+  font-size: 13px;
+  color: #aaa;
+  white-space: nowrap;
+  min-width: 90px;
+  text-align: right;
+}
+.article-row-views {
+  font-size: 13px;
+  color: #bbb;
+  white-space: nowrap;
+  min-width: 70px;
+  text-align: right;
+}
+.article-row-views i { margin-right: 3px; }
+
+/* ----- 分页控件 ----- */
+.blog-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 32px;
+  padding: 20px 0;
+  border-top: 1px solid #eee;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 14px;
+}
+.pagination-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.pagination-center {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.pagination-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.pagination-info {
+  color: #999;
+  font-size: 13px;
+}
+.page-size-select {
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #fff;
+  color: #555;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: inherit;
+}
+.page-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #fff;
+  color: #555;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all .15s;
+  font-family: inherit;
+}
+.page-btn:hover:not(:disabled):not(.active) {
+  border-color: #999;
+  color: #333;
+  background: #f5f5f5;
+}
+.page-btn.active {
+  background: #555;
+  color: #fff;
+  border-color: #555;
+  cursor: default;
+}
+.page-btn:disabled {
+  opacity: .35;
+  cursor: not-allowed;
+}
+.page-num { font-weight: 500; }
+.page-jump-label {
+  color: #999;
+  font-size: 13px;
+}
+.page-jump-input {
+  width: 50px;
+  padding: 5px 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 14px;
+  color: #555;
+  font-family: inherit;
+}
+.page-go {
+  padding: 5px 12px;
+  background: #555;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background .15s;
+  font-family: inherit;
+}
+.page-go:hover { background: #333; }
+
+/* ----- 暗色模式 ----- */
+.dark-mode .sort-bar { border-bottom-color: #333; }
+.dark-mode .sort-btn {
+  background: #2a2a2a;
+  border-color: #444;
+  color: #aaa;
+}
+.dark-mode .sort-btn:hover { border-color: #666; color: #ddd; background: #333; }
+.dark-mode .sort-btn.active { background: #888; color: #fff; border-color: #888; }
+.dark-mode .article-row { border-bottom-color: #2a2a2a; }
+.dark-mode .article-row:hover { background: #1e1e1e; }
+.dark-mode .article-row-title { color: #ddd; }
+.dark-mode .article-row-title:hover { color: #5ea3f3; }
+.dark-mode .article-row-excerpt { color: #777; }
+.dark-mode .article-row-date { color: #777; }
+.dark-mode .article-row-views { color: #666; }
+.dark-mode .blog-pagination { border-top-color: #333; }
+.dark-mode .page-size-select,
+.dark-mode .page-jump-input,
+.dark-mode .page-btn {
+  background: #2a2a2a;
+  border-color: #444;
+  color: #aaa;
+}
+.dark-mode .page-btn:hover:not(:disabled):not(.active) { border-color: #666; color: #ddd; background: #333; }
+.dark-mode .page-btn.active { background: #888; color: #fff; border-color: #888; }
+.dark-mode .page-go { background: #888; }
+.dark-mode .page-go:hover { background: #666; }
+</style>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -115,7 +334,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-文章"><a href="/articles/" rel="section"><i class="fa fa-file-text fa-fw"></i>文章</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-题库"><a href="/quiz/" rel="section"><i class="fa fa-book fa-fw"></i>题库</a></li><li class="menu-item menu-item-学习资料"><a href="/study/" rel="section"><i class="fa fa-folder-open fa-fw"></i>学习资料</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-文章"><a href="/articles/" rel="section"><i class="fa fa-file-text fa-fw"></i>文章</a></li><li class="menu-item menu-item-题库"><a href="/quiz/" rel="section"><i class="fa fa-book fa-fw"></i>题库</a></li><li class="menu-item menu-item-学习资料"><a href="/study/" rel="section"><i class="fa fa-folder-open fa-fw"></i>学习资料</a></li>
   </ul>
 </nav>
 
@@ -184,133 +403,9 @@
       
       
       <div class="post-body">
-          
-      <div class="article-list-page">
-        <div class="sort-bar">
-          <button class="sort-btn" data-sort="name" data-order="asc">
-            <i class="fa fa-font"></i> 名称
-          </button>
-          <button class="sort-btn active" data-sort="date" data-order="desc">
-            <i class="fa fa-calendar"></i> 时间
-          </button>
-          <button class="sort-btn" data-sort="views" data-order="desc">
-            <i class="fa fa-eye"></i> 阅读量
-          </button>
-        </div>
-        <div class="article-list" id="articleList">
-          
-        <div class="article-row" data-name="如何使用 Github + Hexo 搭建个人博客（2026 图文版）" data-date="1528300800000" data-url="https://694587769.github.io/2018/06/06/2018-06-07-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Github+Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">
-          <div class="article-row-main">
-            <a class="article-row-title" href="https://694587769.github.io/2018/06/06/2018-06-07-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Github+Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">如何使用 Github + Hexo 搭建个人博客（2026 图文版）</a>
-            <div class="article-row-excerpt">前言...</div>
-          </div>
-          <span class="article-row-date">2018-06-06</span>
-          <span class="article-row-views" data-uri="https://694587769.github.io/2018/06/06/2018-06-07-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Github+Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">
-            <i class="fa fa-eye"></i> <span class="views-value">—</span>
-          </span>
-        </div>
-        <div class="article-row" data-name="从走格子到网格哈密顿路径问题" data-date="1720915200000" data-url="https://694587769.github.io/hamiltonian-path.html">
-          <div class="article-row-main">
-            <a class="article-row-title" href="https://694587769.github.io/hamiltonian-path.html">从走格子到网格哈密顿路径问题</a>
-            <div class="article-row-excerpt">给定一个 m×n 网格和若干障碍，从起点出发，能否经过所有空格恰好一次？从数学建模、算法原理到交互式演示，完整理解经典图论问题</div>
-          </div>
-          <span class="article-row-date">2026-07-14</span>
-          <span class="article-row-views" data-uri="https://694587769.github.io/hamiltonian-path.html">
-            <i class="fa fa-eye"></i> <span class="views-value">—</span>
-          </span>
-        </div>
-        </div>
-      </div>
-      <script>
-      (function() {
-        var list = document.getElementById('articleList');
-        if (!list) return;
-        var rows = Array.from(list.querySelectorAll('.article-row'));
-        var viewsReady = false;
-        var pendingCount = 0;
-        var completedCount = 0;
-
-        function checkReady() {
-          completedCount++;
-          if (completedCount >= pendingCount && pendingCount > 0) {
-            viewsReady = true;
-          }
-        }
-
-        function fetchViews(uri, el) {
-          var cb = 'bz_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5);
-          window[cb] = function(data) {
-            var pv = (data && data.page_pv) ? data.page_pv : 0;
-            el.textContent = pv;
-            var row = el.closest('.article-row');
-            if (row) row.dataset.views = pv;
-            delete window[cb];
-            var s = document.getElementById('bz_s_' + cb);
-            if (s) s.parentNode.removeChild(s);
-            checkReady();
-          };
-          var script = document.createElement('script');
-          script.id = 'bz_s_' + cb;
-          script.src = 'https://busuanzi.ibruce.info/busuanzi?jsonpCallback=' + encodeURIComponent(cb) + '&uri=' + encodeURIComponent(uri);
-          document.head.appendChild(script);
-          // 超时处理
-          setTimeout(function() {
-            if (window[cb]) {
-              window[cb]({page_pv: 0});
-            }
-          }, 3000);
-        }
-
-        rows.forEach(function(row) {
-          var viewsEl = row.querySelector('.views-value');
-          var uri = row.querySelector('.article-row-views');
-          if (viewsEl && uri && uri.dataset.uri) {
-            pendingCount++;
-            fetchViews(uri.dataset.uri, viewsEl);
-          }
-        });
-
-        document.querySelectorAll('.sort-btn').forEach(function(btn) {
-          btn.addEventListener('click', function() {
-            var sortBy = this.dataset.sort;
-            var order = this.dataset.order;
-
-            if (sortBy === 'views' && !viewsReady) {
-              // 阅读量数据尚未全部加载，不做排序
-              return;
-            }
-
-            if (this.classList.contains('active')) {
-              order = order === 'asc' ? 'desc' : 'asc';
-              this.dataset.order = order;
-            } else {
-              document.querySelectorAll('.sort-btn').forEach(function(b) { b.classList.remove('active'); });
-              this.classList.add('active');
-            }
-
-            rows.sort(function(a, b) {
-              var aVal, bVal;
-              if (sortBy === 'name') {
-                aVal = (a.dataset.name || '').toLowerCase();
-                bVal = (b.dataset.name || '').toLowerCase();
-              } else if (sortBy === 'date') {
-                aVal = parseInt(a.dataset.date) || 0;
-                bVal = parseInt(b.dataset.date) || 0;
-              } else if (sortBy === 'views') {
-                aVal = parseInt(a.dataset.views) || 0;
-                bVal = parseInt(b.dataset.views) || 0;
-              }
-              if (aVal < bVal) return order === 'asc' ? -1 : 1;
-              if (aVal > bVal) return order === 'asc' ? 1 : -1;
-              return 0;
-            });
-
-            rows.forEach(function(row) { list.appendChild(row); });
-          });
-        });
-      })();
-      </script>
-    <!-- 1783909542029 -->
+          <div id="sortBarContainer"></div>
+          <div class="resource-list" id="resourceList"></div>
+          <div id="paginationContainer"></div>
       </div>
       
       
@@ -449,7 +544,6 @@
       doSearch(e.target.value);
     }, 150));
 
-    // ESC 关闭
     document.addEventListener('keydown', function escHandler(e) {
       if (e.key === 'Escape') { closeSearch(); }
     });
@@ -533,7 +627,6 @@
     }
     body.innerHTML = html;
 
-    // 点击结果项后关闭弹窗
     var items = body.querySelectorAll('.search-result-item');
     for (var k = 0; k < items.length; k++) {
       items[k].addEventListener('click', function() {
@@ -547,17 +640,14 @@
     return text.replace(regex, '<span class="search-result-keyword">$1</span>');
   }
 
-  // 添加自定义搜索触发器（因为 NexT local_search 已禁用）
   document.addEventListener('DOMContentLoaded', function() {
     loadSearchData();
 
-    // 隐藏旧的 NexT 搜索切换按钮（已无功能）
     var oldToggle = document.querySelector('.site-nav-right .toggle.popup-trigger');
     if (oldToggle) {
       oldToggle.style.display = 'none';
     }
 
-    // 在右侧导航区域添加搜索图标
     var siteNavRight = document.querySelector('.site-nav-right');
     if (siteNavRight) {
       var searchBtn = document.createElement('a');
@@ -569,11 +659,9 @@
         e.preventDefault();
         createSearchOverlay();
       });
-      // 插入到第一个子元素之前
       siteNavRight.insertBefore(searchBtn, siteNavRight.firstChild);
     }
 
-    // 在导航菜单末尾添加搜索菜单项
     var menuList = document.querySelector('.menu');
     if (menuList) {
       var searchMenuItem = document.createElement('li');
@@ -596,7 +684,6 @@
 // 樱花飘落动画
 // ================================================================
 document.addEventListener('DOMContentLoaded', function() {
-  // 创建画布
   var canvas = document.createElement('canvas');
   canvas.id = 'petal-canvas';
   document.body.appendChild(canvas);
@@ -607,7 +694,6 @@ document.addEventListener('DOMContentLoaded', function() {
   var petals = [];
   var maxPetals = 30;
 
-  // 樱花花瓣参数
   var colors = [
     'rgba(255, 222, 233, 0.55)',
     'rgba(255, 235, 240, 0.45)',
@@ -716,10 +802,8 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   document.addEventListener('DOMContentLoaded', function() {
-    // 默认始终暖色调
     applyDarkMode(false);
 
-    // 创建浮动侧边按钮
     var btn = document.createElement('button');
     btn.id = 'dark-toggle-float';
     btn.className = 'dark-toggle-float';
@@ -730,7 +814,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     document.body.appendChild(btn);
 
-    // 替换页脚文字
     var withLove = document.querySelector('.with-love');
     if (withLove) {
       var parent = withLove.parentNode;
@@ -742,5 +825,125 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 })();
 </script>
+
+<script src="/shared/js/blog-engine.js"></script>
+<script>
+// ================================================================
+// 文章页初始化 - 自定义表格行渲染 + 排序栏（名称/时间/阅读量）
+// ================================================================
+(function() {
+  // 自定义文章行渲染函数
+  function renderArticleRow(item) {
+    var url = item.url;
+    if (url.indexOf('http') !== 0 && url.indexOf('/') !== 0) url = '/' + url;
+    var target = (url.indexOf('http') === 0) ? ' target="_blank" rel="noopener"' : '';
+
+    return '<div class="article-row" data-name="' + item.title + '" data-date="' + (new Date(item.date).getTime() || 0) + '" data-url="' + url + '">' +
+      '<div class="article-row-main">' +
+        '<a class="article-row-title" href="' + url + '"' + target + '>' + item.title + '</a>' +
+        '<div class="article-row-excerpt">' + (item.excerpt || '') + '</div>' +
+      '</div>' +
+      '<span class="article-row-date">' + item.date + '</span>' +
+      '<span class="article-row-views" data-uri="' + url + '">' +
+        '<i class="fa fa-eye"></i> <span class="views-value">—</span>' +
+      '</span>' +
+    '</div>';
+  }
+
+  // 自定义排序状态
+  var articleSortBy = 'date';
+  var articleSortOrder = 'desc';
+
+  // 自定义排序栏 HTML
+  function renderCustomSortBar() {
+    return '<div class="sort-bar">' +
+      '<button class="sort-btn" data-sort="title">' +
+        '<i class="fa fa-font"></i> 名称' +
+      '</button>' +
+      '<button class="sort-btn active" data-sort="date">' +
+        '<i class="fa fa-calendar"></i> 时间' +
+      '</button>' +
+      '<button class="sort-btn" data-sort="views">' +
+        '<i class="fa fa-eye"></i> 阅读量' +
+      '</button>' +
+    '</div>';
+  }
+
+  // 排序文章行 DOM
+  function sortArticleRows() {
+    var list = document.getElementById('resourceList');
+    if (!list) return;
+    var rows = Array.from(list.querySelectorAll('.article-row'));
+    if (rows.length === 0) return;
+
+    rows.sort(function(a, b) {
+      var va, vb;
+      if (articleSortBy === 'title') {
+        va = (a.dataset.name || '').toLowerCase();
+        vb = (b.dataset.name || '').toLowerCase();
+        if (va < vb) return articleSortOrder === 'asc' ? -1 : 1;
+        if (va > vb) return articleSortOrder === 'asc' ? 1 : -1;
+        return 0;
+      } else if (articleSortBy === 'date') {
+        va = parseInt(a.dataset.date) || 0;
+        vb = parseInt(b.dataset.date) || 0;
+        return articleSortOrder === 'asc' ? va - vb : vb - va;
+      } else if (articleSortBy === 'views') {
+        // 阅读量暂不排序，保持原顺序
+        return 0;
+      }
+      return 0;
+    });
+
+    rows.forEach(function(row) { list.appendChild(row); });
+  }
+
+  // 绑定排序栏事件
+  function bindCustomSortBar() {
+    var bar = document.getElementById('sortBarContainer');
+    if (!bar) return;
+    bar.querySelectorAll('.sort-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var s = this.dataset.sort;
+        if (articleSortBy === s) {
+          articleSortOrder = articleSortOrder === 'asc' ? 'desc' : 'asc';
+        } else {
+          articleSortBy = s;
+          articleSortOrder = s === 'title' ? 'asc' : 'desc';
+        }
+        bar.querySelectorAll('.sort-btn').forEach(function(b) { b.classList.remove('active'); });
+        this.classList.add('active');
+        sortArticleRows();
+      });
+    });
+  }
+
+  // 初始化
+  document.addEventListener('DOMContentLoaded', function() {
+    // 先渲染自定义排序栏
+    var sortBarContainer = document.getElementById('sortBarContainer');
+    if (sortBarContainer) {
+      sortBarContainer.innerHTML = renderCustomSortBar();
+      bindCustomSortBar();
+    }
+
+    // 初始化博客引擎
+    if (window.initBlogEngine) {
+      initBlogEngine({
+        filterType: 'articles',
+        sortBy: 'date',
+        sortOrder: 'desc',
+        pageSize: 5,
+        showSortBar: false,
+        renderCard: renderArticleRow
+      }).then(function() {
+        // 引擎渲染完成后，按默认排序刷新
+        sortArticleRows();
+      });
+    }
+  });
+})();
+</script>
+
 </body>
 </html>

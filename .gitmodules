@@ -1,9 +1,0 @@
-[submodule "_sources/blog-quiz"]
-	path = _sources/blog-quiz
-	url = https://github.com/694587769/blog-quiz.git
-[submodule "_sources/blog-study-materials"]
-	path = _sources/blog-study-materials
-	url = https://github.com/694587769/blog-study-materials.git
-[submodule "_sources/blog-articles"]
-	path = _sources/blog-articles
-	url = https://github.com/694587769/blog-articles.git

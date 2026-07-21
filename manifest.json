@@ -1,0 +1,150 @@
+{
+  "articles": [
+    {
+      "id": "hamiltonian-path",
+      "title": "从走格子到网格哈密顿路径问题",
+      "excerpt": "给定一个 m×n 网格和若干障碍，从起点出发，能否经过所有空格恰好一次？完整理解经典图论问题，包含交互式在线工具",
+      "url": "/articles/hamiltonian-path.html",
+      "date": "2026-07-14",
+      "tags": ["哈密顿路径", "图论", "回溯算法", "算法"],
+      "size": "56 KB"
+    },
+    {
+      "id": "cnn-basics",
+      "title": "CNN基础知识教程",
+      "excerpt": "卷积神经网络（CNN）原理、结构与实践指南，涵盖卷积层、池化层、全连接层等核心概念",
+      "url": "/articles/cnn-basics.html",
+      "date": "2026-07-12",
+      "tags": ["CNN", "深度学习", "神经网络"],
+      "size": "288 KB"
+    },
+    {
+      "id": "hexo-blog",
+      "title": "如何使用 Github + Hexo 搭建个人博客（2026 图文版）",
+      "excerpt": "从零开始，用 Hexo 8.x + NexT.Mist 搭建一个免费、高度可定制的个人博客",
+      "url": "/articles/hexo-blog/",
+      "date": "2018-06-06",
+      "tags": ["Hexo", "GitHub Pages", "教程"],
+      "size": "36 KB"
+    }
+  ],
+  "study": [
+    {
+      "id": "excel-basics",
+      "title": "26年电网Excel数据处理基础教程",
+      "excerpt": "Excel基础操作、VLOOKUP/XLOOKUP、数据透视表、图表可视化",
+      "url": "/study/excel-basics.html",
+      "date": "2026-07-15",
+      "tags": ["Excel", "数据处理", "电网"],
+      "size": "168 KB"
+    },
+    {
+      "id": "cnn-study",
+      "title": "CNN深度学习资料",
+      "excerpt": "CNN卷积神经网络原理与深度学习教程，涵盖反向传播、激活函数等",
+      "url": "/study/cnn-study.html",
+      "date": "2026-07-13",
+      "tags": ["CNN", "深度学习", "神经网络"],
+      "size": "264 KB"
+    },
+    {
+      "id": "cnn-basics-study",
+      "title": "26年电网CNN基础知识",
+      "excerpt": "2026年电网CNN基础知识学习资料，图像识别与深度学习入门",
+      "url": "/study/cnn-basics.html",
+      "date": "2026-07-12",
+      "tags": ["CNN", "电网", "图像识别"],
+      "size": "264 KB"
+    },
+    {
+      "id": "data-processing",
+      "title": "26年电网数据处理教程",
+      "excerpt": "Pandas、NumPy数据清洗与转换，电网数据处理实战",
+      "url": "/study/data-processing.html",
+      "date": "2026-07-08",
+      "tags": ["数据处理", "Pandas", "NumPy", "电网"],
+      "size": "224 KB"
+    },
+    {
+      "id": "ml-basics",
+      "title": "26年电网机器学习教程",
+      "excerpt": "监督学习、无监督学习、决策树、SVM、随机森林，电网预测应用",
+      "url": "/study/ml-basics.html",
+      "date": "2026-07-07",
+      "tags": ["机器学习", "决策树", "SVM", "电网"],
+      "size": "300 KB"
+    },
+    {
+      "id": "sql-basics",
+      "title": "26年电网SQL教程",
+      "excerpt": "SQL基础、SELECT查询、JOIN、GROUP BY、子查询，电网数据查询实战",
+      "url": "/study/sql-basics.html",
+      "date": "2026-07-07",
+      "tags": ["SQL", "数据库", "电网"],
+      "size": "156 KB"
+    },
+    {
+      "id": "java-basics",
+      "title": "26年电网Java基础",
+      "excerpt": "Java面向对象、集合框架、异常处理、多线程，电网系统开发基础",
+      "url": "/study/java-basics.html",
+      "date": "2026-07-07",
+      "tags": ["Java", "面向对象", "电网"],
+      "size": "164 KB"
+    },
+    {
+      "id": "python-basics",
+      "title": "26年电网Python基础",
+      "excerpt": "Python基础语法、数据结构、函数、面向对象、文件操作",
+      "url": "/study/python-basics.html",
+      "date": "2026-07-06",
+      "tags": ["Python", "编程基础", "电网"],
+      "size": "200 KB"
+    },
+    {
+      "id": "ai-study-guide",
+      "title": "26年人工智能基础学习资料",
+      "excerpt": "人工智能与大模型系统学习资料，涵盖机器学习、深度学习、NLP、计算机视觉",
+      "url": "/study/ai-study-guide.html",
+      "date": "2026-07-01",
+      "tags": ["人工智能", "大模型", "机器学习", "深度学习"],
+      "size": "212 KB"
+    }
+  ],
+  "quiz": [
+    {
+      "id": "data-management",
+      "title": "数据管理-2026修编（498道）",
+      "excerpt": "数据管理题库：单选题240道 + 多选题134道 + 判断题124道",
+      "url": "/quiz/data-management/",
+      "date": "2026-07-20",
+      "tags": ["数据管理", "题库"],
+      "count": 498
+    },
+    {
+      "id": "data-analysis",
+      "title": "数据分析-498道",
+      "excerpt": "数据分析题库：单选题234道 + 多选题125道 + 判断题139道",
+      "url": "/quiz/data-analysis/",
+      "date": "2026-07-20",
+      "tags": ["数据分析", "题库"],
+      "count": 498
+    },
+    {
+      "id": "ai-contest",
+      "title": "26年省公司人工智能竞赛理论题库",
+      "excerpt": "四川公司26年大模型竞赛理论题库（2775道）",
+      "url": "/quiz/ai-contest/",
+      "date": "2026-07-01",
+      "tags": ["人工智能", "竞赛", "题库"],
+      "count": 2775
+    }
+  ],
+  "stats": {
+    "totalArticles": 3,
+    "totalStudy": 9,
+    "totalQuiz": 3,
+    "totalQuestions": 3771,
+    "lastUpdate": "2026-07-21"
+  }
+}

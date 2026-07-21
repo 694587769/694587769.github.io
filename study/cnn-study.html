@@ -15,56 +15,17 @@
   --radius: 8px; --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.05);
   --sidebar-w: 280px;
 }
-html[data-theme="dark"] {
-  --bg: #1a1a2e;
-  --bg2: #2a2a40;
-  --surface: #1e293b;
-  --ink: #e2e8f0;
-  --muted: #94a3b8;
-  --rule: #334155;
-  --accent: #2563eb;
-  --accent2: #7c3aed;
-  --accent-light: #1e3a5f;
-  --accent2-light: #2d1b4e;
-  --shadow: 0 1px 3px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.25);
+body.dark-mode {
+  --bg: #1a1a2e; --bg2: #222240; --surface: #252540;
+  --ink: #e0e0f0; --muted: #9999aa; --rule: #333355;
+  --accent: #6090ff; --accent2: #9d6eff;
+  --accent-light: #1a2a44; --accent2-light: #2a1a44;
+  --success: #34d399; --warning: #fbbf24; --danger: #f87171;
+  --shadow: 0 1px 3px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.2);
 }
-/* ===== Theme Toggle Button ===== */
-.theme-toggle {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  border: 1px solid var(--rule);
-  background: var(--surface);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  color: var(--muted);
-  transition: all 0.25s;
-  padding: 0;
-  line-height: 1;
-}
-.theme-toggle:hover {
-  background: var(--bg2);
-  color: var(--accent);
-  box-shadow: var(--shadow);
-}
-.theme-toggle .icon-sun,
-.theme-toggle .icon-moon {
-  transition: all 0.25s;
-}
-html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
-html[data-theme="dark"] .theme-toggle .icon-sun { display: inline; }
-html:not([data-theme="dark"]) .theme-toggle .icon-sun { display: none; }
-html:not([data-theme="dark"]) .theme-toggle .icon-moon { display: inline; }
-
-@font-face{font-family:'WorkSans';src:url('https://694587769.github.io/ai-study-guide/shared/fonts/WorkSans-Regular.ttf') format('truetype');font-weight:400;}
-@font-face{font-family:'WorkSans';src:url('https://694587769.github.io/ai-study-guide/shared/fonts/WorkSans-Bold.ttf') format('truetype');font-weight:700;}
-@font-face{font-family:'GeistMono';src:url('https://694587769.github.io/ai-study-guide/shared/fonts/GeistMono-Regular.ttf') format('truetype');font-weight:400;}
+@font-face{font-family:'WorkSans';src:url('https://694587769.github.io/shared/fonts/WorkSans-Regular.ttf') format('truetype');font-weight:400;}
+@font-face{font-family:'WorkSans';src:url('https://694587769.github.io/shared/fonts/WorkSans-Bold.ttf') format('truetype');font-weight:700;}
+@font-face{font-family:'GeistMono';src:url('https://694587769.github.io/shared/fonts/GeistMono-Regular.ttf') format('truetype');font-weight:400;}
 *{box-sizing:border-box}html{scroll-behavior:smooth}
 body{margin:0;padding:0;font-family:"PingFang SC","Microsoft YaHei","Noto Sans CJK SC","WorkSans",sans-serif;font-size:clamp(15px,1.6vw,17px);line-height:1.85;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased}
 .page{display:flex;min-height:100vh}
@@ -140,38 +101,38 @@ figcaption{font-size:13px;color:var(--muted);margin-top:8px}
 .sidebar-toggle{display:none;position:fixed;top:12px;left:12px;z-index:200;width:40px;height:40px;background:var(--surface);border:1px solid var(--rule);border-radius:var(--radius);align-items:center;justify-content:center;cursor:pointer;font-size:18px;box-shadow:var(--shadow)}
 @media(max-width:960px){.sidebar{transform:translateX(-100%);transition:transform .25s}.sidebar.open{transform:translateX(0)}.sidebar-toggle{display:flex}.main{margin-left:0;padding:60px 20px 40px;max-width:100%}:root{--sidebar-w:260px}body{font-size:15px;line-height:1.8}p{line-height:1.85}li{line-height:1.8}h1.doc-title{font-size:24px}h2{font-size:20px}h3{font-size:16px}}
 @media print{.sidebar,.sidebar-toggle{display:none}.main{margin-left:0;max-width:100%}h2{page-break-before:always}h2:first-of-type{page-break-before:auto}}
-
-
-
-
-
-
-
-
-
-
-
-
-
-html[data-theme="dark"] .sidebar{background:var(--surface);border-right-color:var(--rule)}
-html[data-theme="dark"] .nav-chapter-toggle:hover{background:var(--bg2)}
-html[data-theme="dark"] pre{background:var(--bg2);border-color:var(--rule)}
-html[data-theme="dark"] code{background:var(--bg2)}
-html[data-theme="dark"] table th{background:var(--bg2)}
-html[data-theme="dark"] table td,html[data-theme="dark"] table th{border-color:var(--rule)}
-html[data-theme="dark"] blockquote{background:var(--bg2);border-left-color:var(--accent)}
-html[data-theme="dark"] .example-box{background:var(--bg2);border-color:var(--rule)}
-html[data-theme="dark"] .chart-figure{background:var(--surface);border-color:var(--rule)}
-html[data-theme="dark"] .data-table tr:hover td{background:#2a3a5c}
-html[data-theme="dark"] tr:hover{background:#2a2a3c}
-html[data-theme="dark"] 
-html[data-theme="dark"] 
-html[data-theme="dark"] 
-html[data-theme="dark"] 
-html[data-theme="dark"] .formula-box{background:var(--bg2);border-color:var(--rule)}
-html[data-theme="dark"] .formula-box pre{background:transparent;color:var(--ink)}
-html[data-theme="dark"] .formula-box code{background:transparent;color:var(--ink)}
-html[data-theme="dark"] .formula-detail{background:#2a1a44;border-left-color:var(--accent2)}
+.chapter-content-block{display:none}
+.chapter-content-block.active{display:block}
+.chapter-nav{display:flex;justify-content:space-between;align-items:center;margin:60px 0 40px;padding-top:30px;border-top:2px solid var(--rule)}
+.chapter-nav .nav-btn{padding:12px 24px;border:1px solid var(--rule);border-radius:var(--radius);background:var(--surface);color:var(--ink);text-decoration:none;font-size:14px;font-weight:600;transition:all 0.2s;cursor:pointer}
+.chapter-nav .nav-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+.chapter-nav .nav-btn.disabled{opacity:0.35;pointer-events:none}
+.chapter-nav .nav-label{font-size:12px;color:var(--muted);display:block}
+.chapter-nav .nav-title{font-size:14px;font-weight:600}
+.word-count-stats{margin:16px 0 0;padding:20px 24px;background:var(--bg2);border-radius:var(--radius);border:1px solid var(--rule)}
+.word-count-stats .stats-title{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:12px}
+.word-count-stats .stats-row{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:8px}
+.word-count-stats .stats-row:last-child{margin-bottom:0;font-weight:600;color:var(--accent)}
+.word-count-stats .stats-row span:last-child{font-family:'GeistMono',monospace}
+body.dark-mode .sidebar{background:var(--surface);border-right-color:var(--rule)}
+body.dark-mode .nav-chapter-toggle:hover{background:var(--bg2)}
+body.dark-mode pre{background:var(--bg2);border-color:var(--rule)}
+body.dark-mode code{background:var(--bg2)}
+body.dark-mode table th{background:var(--bg2)}
+body.dark-mode table td,body.dark-mode table th{border-color:var(--rule)}
+body.dark-mode blockquote{background:var(--bg2);border-left-color:var(--accent)}
+body.dark-mode .example-box{background:var(--bg2);border-color:var(--rule)}
+body.dark-mode .chart-figure{background:var(--surface);border-color:var(--rule)}
+body.dark-mode .data-table tr:hover td{background:#2a3a5c}
+body.dark-mode tr:hover{background:#2a2a3c}
+body.dark-mode .chapter-nav{border-top-color:var(--rule)}
+body.dark-mode .chapter-nav .nav-btn{background:var(--surface);border-color:var(--rule);color:var(--ink)}
+body.dark-mode .chapter-nav .nav-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+body.dark-mode .word-count-stats{background:var(--bg2);border-color:var(--rule)}
+body.dark-mode .formula-box{background:var(--bg2);border-color:var(--rule)}
+body.dark-mode .formula-box pre{background:transparent;color:var(--ink)}
+body.dark-mode .formula-box code{background:transparent;color:var(--ink)}
+body.dark-mode .formula-detail{background:#2a1a44;border-left-color:var(--accent2)}
 </style>
 </head>
 <body>
@@ -181,11 +142,6 @@ html[data-theme="dark"] .formula-detail{background:#2a1a44;border-left-color:var
   <div class="sidebar-header">
     <h1>CNN基础知识</h1>
     <div class="subtitle">Powered by Anqing Peng</div>
-    <button class="theme-toggle" id="themeToggle" title="切换夜间模式" aria-label="切换夜间模式">
-      <span class="icon-sun">&#9788;</span>
-      <span class="icon-moon">&#9790;</span>
-    </button>
-
   </div>
   <nav class="sidebar-nav" id="sidebarNav">
     <div class="nav-chapter open" data-ch="ch1">
@@ -401,83 +357,6 @@ html[data-theme="dark"] .formula-detail{background:#2a1a44;border-left-color:var
 <div class="example-box"><div class="example-title">特征层次示例（人脸识别）</div>
 <p>第1层 → 检测边缘和颜色块（如面部轮廓的边缘线）<br>第2层 → 检测眼睛、鼻子、嘴巴的局部轮廓（如眼角的弧线）<br>第3层 → 组合成面部器官的完整表示（如"一个眼睛"的形态）<br>第4层 → 识别完整人脸（如"张三的面孔"）<br>第5层 → 分类输出（如"人类"、"男性"、"熟人"）</p></div>
 
-<h4>CNN特征层级可视化</h4>
-<figure class="chart-figure">
-<figcaption>图1-1：CNN层次化特征提取示意图 — 从原始像素到高层语义的五层抽象过程</figcaption>
-<svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;font-family:'PingFang SC','Microsoft YaHei',sans-serif">
-  <defs>
-    <linearGradient id="gradLayer1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#dbeafe"/><stop offset="100%" style="stop-color:#93c5fd"/></linearGradient>
-    <linearGradient id="gradLayer2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#d1fae5"/><stop offset="100%" style="stop-color:#6ee7b7"/></linearGradient>
-    <linearGradient id="gradLayer3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#fef3c7"/><stop offset="100%" style="stop-color:#fcd34d"/></linearGradient>
-    <linearGradient id="gradLayer4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#fce7f3"/><stop offset="100%" style="stop-color:#f9a8d4"/></linearGradient>
-    <linearGradient id="gradLayer5" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#e0e7ff"/><stop offset="100%" style="stop-color:#c4b5fd"/></linearGradient>
-    <marker id="arrowH" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#64748b"/></marker>
-  </defs>
-
-  <!-- 第1层：原始像素 -->
-  <rect x="20" y="60" width="120" height="80" rx="6" fill="url(#gradLayer1)" stroke="#3b82f6" stroke-width="1.5"/>
-  <text x="80" y="45" text-anchor="middle" font-size="12" font-weight="700" fill="#1d4ed8">第1层：原始像素</text>
-  <text x="80" y="95" text-anchor="middle" font-size="10" fill="#1e40af">224×224×3</text>
-  <text x="80" y="115" text-anchor="middle" font-size="9" fill="#3b82f6">RGB像素值</text>
-  <text x="80" y="130" text-anchor="middle" font-size="9" fill="#3b82f6">无语义信息</text>
-
-  <!-- 箭头 -->
-  <line x1="140" y1="100" x2="170" y2="100" stroke="#64748b" stroke-width="2" marker-end="url(#arrowH)"/>
-
-  <!-- 第2层：低层特征 -->
-  <rect x="180" y="60" width="120" height="80" rx="6" fill="url(#gradLayer2)" stroke="#10b981" stroke-width="1.5"/>
-  <text x="240" y="45" text-anchor="middle" font-size="12" font-weight="700" fill="#047857">第2层：低层特征</text>
-  <text x="240" y="95" text-anchor="middle" font-size="10" fill="#065f46">112×112×64</text>
-  <text x="240" y="115" text-anchor="middle" font-size="9" fill="#059669">边缘、颜色</text>
-  <text x="240" y="130" text-anchor="middle" font-size="9" fill="#059669">简单纹理</text>
-
-  <!-- 箭头 -->
-  <line x1="300" y1="100" x2="330" y2="100" stroke="#64748b" stroke-width="2" marker-end="url(#arrowH)"/>
-
-  <!-- 第3层：中层特征 -->
-  <rect x="340" y="60" width="120" height="80" rx="6" fill="url(#gradLayer3)" stroke="#f59e0b" stroke-width="1.5"/>
-  <text x="400" y="45" text-anchor="middle" font-size="12" font-weight="700" fill="#92400e">第3层：中层特征</text>
-  <text x="400" y="95" text-anchor="middle" font-size="10" fill="#92400e">56×56×128</text>
-  <text x="400" y="115" text-anchor="middle" font-size="9" fill="#d97706">物体部件</text>
-  <text x="400" y="130" text-anchor="middle" font-size="9" fill="#d97706">局部结构</text>
-
-  <!-- 箭头 -->
-  <line x1="460" y1="100" x2="490" y2="100" stroke="#64748b" stroke-width="2" marker-end="url(#arrowH)"/>
-
-  <!-- 第4层：高层特征 -->
-  <rect x="500" y="60" width="120" height="80" rx="6" fill="url(#gradLayer4)" stroke="#ec4899" stroke-width="1.5"/>
-  <text x="560" y="45" text-anchor="middle" font-size="12" font-weight="700" fill="#9d174d">第4层：高层特征</text>
-  <text x="560" y="95" text-anchor="middle" font-size="10" fill="#9d174d">28×28×256</text>
-  <text x="560" y="115" text-anchor="middle" font-size="9" fill="#db2777">完整物体</text>
-  <text x="560" y="130" text-anchor="middle" font-size="9" fill="#db2777">全局语义</text>
-
-  <!-- 箭头 -->
-  <line x1="620" y1="100" x2="650" y2="100" stroke="#64748b" stroke-width="2" marker-end="url(#arrowH)"/>
-
-  <!-- 第5层：类别输出 -->
-  <rect x="660" y="60" width="120" height="80" rx="6" fill="url(#gradLayer5)" stroke="#8b5cf6" stroke-width="1.5"/>
-  <text x="720" y="45" text-anchor="middle" font-size="12" font-weight="700" fill="#5b21b6">第5层：类别输出</text>
-  <text x="720" y="95" text-anchor="middle" font-size="10" fill="#5b21b6">1×1×1000</text>
-  <text x="720" y="115" text-anchor="middle" font-size="9" fill="#7c3aed">类别概率</text>
-  <text x="720" y="130" text-anchor="middle" font-size="9" fill="#7c3aed">纯语义</text>
-
-  <!-- 底部信息栏 -->
-  <g transform="translate(0, 170)">
-    <rect x="20" y="0" width="760" height="50" rx="4" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
-    <text x="400" y="20" text-anchor="middle" font-size="11" font-weight="700" fill="#334155">信息流变化：空间分辨率 ↓ ↓ ↓ ↓（224→112→56→28→1）  |  通道数 ↑ ↑ ↑ ↑（3→64→128→256→1000）</text>
-    <text x="400" y="38" text-anchor="middle" font-size="10" fill="#64748b">感受野逐步扩大 | 语义层次逐步升高 | 对位置敏感度逐步降低</text>
-  </g>
-
-  <!-- 与人类视觉通路对比 -->
-  <g transform="translate(0, 240)">
-    <rect x="20" y="0" width="760" height="55" rx="4" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
-    <text x="400" y="18" text-anchor="middle" font-size="12" font-weight="700" fill="#1d4ed8">与人类视觉通路的对应关系</text>
-    <text x="400" y="36" text-anchor="middle" font-size="10" fill="#3b82f6">V1区（边缘检测）→ V2区（基本形状）→ V4区（颜色和复杂形状）→ IT区（下颞叶皮层，物体识别）→ PFC（前额叶，语义决策）</text>
-    <text x="400" y="52" text-anchor="middle" font-size="9" fill="#64748b">CNN层级结构与人类腹侧视觉通路（Ventral Stream）的惊人对应关系，验证了深度学习架构的生物学合理性</text>
-  </g>
-</svg>
-</figure>
-
 <div class="top-anchor" id="ch1-4"></div>
 <h3>1.4 CNN在电网中的应用前景</h3>
 <p>在电力系统中，CNN具有广泛而深远的应用前景。随着智能电网和数字电网战略的深入推进，基于CNN的视觉感知技术正在成为电网智能化运维的核心能力。以下列举了CNN在电网中的主要应用场景：</p>
@@ -580,96 +459,6 @@ S(0,2) = 3×1 + 0×0 + 1×(-1) + 2×1 + 3×0 + 0×(-1) + 1×1 + 2×0 + 1×(-1)
 └───┴───┴───┘</code></pre>
 
 <div class="callout"><div class="callout-title">卷积核的语义含义</div><p>上述示例中使用的卷积核[[1,0,-1],[1,0,-1],[1,0,-1]]是一个经典的<strong>垂直边缘检测器</strong>：左侧权重为正、右侧权重为负，用于检测图像中从左到右的亮度变化。当卷积核滑过亮度均匀的区域时，正负权重相互抵消，输出接近0；当滑过垂直边缘（左侧亮、右侧暗）时，输出一个较大的正值。</p></div>
-
-<h4>卷积操作可视化</h4>
-<figure class="chart-figure">
-<figcaption>图2-1：卷积操作示意图 — 3×3卷积核在5×5输入上以步长1滑动，产生3×3输出特征图</figcaption>
-<svg viewBox="0 0 800 420" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;font-family:'PingFang SC','Microsoft YaHei',sans-serif">
-  <defs>
-    <linearGradient id="gradInput" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#e0f2fe;stop-opacity:1"/><stop offset="100%" style="stop-color:#bae6fd;stop-opacity:1"/></linearGradient>
-    <linearGradient id="gradKernel" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#fef3c7;stop-opacity:1"/><stop offset="100%" style="stop-color:#fde68a;stop-opacity:1"/></linearGradient>
-    <linearGradient id="gradOutput" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#d1fae5;stop-opacity:1"/><stop offset="100%" style="stop-color:#a7f3d0;stop-opacity:1"/></linearGradient>
-    <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#2563eb"/></marker>
-  </defs>
-  <!-- 输入特征图 -->
-  <rect x="20" y="60" width="180" height="180" rx="4" fill="url(#gradInput)" stroke="#0ea5e9" stroke-width="1.5"/>
-  <text x="110" y="45" text-anchor="middle" font-size="14" font-weight="700" fill="#0369a1">输入特征图 5×5</text>
-  <!-- 输入网格 -->
-  <g stroke="#0ea5e9" stroke-width="0.5" opacity="0.5">
-    <line x1="56" y1="60" x2="56" y2="240"/><line x1="92" y1="60" x2="92" y2="240"/><line x1="128" y1="60" x2="128" y2="240"/><line x1="164" y1="60" x2="164" y2="240"/>
-    <line x1="20" y1="96" x2="200" y2="96"/><line x1="20" y1="132" x2="200" y2="132"/><line x1="20" y1="168" x2="200" y2="168"/><line x1="20" y1="204" x2="200" y2="204"/>
-  </g>
-  <!-- 输入值 -->
-  <g font-size="13" text-anchor="middle" fill="#1e293b">
-    <text x="38" y="84">1</text><text x="74" y="84">2</text><text x="110" y="84">3</text><text x="146" y="84">0</text><text x="182" y="84">1</text>
-    <text x="38" y="120">0</text><text x="74" y="120">1</text><text x="110" y="120">2</text><text x="146" y="120">3</text><text x="182" y="120">0</text>
-    <text x="38" y="156">3</text><text x="74" y="156">0</text><text x="110" y="156">1</text><text x="146" y="156">2</text><text x="182" y="156">1</text>
-    <text x="38" y="192">2</text><text x="74" y="192">3</text><text x="110" y="192">0</text><text x="146" y="192">1</text><text x="182" y="192">0</text>
-    <text x="38" y="228">1</text><text x="74" y="228">2</text><text x="110" y="228">3</text><text x="146" y="228">0</text><text x="182" y="228">1</text>
-  </g>
-  <!-- 高亮当前卷积区域（左上角3x3） -->
-  <rect x="20" y="60" width="108" height="108" fill="none" stroke="#dc2626" stroke-width="2.5" stroke-dasharray="4,2" rx="2"/>
-  <text x="74" y="54" text-anchor="middle" font-size="10" fill="#dc2626" font-weight="600">当前窗口</text>
-
-  <!-- 卷积核 -->
-  <rect x="280" y="105" width="108" height="108" rx="4" fill="url(#gradKernel)" stroke="#d97706" stroke-width="1.5"/>
-  <text x="334" y="90" text-anchor="middle" font-size="14" font-weight="700" fill="#92400e">卷积核 3×3</text>
-  <g stroke="#d97706" stroke-width="0.5" opacity="0.5">
-    <line x1="316" y1="105" x2="316" y2="213"/><line x1="352" y1="105" x2="352" y2="213"/>
-    <line x1="280" y1="141" x2="388" y2="141"/><line x1="280" y1="177" x2="388" y2="177"/>
-  </g>
-  <g font-size="13" text-anchor="middle" fill="#1e293b">
-    <text x="298" y="130" fill="#059669" font-weight="700">1</text><text x="334" y="130">0</text><text x="370" y="130" fill="#dc2626" font-weight="700">-1</text>
-    <text x="298" y="166" fill="#059669" font-weight="700">1</text><text x="334" y="166">0</text><text x="370" y="166" fill="#dc2626" font-weight="700">-1</text>
-    <text x="298" y="202" fill="#059669" font-weight="700">1</text><text x="334" y="202">0</text><text x="370" y="202" fill="#dc2626" font-weight="700">-1</text>
-  </g>
-  <text x="334" y="235" text-anchor="middle" font-size="10" fill="#92400e">垂直边缘检测器</text>
-
-  <!-- 箭头 -->
-  <line x1="200" y1="150" x2="270" y2="150" stroke="#2563eb" stroke-width="2" marker-end="url(#arrowhead)"/>
-  <text x="235" y="142" text-anchor="middle" font-size="10" fill="#2563eb">逐元素</text>
-  <text x="235" y="155" text-anchor="middle" font-size="10" fill="#2563eb">相乘求和</text>
-
-  <!-- 计算过程 -->
-  <rect x="440" y="80" width="150" height="160" rx="4" fill="#f8fafc" stroke="#64748b" stroke-width="1" stroke-dasharray="5,3"/>
-  <text x="515" y="100" text-anchor="middle" font-size="12" font-weight="700" fill="#334155">计算过程</text>
-  <g font-size="11" fill="#475569" font-family="'GeistMono',monospace">
-    <text x="450" y="120">S(0,0) =</text>
-    <text x="450" y="138">1×1 + 2×0 + 3×(-1)</text>
-    <text x="450" y="156">+ 0×1 + 1×0 + 2×(-1)</text>
-    <text x="450" y="174">+ 3×1 + 0×0 + 1×(-1)</text>
-    <text x="450" y="198">= 1+0-3+0+0-2</text>
-    <text x="450" y="216">+ 3+0-1</text>
-    <text x="450" y="234" font-weight="700" fill="#dc2626">= -2</text>
-  </g>
-
-  <!-- 输出特征图 -->
-  <rect x="630" y="105" width="108" height="108" rx="4" fill="url(#gradOutput)" stroke="#059669" stroke-width="1.5"/>
-  <text x="684" y="90" text-anchor="middle" font-size="14" font-weight="700" fill="#065f46">输出特征图 3×3</text>
-  <g stroke="#059669" stroke-width="0.5" opacity="0.5">
-    <line x1="666" y1="105" x2="666" y2="213"/><line x1="702" y1="105" x2="702" y2="213"/>
-    <line x1="630" y1="141" x2="738" y2="141"/><line x1="630" y1="177" x2="738" y2="177"/>
-  </g>
-  <g font-size="14" text-anchor="middle" fill="#1e293b">
-    <text x="648" y="130" fill="#dc2626" font-weight="700">-2</text><text x="684" y="130">-2</text><text x="720" y="130">4</text>
-    <text x="648" y="166">1</text><text x="684" y="166">-2</text><text x="720" y="166">0</text>
-    <text x="648" y="202">1</text><text x="684" y="202">-2</text><text x="720" y="202">-2</text>
-  </g>
-
-  <!-- 箭头从计算到输出 -->
-  <line x1="590" y1="150" x2="620" y2="150" stroke="#2563eb" stroke-width="2" marker-end="url(#arrowhead)"/>
-
-  <!-- 底部说明 -->
-  <text x="400" y="290" text-anchor="middle" font-size="12" fill="#64748b">卷积核在输入上从左到右、从上到下依次滑动，每个位置计算一次加权求和</text>
-  <text x="400" y="310" text-anchor="middle" font-size="12" fill="#64748b">输出尺寸 = (输入尺寸 - 卷积核尺寸) / 步长 + 1 = (5-3)/1 + 1 = 3</text>
-
-  <!-- 滑动方向指示 -->
-  <g transform="translate(20,260)">
-    <text x="0" y="10" font-size="11" fill="#64748b">滑动方向: → → → 然后 ↓ → → → 然后 ↓ → → →</text>
-    <text x="0" y="26" font-size="11" fill="#64748b">共9个位置: (0,0)(0,1)(0,2) (1,0)(1,1)(1,2) (2,0)(2,1)(2,2)</text>
-  </g>
-</svg>
-</figure>
 
 <h4>关键参数</h4>
 <div class="table-wrap">
@@ -809,83 +598,6 @@ H_out = ⌊(H - K) / S⌋ + 1</code></pre>
 <p>从直觉上理解，最大池化只关心窗口内"是否存在"某个特征，而不关心特征在窗口内的<strong>精确位置</strong>。例如，一个检测到"眼睛"的特征响应，无论它出现在2×2窗口的左上角还是右下角，最大池化都会将其保留在输出中。这种"只要存在就保留"的机制，使得CNN对局部位置变化具有一定的鲁棒性，这正是平移不变性的来源。</p>
 
 <div class="callout"><div class="callout-title">平移不变性与平移等变性的区别</div><p><strong>平移等变性（Equivariance）</strong>：输入平移导致输出以相同方式平移，即"特征的位置跟着物体走"。卷积层具有平移等变性。<strong>平移不变性（Invariance）</strong>：输入平移不改变输出，即"分类结果不随物体位置变化"。池化层通过下采样和取最大值操作，在降低空间分辨率的同时，将等变性逐步转化为不变性。CNN通过交替使用卷积（保持等变性）和池化（引入不变性），在保持空间信息的同时逐步构建位置无关的语义表示。</p></div>
-
-<h4>池化操作可视化</h4>
-<figure class="chart-figure">
-<figcaption>图2-2：最大池化与平均池化操作示意图 — 2×2窗口、步长2，将4×4输入压缩为2×2输出</figcaption>
-<svg viewBox="0 0 800 380" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;font-family:'PingFang SC','Microsoft YaHei',sans-serif">
-  <defs>
-    <linearGradient id="gradIn" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#e0e7ff;stop-opacity:1"/><stop offset="100%" style="stop-color:#c7d2fe;stop-opacity:1"/></linearGradient>
-    <linearGradient id="gradMax" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#fce7f3;stop-opacity:1"/><stop offset="100%" style="stop-color:#fbcfe8;stop-opacity:1"/></linearGradient>
-    <linearGradient id="gradAvg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#d1fae5;stop-opacity:1"/><stop offset="100%" style="stop-color:#a7f3d0;stop-opacity:1"/></linearGradient>
-  </defs>
-  <!-- 输入特征图 -->
-  <rect x="20" y="40" width="180" height="180" rx="4" fill="url(#gradIn)" stroke="#6366f1" stroke-width="1.5"/>
-  <text x="110" y="28" text-anchor="middle" font-size="14" font-weight="700" fill="#4338ca">输入特征图 4×4</text>
-  <g stroke="#6366f1" stroke-width="0.5" opacity="0.5">
-    <line x1="65" y1="40" x2="65" y2="220"/><line x1="110" y1="40" x2="110" y2="220"/><line x1="155" y1="40" x2="155" y2="220"/>
-    <line x1="20" y1="85" x2="200" y2="85"/><line x1="20" y1="130" x2="200" y2="130"/><line x1="20" y1="175" x2="200" y2="175"/>
-  </g>
-  <g font-size="15" text-anchor="middle" fill="#1e293b">
-    <text x="43" y="68">1</text><text x="88" y="68">3</text><text x="133" y="68">2</text><text x="178" y="68">5</text>
-    <text x="43" y="113">2</text><text x="88" y="113" fill="#dc2626" font-weight="700">6</text><text x="133" y="113">4</text><text x="178" y="113">1</text>
-    <text x="43" y="158">7</text><text x="88" y="158">2</text><text x="133" y="158">3</text><text x="178" y="158" fill="#dc2626" font-weight="700">8</text>
-    <text x="43" y="203">1</text><text x="88" y="203">4</text><text x="133" y="203">6</text><text x="178" y="203">2</text>
-  </g>
-  <!-- 高亮区域 -->
-  <rect x="65" y="85" width="45" height="45" fill="none" stroke="#dc2626" stroke-width="2" rx="2"/>
-  <rect x="155" y="130" width="45" height="45" fill="none" stroke="#dc2626" stroke-width="2" rx="2"/>
-  <text x="88" y="78" text-anchor="middle" font-size="9" fill="#dc2626">max=6</text>
-  <text x="178" y="122" text-anchor="middle" font-size="9" fill="#dc2626">max=8</text>
-
-  <!-- 最大池化 -->
-  <text x="280" y="28" text-anchor="middle" font-size="14" font-weight="700" fill="#be185d">最大池化 (Max Pooling)</text>
-  <rect x="235" y="95" width="90" height="90" rx="4" fill="url(#gradMax)" stroke="#db2777" stroke-width="1.5"/>
-  <g stroke="#db2777" stroke-width="0.5" opacity="0.5">
-    <line x1="280" y1="95" x2="280" y2="185"/>
-    <line x1="235" y1="140" x2="325" y2="140"/>
-  </g>
-  <g font-size="16" text-anchor="middle" fill="#1e293b">
-    <text x="258" y="120" fill="#dc2626" font-weight="700">6</text><text x="303" y="120">5</text>
-    <text x="258" y="165">7</text><text x="303" y="165" fill="#dc2626" font-weight="700">8</text>
-  </g>
-  <text x="280" y="210" text-anchor="middle" font-size="11" fill="#be185d">取每个窗口的最大值</text>
-
-  <!-- 箭头 -->
-  <line x1="200" y1="140" x2="225" y2="140" stroke="#2563eb" stroke-width="2" marker-end="url(#arrowhead)"/>
-
-  <!-- 平均池化 -->
-  <text x="460" y="28" text-anchor="middle" font-size="14" font-weight="700" fill="#047857">平均池化 (Average Pooling)</text>
-  <rect x="415" y="95" width="90" height="90" rx="4" fill="url(#gradAvg)" stroke="#059669" stroke-width="1.5"/>
-  <g stroke="#059669" stroke-width="0.5" opacity="0.5">
-    <line x1="460" y1="95" x2="460" y2="185"/>
-    <line x1="415" y1="140" x2="505" y2="140"/>
-  </g>
-  <g font-size="14" text-anchor="middle" fill="#1e293b">
-    <text x="438" y="120">3.0</text><text x="483" y="120">3.0</text>
-    <text x="438" y="165">3.5</text><text x="483" y="165">3.2</text>
-  </g>
-  <text x="460" y="210" text-anchor="middle" font-size="11" fill="#047857">取每个窗口的平均值</text>
-
-  <!-- 计算示例 -->
-  <rect x="560" y="40" width="210" height="180" rx="4" fill="#f8fafc" stroke="#64748b" stroke-width="1"/>
-  <text x="665" y="62" text-anchor="middle" font-size="12" font-weight="700" fill="#334155">计算示例</text>
-  <g font-size="11" fill="#475569" font-family="'GeistMono',monospace">
-    <text x="570" y="82" font-weight="700" fill="#be185d">最大池化: 窗口1</text>
-    <text x="570" y="100">max(1,3,2,6) = 6</text>
-    <text x="570" y="122" font-weight="700" fill="#be185d">最大池化: 窗口2</text>
-    <text x="570" y="140">max(2,5,4,1) = 5</text>
-    <text x="570" y="162" font-weight="700" fill="#047857">平均池化: 窗口1</text>
-    <text x="570" y="180">(1+3+2+6)/4 = 3.0</text>
-    <text x="570" y="202" font-weight="700" fill="#047857">平均池化: 窗口2</text>
-    <text x="570" y="220">(2+5+4+1)/4 = 3.0</text>
-  </g>
-
-  <!-- 底部说明 -->
-  <text x="400" y="270" text-anchor="middle" font-size="12" fill="#64748b">池化窗口大小2×2，步长2：输出尺寸 = (4-2)/2 + 1 = 2</text>
-  <text x="400" y="292" text-anchor="middle" font-size="12" fill="#64748b">最大池化保留最强特征响应，平均池化平滑输出，各适用于不同场景</text>
-</svg>
-</figure>
 
 <div class="top-anchor" id="ch2-3"></div>
 <h3>2.3 激活函数（Activation Function）</h3>
@@ -1121,13 +833,13 @@ z^(L) = W^(L) · a^(L-1) + b^(L)           [线性变换，输出logits]
 <caption>LeNet-5 架构参数</caption>
 <thead><tr><th>层</th><th>类型</th><th>输入尺寸</th><th>参数</th><th>输出尺寸</th></tr></thead>
 <tbody>
-<tr><td>C1</td><td>卷积</td><td>32×32×1</td><td>6个5×5, stride=1</td><td>28×28×6</td></tr>
-<tr><td>S2</td><td>平均池化</td><td>28×28×6</td><td>2×2, stride=2</td><td>14×14×6</td></tr>
-<tr><td>C3</td><td>卷积</td><td>14×14×6</td><td>16个5×5, stride=1</td><td>10×10×16</td></tr>
-<tr><td>S4</td><td>平均池化</td><td>10×10×16</td><td>2×2, stride=2</td><td>5×5×16</td></tr>
-<tr><td>C5</td><td>卷积（全连接）</td><td>5×5×16</td><td>120个5×5</td><td>1×1×120</td></tr>
-<tr><td>F6</td><td>全连接</td><td>120</td><td>120×84</td><td>84</td></tr>
-<tr><td>Output</td><td>全连接</td><td>84</td><td>84×10</td><td>10</td></tr>
+<tr><td>C1</td><td>卷积</td><td>32321</td><td>6个55, stride=1</td><td>28286</td></tr>
+<tr><td>S2</td><td>平均池化</td><td>28286</td><td>22, stride=2</td><td>14146</td></tr>
+<tr><td>C3</td><td>卷积</td><td>14146</td><td>16个55, stride=1</td><td>101016</td></tr>
+<tr><td>S4</td><td>平均池化</td><td>101016</td><td>22, stride=2</td><td>5516</td></tr>
+<tr><td>C5</td><td>卷积（全连接）</td><td>5516</td><td>120个55</td><td>11120</td></tr>
+<tr><td>F6</td><td>全连接</td><td>120</td><td>12084</td><td>84</td></tr>
+<tr><td>Output</td><td>全连接</td><td>84</td><td>8410</td><td>10</td></tr>
 </tbody>
 </table>
 </div>
@@ -1135,15 +847,15 @@ z^(L) = W^(L) · a^(L-1) + b^(L)           [线性变换，输出logits]
 <h4>LeNet-5逐层参数量计算</h4>
 <p>理解每一层的参数量不仅有助于把握模型规模，也是面试和竞赛中的常见考点。以下逐层手动计算：</p>
 
-<p><strong>C1卷积层</strong>：输入为1通道的32×32灰度图，使用6个5×5卷积核。每个卷积核的参数为5×5×1 = 25，加上每个卷积核配一个偏置（bias），共6个偏置。因此C1层参数量为：</p>
-<pre><code>Params_C1 = 6 × (5×5×1) + 6 = 6 × 25 + 6 = 150 + 6 = 156</code></pre>
-<p><strong>公式解读：</strong>6个卷积核，每个核有5×5×1=25个权重参数，加上每个输出通道一个偏置参数（共6个），总计156个参数。这156个参数需要从32×32输入图像中学习检测6种不同的基础特征（如边缘、角点等）。</p>
+<p><strong>C1卷积层</strong>：输入为1通道的3232灰度图，使用6个55卷积核。每个卷积核的参数为551 = 25，加上每个卷积核配一个偏置（bias），共6个偏置。因此C1层参数量为：</p>
+<pre><code>Params_C1 = 6  (551) + 6 = 6  25 + 6 = 150 + 6 = 156</code></pre>
+<p>公式解读：6个卷积核，每个核有551=25个权重参数，加上每个输出通道一个偏置参数（共6个），总计156个参数。这156个参数需要从3232输入图像中学习检测6种不同的基础特征（如边缘、角点等）。</p>
 
 <p><strong>S2池化层</strong>：平均池化层没有可学习参数（LeNet-5的S2层使用可训练的缩放系数和偏置，但现代实现中通常无参数）。按原始论文，S2有6个通道各带1个可训练系数和1个偏置：</p>
 <pre><code>Params_S2 = 6  2 = 12（原始论文中的可训练参数）</code></pre>
 <p>公式解读：每个特征图对应一个乘性系数和一个加性偏置，6个通道共12个参数。现代实现中池化层通常无参数，这12个参数在LeNet-5原始设计中用于对池化后的特征图进行缩放和平移。</p>
 
-<p><strong>C3卷积层</strong>：这是LeNet-5中最特殊的层。C3使用16个5×5卷积核，但并非每个卷积核都与S2的全部6个通道相连，而是使用了一个精心设计的<strong>非全连接映射表</strong>。具体连接方式见下表：</p>
+<p><strong>C3卷积层</strong>：这是LeNet-5中最特殊的层。C3使用16个55卷积核，但并非每个卷积核都与S2的全部6个通道相连，而是使用了一个精心设计的<strong>非全连接映射表</strong>。具体连接方式见下表：</p>
 <div class="table-wrap">
 <table>
 <caption>S2到C3的非全连接映射表</caption>
@@ -1153,24 +865,24 @@ z^(L) = W^(L) · a^(L-1) + b^(L)           [线性变换，输出logits]
 </tbody>
 </table>
 </div>
-<p>根据上表，C3的16个通道各自连接S2的不同子集：前6个通道各连接S2的3个通道（共6×3=18个连接），中间9个通道各连接S2的4个通道（共9×4=36个连接），最后1个通道连接S2的全部6个通道（6个连接）。每个连接对应一个5×5卷积核，因此参数量为：</p>
-<pre><code>Params_C3 = 18×(5×5) + 36×(5×5) + 6×(5×5) + 16(偏置)
-          = 18×25 + 36×25 + 6×25 + 16
+<p>根据上表，C3的16个通道各自连接S2的不同子集：前6个通道各连接S2的3个通道（共63=18个连接），中间9个通道各连接S2的4个通道（共94=36个连接），最后1个通道连接S2的全部6个通道（6个连接）。每个连接对应一个55卷积核，因此参数量为：</p>
+<pre><code>Params_C3 = 18(55) + 36(55) + 6(55) + 16(偏置)
+          = 1825 + 3625 + 625 + 16
           = 450 + 900 + 150 + 16
           = 1516</code></pre>
-<p>公式解读：C3层共有60个5×5卷积核（18+36+6=60），每个核25个权重参数，共1500个权重参数，加上16个偏置，总计1516个参数。如果C3采用全连接方式（每个输出通道连接所有6个输入通道），参数量将是16×(5×5×6)+16 = 2416，非全连接设计节省了约37%的参数。</p>
+<p>公式解读：C3层共有60个55卷积核（18+36+6=60），每个核25个权重参数，共1500个权重参数，加上16个偏置，总计1516个参数。如果C3采用全连接方式（每个输出通道连接所有6个输入通道），参数量将是16(556)+16 = 2416，非全连接设计节省了约37%的参数。</p>
 
 <p><strong>S4池化层</strong>：与S2类似，16个通道各带可训练系数和偏置：</p>
 <pre><code>Params_S4 = 16  2 = 32</code></pre>
 <p>公式解读：16个通道，每通道1个乘性系数和1个加性偏置，共32个参数。</p>
 
-<p><strong>C5卷积层</strong>：C5使用120个5×5卷积核，每个核连接S4的全部16个通道。由于S4的输出尺寸为5×5×16，5×5卷积核在此处等价于全连接操作：</p>
-<pre><code>Params_C5 = 120 × (5×5×16) + 120 = 120 × 400 + 120 = 48000 + 120 = 48120</code></pre>
-<p>公式解读：120个卷积核，每个核覆盖16个通道的5×5区域，即5×5×16=400个权重参数，加上120个偏置，共48120个参数。这是LeNet-5中参数量最大的一层，占总参数的约78%。</p>
+<p><strong>C5卷积层</strong>：C5使用120个55卷积核，每个核连接S4的全部16个通道。由于S4的输出尺寸为5516，55卷积核在此处等价于全连接操作：</p>
+<pre><code>Params_C5 = 120  (5516) + 120 = 120  400 + 120 = 48000 + 120 = 48120</code></pre>
+<p>公式解读：120个卷积核，每个核覆盖16个通道的55区域，即5516=400个权重参数，加上120个偏置，共48120个参数。这是LeNet-5中参数量最大的一层，占总参数的约78%。</p>
 
 <p><strong>F6全连接层</strong>：输入120维，输出84维：</p>
-<pre><code>Params_F6 = 120 × 84 + 84 = 10080 + 84 = 10164</code></pre>
-<p>公式解读：120个输入神经元与84个输出神经元全连接，权重矩阵为120×84=10080个参数，加上84个偏置，共10164个参数。</p>
+<pre><code>Params_F6 = 120  84 + 84 = 10080 + 84 = 10164</code></pre>
+<p>公式解读：120个输入神经元与84个输出神经元全连接，权重矩阵为12084=10080个参数，加上84个偏置，共10164个参数。</p>
 
 <p><strong>Output层</strong>：输入84维，输出10维（对应10个数字类别）：</p>
 <pre><code>Params_Output = 84  10 + 10 = 840 + 10 = 850</code></pre>
@@ -1192,7 +904,7 @@ z^(L) = W^(L) · a^(L-1) + b^(L)           [线性变换，输出logits]
 <p>LeNet-5的历史意义远超其技术本身。它代表了神经网络从理论走向实践的关键一步：</p>
 <p><strong>商业验证</strong>：LeNet-5被美国邮政系统和多家银行实际部署用于手写支票数字识别，处理了数百万张支票。这是深度学习技术第一次在商业场景中证明其价值，为后续的神经网络研究提供了信心和资金支持。</p>
 <p><strong>方法论奠基</strong>：LeNet-5确立了CNN的五大核心组件——卷积层、池化层（下采样）、非线性激活函数（Tanh/Sigmoid）、全连接层、损失函数驱动的反向传播训练。后续所有CNN架构（AlexNet、VGGNet、ResNet等）都是在这个框架上的改进和扩展。</p>
-<p><strong>架构哲学</strong>：LeNet-5体现了"逐步抽象"的架构哲学——空间分辨率逐步降低（32×32→28×28→14×14→10×10→5×5→1×1），通道数逐步增加（1→6→16→120），最终将空间信息压缩为语义信息。这种"空间换通道"的设计哲学一直延续至今。</p>
+<p><strong>架构哲学</strong>：LeNet-5体现了"逐步抽象"的架构哲学——空间分辨率逐步降低（3232→2828→1414→1010→55→11），通道数逐步增加（1→6→16→120），最终将空间信息压缩为语义信息。这种"空间换通道"的设计哲学一直延续至今。</p>
 <p><strong>局限性</strong>：LeNet-5的局限性同样具有教育意义。它使用Tanh激活函数，深层训练时梯度容易消失；使用平均池化而非最大池化，特征保留能力较弱；缺乏正则化机制（Dropout、BN），在更大规模数据集上容易过拟合。这些不足直接催生了后续架构的改进方向。</p>
 
 <div class="top-anchor" id="ch3-2"></div>
@@ -1204,9 +916,9 @@ z^(L) = W^(L) · a^(L-1) + b^(L)           [线性变换，输出logits]
 <li><strong>ReLU激活函数</strong>：首次在CNN中大规模使用ReLU，解决了深层网络的梯度消失问题，训练速度比Tanh快约6倍。ReLU的非饱和特性使得梯度在正区间保持恒定，为深层网络的训练提供了可能。</li>
 <li><strong>Dropout正则化</strong>：在全连接层中使用Dropout（p=0.5），有效防止过拟合。这是Dropout技术首次在CNN中大规模应用。</li>
 <li><strong>GPU并行训练</strong>：将网络拆分到两块GTX 580 GPU上并行训练（每块GPU 3GB显存），开创了GPU深度学习的先河。这是当时硬件限制下的创新方案。</li>
-<li><strong>数据增强</strong>：使用随机裁剪（从256×256裁剪到227×227）、水平翻转、PCA颜色抖动等技术扩充训练数据，有效提升了泛化能力。</li>
+<li><strong>数据增强</strong>：使用随机裁剪（从256256裁剪到227227）、水平翻转、PCA颜色抖动等技术扩充训练数据，有效提升了泛化能力。</li>
 <li><strong>局部响应归一化（LRN）</strong>：在激活后对局部神经元进行归一化，模拟生物学中的侧抑制机制。后被BN取代，但在当时是重要的正则化手段。</li>
-<li><strong>重叠池化</strong>：使用3×3池化窗口且步长为2，相邻池化窗口有重叠（覆盖1个像素），相比传统的22步长2无重叠池化，top-1和top-5错误率分别降低了0.4%和0.3%。</li>
+<li><strong>重叠池化</strong>：使用33池化窗口且步长为2，相邻池化窗口有重叠（覆盖1个像素），相比传统的22步长2无重叠池化，top-1和top-5错误率分别降低了0.4%和0.3%。</li>
 </ul>
 
 <h4>详细架构参数表</h4>
@@ -1215,14 +927,14 @@ z^(L) = W^(L) · a^(L-1) + b^(L)           [线性变换，输出logits]
 <caption>AlexNet完整架构参数表</caption>
 <thead><tr><th>层</th><th>类型</th><th>输入尺寸</th><th>Kernel/Stride/Pad</th><th>输出尺寸</th><th>参数量</th><th>FLOPs</th></tr></thead>
 <tbody>
-<tr><td>Conv1</td><td>卷积+ReLU</td><td>227×227×3</td><td>11×11, s=4, p=0</td><td>55×55×96</td><td>34,944</td><td>105.8M</td></tr>
-<tr><td>Pool1</td><td>最大池化</td><td>55×55×96</td><td>3×3, s=2</td><td>27×27×96</td><td>0</td><td>—</td></tr>
-<tr><td>Conv2</td><td>卷积+ReLU</td><td>27×27×96</td><td>5×5, s=1, p=2</td><td>27×27×256</td><td>614,656</td><td>448.3M</td></tr>
-<tr><td>Pool2</td><td>最大池化</td><td>27×27×256</td><td>3×3, s=2</td><td>13×13×256</td><td>0</td><td>—</td></tr>
-<tr><td>Conv3</td><td>卷积+ReLU</td><td>13×13×256</td><td>3×3, s=1, p=1</td><td>13×13×384</td><td>885,120</td><td>149.6M</td></tr>
-<tr><td>Conv4</td><td>卷积+ReLU</td><td>13×13×384</td><td>3×3, s=1, p=1</td><td>13×13×384</td><td>663,936</td><td>112.2M</td></tr>
-<tr><td>Conv5</td><td>卷积+ReLU</td><td>13×13×384</td><td>3×3, s=1, p=1</td><td>13×13×256</td><td>442,624</td><td>74.8M</td></tr>
-<tr><td>Pool5</td><td>最大池化</td><td>13×13×256</td><td>3×3, s=2</td><td>6×6×256</td><td>0</td><td>—</td></tr>
+<tr><td>Conv1</td><td>卷积+ReLU</td><td>2272273</td><td>1111, s=4, p=0</td><td>555596</td><td>34,944</td><td>105.8M</td></tr>
+<tr><td>Pool1</td><td>最大池化</td><td>555596</td><td>33, s=2</td><td>272796</td><td>0</td><td>—</td></tr>
+<tr><td>Conv2</td><td>卷积+ReLU</td><td>272796</td><td>55, s=1, p=2</td><td>2727256</td><td>614,656</td><td>448.3M</td></tr>
+<tr><td>Pool2</td><td>最大池化</td><td>2727256</td><td>33, s=2</td><td>1313256</td><td>0</td><td>—</td></tr>
+<tr><td>Conv3</td><td>卷积+ReLU</td><td>1313256</td><td>33, s=1, p=1</td><td>1313384</td><td>885,120</td><td>149.6M</td></tr>
+<tr><td>Conv4</td><td>卷积+ReLU</td><td>1313384</td><td>33, s=1, p=1</td><td>1313384</td><td>663,936</td><td>112.2M</td></tr>
+<tr><td>Conv5</td><td>卷积+ReLU</td><td>1313384</td><td>33, s=1, p=1</td><td>1313256</td><td>442,624</td><td>74.8M</td></tr>
+<tr><td>Pool5</td><td>最大池化</td><td>1313256</td><td>33, s=2</td><td>66256</td><td>0</td><td>—</td></tr>
 <tr><td>FC6</td><td>全连接+ReLU+Dropout</td><td>9216</td><td>—</td><td>4096</td><td>37,752,832</td><td>75.5M</td></tr>
 <tr><td>FC7</td><td>全连接+ReLU+Dropout</td><td>4096</td><td>—</td><td>4096</td><td>16,781,312</td><td>33.6M</td></tr>
 <tr><td>FC8</td><td>全连接+Softmax</td><td>4096</td><td>—</td><td>1000</td><td>4,097,000</td><td>8.2M</td></tr>
@@ -1235,20 +947,20 @@ z^(L) = W^(L) · a^(L-1) + b^(L)           [线性变换，输出logits]
 <p>FLOPs（Floating Point Operations）是衡量模型计算量的重要指标。对于卷积层，FLOPs的计算公式为：</p>
 <pre><code>FLOPs_conv = 2  K_h  K_w  C_in  C_out  H_out  W_out</code></pre>
 <p>公式解读：每次卷积乘法需要K_hK_wC_in次乘法，加上累加需要同等次数的加法（近似），故乘以2。C_out个输出通道，输出特征图尺寸为H_outW_out。AlexNet各卷积层FLOPs计算如下：</p>
-<pre><code>Conv1: 2  11×1139655×55  2  363  96  3025  210.7M（原表中标注约105.8M因双GPU各半）
-Conv2: 2  559625627×27  2  2400  256  729  896.5M（一半=448.3M）
-Conv3: 2  3325638413×13  2  2304  384  169  299.1M（一半=149.6M）
-Conv4: 2  3338438413×13  2  3456  384  169  224.3M（一半=112.2M）
-Conv5: 2  3338425613×13  2  3456  256  169  149.6M（一半=74.8M）
+<pre><code>Conv1: 2  11113965555  2  363  96  3025  210.7M（原表中标注约105.8M因双GPU各半）
+Conv2: 2  55962562727  2  2400  256  729  896.5M（一半=448.3M）
+Conv3: 2  332563841313  2  2304  384  169  299.1M（一半=149.6M）
+Conv4: 2  333843841313  2  3456  384  169  224.3M（一半=112.2M）
+Conv5: 2  333842561313  2  3456  256  169  149.6M（一半=74.8M）
 Total Conv FLOPs  1780.3M（双GPU各半约为890.2M）</code></pre>
 <p>公式解读：以上计算的是完整FLOPs（包括乘法和加法）。由于双GPU分组，每块GPU只承担一半的计算量。卷积层总计约8.9亿次浮点运算，全连接层约1.17亿次（921640962 + 409640962 + 409610002），总计约10.1亿次FLOPs。以GTX 580（约1.5 TFLOPS）计算，单次前向传播约需0.67毫秒，但实际中还包括反向传播和数据加载，训练一个epoch（120万张图像）约需数小时。</p>
 
-<h4>为什么第一层用11×11大卷积核</h4>
-<p>AlexNet在第一层使用11×11的大卷积核，而现代CNN（如VGGNet、ResNet）普遍使用33小卷积核。这一设计选择有其历史背景和工程考量：</p>
-<p>第一，<strong>快速缩减空间尺寸</strong>：输入图像为227×227，使用11×1×1卷积核配合stride=4，一步就将空间尺寸从227降至55。这相当于先用大视野快速"扫描"整张图像，捕获大范围的纹理和颜色信息。如果使用3×3卷积核，要达到同样的尺寸缩减需要多个卷积层和池化层。</p>
-<p>第二，<strong>捕获大尺度特征</strong>：ImageNet图像中物体通常占据较大区域，11×11的感受野可以一次性捕获大范围的上下文信息（如天空、草地等背景特征和物体的整体轮廓），这对于后续的细粒度特征提取非常有利。</p>
-<p>第三，<strong>历史局限性</strong>：2012年时，研究者尚未充分认识到小卷积核堆叠的优势。VGGNet（2014）才系统性地证明了两个3×3卷积核堆叠的感受野等于一个5×5卷积核，但参数更少、非线性更强。此后，大卷积核在CNN中逐渐被淘汰，直到2022年的ConvNeXt等模型才重新探索大卷积核（7×7）的价值。</p>
-<div class="callout"><div class="callout-title">现代视角</div><p>如果用今天的标准重新设计AlexNet的第一层，更可能会使用3个3×3卷积（stride=2,1,1）替代单个11×11卷积（stride=4），在保持相同感受野（11×11）的同时，参数更少且非线性更强。但这也意味着更深的网络，对当时的GPU内存和训练稳定性提出了更高要求。</p></div>
+<h4>为什么第一层用1111大卷积核</h4>
+<p>AlexNet在第一层使用1111的大卷积核，而现代CNN（如VGGNet、ResNet）普遍使用33小卷积核。这一设计选择有其历史背景和工程考量：</p>
+<p>第一，<strong>快速缩减空间尺寸</strong>：输入图像为227227，使用1111卷积核配合stride=4，一步就将空间尺寸从227降至55。这相当于先用大视野快速"扫描"整张图像，捕获大范围的纹理和颜色信息。如果使用33卷积核，要达到同样的尺寸缩减需要多个卷积层和池化层。</p>
+<p>第二，<strong>捕获大尺度特征</strong>：ImageNet图像中物体通常占据较大区域，1111的感受野可以一次性捕获大范围的上下文信息（如天空、草地等背景特征和物体的整体轮廓），这对于后续的细粒度特征提取非常有利。</p>
+<p>第三，<strong>历史局限性</strong>：2012年时，研究者尚未充分认识到小卷积核堆叠的优势。VGGNet（2014）才系统性地证明了两个33卷积核堆叠的感受野等于一个55卷积核，但参数更少、非线性更强。此后，大卷积核在CNN中逐渐被淘汰，直到2022年的ConvNeXt等模型才重新探索大卷积核（77）的价值。</p>
+<div class="callout"><div class="callout-title">现代视角</div><p>如果用今天的标准重新设计AlexNet的第一层，更可能会使用3个33卷积（stride=2,1,1）替代单个1111卷积（stride=4），在保持相同感受野（1111）的同时，参数更少且非线性更强。但这也意味着更深的网络，对当时的GPU内存和训练稳定性提出了更高要求。</p></div>
 
 <h4>双GPU分组的详细说明</h4>
 <p>AlexNet的双GPU分组设计是硬件限制下的创新方案。当时单块GTX 580只有3GB显存，无法容纳完整的AlexNet模型（约240MB参数+中间激活）。解决方案是将网络在通道维度上分为两组，分别运行在两块GPU上：</p>
@@ -1258,71 +970,71 @@ GPU 2 路径: Conv1(48ch) → Conv2(128ch) → Conv3(192ch) → Conv4(192ch) →
          仅部分层有跨GPU通信</code></pre>
 <p>公式解读：Conv1的输出96通道被均分为两组各48通道，分别送入GPU 1和GPU 2。Conv2的256通道也均分各128通道。从Conv3开始，两个GPU之间开始有跨GPU的通信（即Conv3的每个GPU上的卷积核不仅连接本GPU的上一层的输出，也连接对端GPU的部分输出），这使得网络能够学习跨GPU的特征组合。Conv3、Conv4、Conv5的跨GPU连接模式是精心设计的，既保证了特征交互，又控制了通信开销。</p>
 <p>全连接层FC6、FC7、FC8则完全连接两个GPU的所有输出，此时需要两个GPU之间进行全部数据交换。这种设计的副产品是——它无意中创造了一种<strong>分组卷积（Group Convolution）</strong>的雏形，后来的ResNeXt、MobileNet等架构都受此启发。</p>
-<div class="callout"><div class="callout-title">架构概览</div><p>AlexNet包含5个卷积层和3个全连接层，总参数量约6000万。输入图像尺寸为227×227×3，最终输出1000个类别。第一层使用11×11大卷积核（步长4），后续层使用5×5和3×3卷积核。</p></div>
+<div class="callout"><div class="callout-title">架构概览</div><p>AlexNet包含5个卷积层和3个全连接层，总参数量约6000万。输入图像尺寸为2272273，最终输出1000个类别。第一层使用1111大卷积核（步长4），后续层使用55和33卷积核。</p></div>
 
 <div class="top-anchor" id="ch3-3"></div>
 <h3>3.3 VGGNet（2014）</h3>
-<p>VGGNet由牛津大学Visual Geometry Group（视觉几何组）提出，核心思想是：<strong>使用更深的网络和更小的卷积核</strong>。VGG-16和VGG-19是最常用的两个版本。VGGNet最大的贡献在于系统性地证明了"深度"对CNN性能的重要性，并确立了"全部使用3×3卷积核"的简洁设计范式。</p>
+<p>VGGNet由牛津大学Visual Geometry Group（视觉几何组）提出，核心思想是：<strong>使用更深的网络和更小的卷积核</strong>。VGG-16和VGG-19是最常用的两个版本。VGGNet最大的贡献在于系统性地证明了"深度"对CNN性能的重要性，并确立了"全部使用33卷积核"的简洁设计范式。</p>
 
 <h4>设计特点</h4>
 <ul>
-<li>全部使用<strong>3×3卷积核</strong>（最小能捕捉上下左右中心概念的尺寸）</li>
-<li>两个3×3卷积核堆叠，感受野等价于一个5×5卷积核，但参数更少（3×3×2=18 vs 5×5=25）</li>
-<li>卷积层后接<strong>2×2最大池化</strong>（步长2），每次池化后通道数翻倍</li>
+<li>全部使用<strong>33卷积核</strong>（最小能捕捉上下左右中心概念的尺寸）</li>
+<li>两个33卷积核堆叠，感受野等价于一个55卷积核，但参数更少（233=18 vs 55=25）</li>
+<li>卷积层后接<strong>22最大池化</strong>（步长2），每次池化后通道数翻倍</li>
 <li>网络深度从11层到19层不等，全部使用ReLU激活</li>
 </ul>
 
-<h4>两个3×3卷积堆叠 vs 一个5×5卷积的详细对比</h4>
+<h4>两个33卷积堆叠 vs 一个55卷积的详细对比</h4>
 <p>这是VGGNet最核心的设计洞察，也是面试高频考点。以下是完整的数学推导：</p>
 
 <p><strong>感受野对比</strong>：</p>
-<pre><code>5×5卷积：                  感受野 = 5×5
-两个3×3卷积堆叠：
-  第一个3×3：              感受野 = 3×3
-  第二个3×3（在第一个的输出上）：感受野 = 3×3 + 3×3 - 1 = 5×5</code></pre>
-<p>公式解读：感受野的计算公式为RF_k = RF_{k-1} + (kernel_size - 1) × stride_{k-1}。对于两个连续的3×3卷积（stride=1），第一个3×3的感受野为3×3；第二个3×3在第一个的输出上卷积，其感受野为3 + (3-1) = 5，即覆盖了原始输入上5×5的区域。因此，两个3×3卷积堆叠的感受野与一个5×5卷积完全相同。</p>
+<pre><code>55卷积：                  感受野 = 55
+两个33卷积堆叠：
+  第一个33：              感受野 = 33
+  第二个33（在第一个的输出上）：感受野 = 33 + 33 - 1 = 55</code></pre>
+<p>公式解读：感受野的计算公式为RF_k = RF_{k-1} + (kernel_size - 1)  stride_{k-1}。对于两个连续的33卷积（stride=1），第一个33的感受野为33；第二个33在第一个的输出上卷积，其感受野为3 + (3-1) = 5，即覆盖了原始输入上55的区域。因此，两个33卷积堆叠的感受野与一个55卷积完全相同。</p>
 
 <p><strong>参数量对比（假设输入输出通道数均为C）</strong>：</p>
-<pre><code>5×5卷积：     Params = 5×5×C×C = 25C²
-两个3×3卷积： Params = 3×3×C×C + 3×3×C×C = 9C² + 9C² = 18C²
+<pre><code>55卷积：     Params = 55CC = 25C²
+两个33卷积： Params = 33CC + 33CC = 9C² + 9C² = 18C²
 节省比例：    (25C² - 18C²) / 25C² = 7/25 = 28%</code></pre>
-<p>公式解读：在输入输出通道数相同的情况下，两个3×3卷积堆叠比一个5×5卷积节省28%的参数。当C=256时，5×5卷积需要25×256²=1,638,400个参数，而两个3×3卷积只需要18×256²=1,179,648个参数，节省约45.9万个参数。</p>
+<p>公式解读：在输入输出通道数相同的情况下，两个33卷积堆叠比一个55卷积节省28%的参数。当C=256时，55卷积需要25256²=1,638,400个参数，而两个33卷积只需要18256²=1,179,648个参数，节省约45.9万个参数。</p>
 
-<p><strong>计算量对比（FLOPs，假设输入输出通道数均为C，特征图尺寸为H×W）</strong>：</p>
-<pre><code>5×5卷积：     FLOPs = 2 × 5×5×C×C×H×W = 50C²HW
-两个3×3卷积： FLOPs = 2 × 3×3×C×C×H×W + 2 × 3×3×C×C×H×W = 36C²HW
+<p><strong>计算量对比（FLOPs，假设输入输出通道数均为C，特征图尺寸为HW）</strong>：</p>
+<pre><code>55卷积：     FLOPs = 2  55CCHW = 50C²HW
+两个33卷积： FLOPs = 2  33CCHW + 2  33CCHW = 36C²HW
 节省比例：    (50 - 36) / 50 = 14/50 = 28%</code></pre>
-<p>公式解读：计算量同样节省28%。更重要的是，两个3×3卷积之间多了一个ReLU非线性激活层，这意味着网络的非线性表达能力更强。三个3×3卷积堆叠（感受野=7×7）与一个7×7卷积相比，参数节省比例更高：(7×7 - 3×3×3) / 7×7 = (49-27)/49 ≈ 44.9%。</p>
+<p>公式解读：计算量同样节省28%。更重要的是，两个33卷积之间多了一个ReLU非线性激活层，这意味着网络的非线性表达能力更强。三个33卷积堆叠（感受野=77）与一个77卷积相比，参数节省比例更高：(77 - 333) / 77 = (49-27)/49 = 44.9%。</p>
 
 <p><strong>非线性表达能力</strong>：</p>
-<pre><code>5×5卷积：     1个卷积层 + 1个ReLU = 1次非线性变换
-两个3×3卷积： 2个卷积层 + 2个ReLU = 2次非线性变换</code></pre>
+<pre><code>55卷积：     1个卷积层 + 1个ReLU = 1次非线性变换
+两个33卷积： 2个卷积层 + 2个ReLU = 2次非线性变换</code></pre>
 <p>公式解读：更多的非线性变换意味着网络可以学习更复杂的决策边界。这是小卷积核堆叠相对于大卷积核的另一个关键优势——不仅参数更少，而且表达能力更强。这种"深度换效率"的思想直接影响了后续所有CNN架构的设计。</p>
 
 <h4>VGG-16每层参数量的详细计算</h4>
 <div class="table-wrap">
 <table>
-<caption>VGG-16完整架构与参数量（输入224×224×3）</caption>
+<caption>VGG-16完整架构与参数量（输入2242243）</caption>
 <thead><tr><th>Block</th><th>层</th><th>类型</th><th>输入尺寸</th><th>Kernel/通道</th><th>输出尺寸</th><th>参数量</th></tr></thead>
 <tbody>
-<tr><td rowspan="2">Block1</td><td>Conv1_1</td><td>3×3 Conv</td><td>224×224×3</td><td>3×3, 3→64</td><td>224×224×64</td><td>1,792</td></tr>
-<tr><td>Conv1_2</td><td>3×3 Conv</td><td>224×224×64</td><td>3×3, 64→64</td><td>224×224×64</td><td>36,928</td></tr>
-<tr><td></td><td>Pool1</td><td>MaxPool</td><td>224×224×64</td><td>2×2, s=2</td><td>112×112×64</td><td>0</td></tr>
-<tr><td rowspan="2">Block2</td><td>Conv2_1</td><td>3×3 Conv</td><td>112×112×64</td><td>3×3, 64→128</td><td>112×112×128</td><td>73,856</td></tr>
-<tr><td>Conv2_2</td><td>3×3 Conv</td><td>112×112×128</td><td>3×3, 128→128</td><td>112×112×128</td><td>147,584</td></tr>
-<tr><td></td><td>Pool2</td><td>MaxPool</td><td>112×112×128</td><td>2×2, s=2</td><td>56×56×128</td><td>0</td></tr>
-<tr><td rowspan="3">Block3</td><td>Conv3_1</td><td>3×3 Conv</td><td>56×56×128</td><td>3×3, 128→256</td><td>56×56×256</td><td>295,168</td></tr>
-<tr><td>Conv3_2</td><td>3×3 Conv</td><td>56×56×256</td><td>3×3, 256→256</td><td>56×56×256</td><td>590,080</td></tr>
-<tr><td>Conv3_3</td><td>3×3 Conv</td><td>56×56×256</td><td>3×3, 256→256</td><td>56×56×256</td><td>590,080</td></tr>
-<tr><td></td><td>Pool3</td><td>MaxPool</td><td>56×56×256</td><td>2×2, s=2</td><td>28×28×256</td><td>0</td></tr>
-<tr><td rowspan="3">Block4</td><td>Conv4_1</td><td>3×3 Conv</td><td>28×28×256</td><td>3×3, 256→512</td><td>28×28×512</td><td>1,180,160</td></tr>
-<tr><td>Conv4_2</td><td>3×3 Conv</td><td>28×28×512</td><td>3×3, 512→512</td><td>28×28×512</td><td>2,359,808</td></tr>
-<tr><td>Conv4_3</td><td>3×3 Conv</td><td>28×28×512</td><td>3×3, 512→512</td><td>28×28×512</td><td>2,359,808</td></tr>
-<tr><td></td><td>Pool4</td><td>MaxPool</td><td>28×28×512</td><td>2×2, s=2</td><td>14×14×512</td><td>0</td></tr>
-<tr><td rowspan="3">Block5</td><td>Conv5_1</td><td>3×3 Conv</td><td>14×14×512</td><td>3×3, 512→512</td><td>14×14×512</td><td>2,359,808</td></tr>
-<tr><td>Conv5_2</td><td>3×3 Conv</td><td>14×14×512</td><td>3×3, 512→512</td><td>14×14×512</td><td>2,359,808</td></tr>
-<tr><td>Conv5_3</td><td>3×3 Conv</td><td>14×14×512</td><td>3×3, 512→512</td><td>14×14×512</td><td>2,359,808</td></tr>
-<tr><td></td><td>Pool5</td><td>MaxPool</td><td>14×14×512</td><td>2×2, s=2</td><td>7×7×512</td><td>0</td></tr>
+<tr><td rowspan="2">Block1</td><td>Conv1_1</td><td>33 Conv</td><td>2242243</td><td>33, 3→64</td><td>22422464</td><td>1,792</td></tr>
+<tr><td>Conv1_2</td><td>33 Conv</td><td>22422464</td><td>33, 64→64</td><td>22422464</td><td>36,928</td></tr>
+<tr><td></td><td>Pool1</td><td>MaxPool</td><td>22422464</td><td>22, s=2</td><td>11211264</td><td>0</td></tr>
+<tr><td rowspan="2">Block2</td><td>Conv2_1</td><td>33 Conv</td><td>11211264</td><td>33, 64→128</td><td>112112128</td><td>73,856</td></tr>
+<tr><td>Conv2_2</td><td>33 Conv</td><td>112112128</td><td>33, 128→128</td><td>112112128</td><td>147,584</td></tr>
+<tr><td></td><td>Pool2</td><td>MaxPool</td><td>112112128</td><td>22, s=2</td><td>5656128</td><td>0</td></tr>
+<tr><td rowspan="3">Block3</td><td>Conv3_1</td><td>33 Conv</td><td>5656128</td><td>33, 128→256</td><td>5656256</td><td>295,168</td></tr>
+<tr><td>Conv3_2</td><td>33 Conv</td><td>5656256</td><td>33, 256→256</td><td>5656256</td><td>590,080</td></tr>
+<tr><td>Conv3_3</td><td>33 Conv</td><td>5656256</td><td>33, 256→256</td><td>5656256</td><td>590,080</td></tr>
+<tr><td></td><td>Pool3</td><td>MaxPool</td><td>5656256</td><td>22, s=2</td><td>2828256</td><td>0</td></tr>
+<tr><td rowspan="3">Block4</td><td>Conv4_1</td><td>33 Conv</td><td>2828256</td><td>33, 256→512</td><td>2828512</td><td>1,180,160</td></tr>
+<tr><td>Conv4_2</td><td>33 Conv</td><td>2828512</td><td>33, 512→512</td><td>2828512</td><td>2,359,808</td></tr>
+<tr><td>Conv4_3</td><td>33 Conv</td><td>2828512</td><td>33, 512→512</td><td>2828512</td><td>2,359,808</td></tr>
+<tr><td></td><td>Pool4</td><td>MaxPool</td><td>2828512</td><td>22, s=2</td><td>1414512</td><td>0</td></tr>
+<tr><td rowspan="3">Block5</td><td>Conv5_1</td><td>33 Conv</td><td>1414512</td><td>33, 512→512</td><td>1414512</td><td>2,359,808</td></tr>
+<tr><td>Conv5_2</td><td>33 Conv</td><td>1414512</td><td>33, 512→512</td><td>1414512</td><td>2,359,808</td></tr>
+<tr><td>Conv5_3</td><td>33 Conv</td><td>1414512</td><td>33, 512→512</td><td>1414512</td><td>2,359,808</td></tr>
+<tr><td></td><td>Pool5</td><td>MaxPool</td><td>1414512</td><td>22, s=2</td><td>77512</td><td>0</td></tr>
 <tr><td></td><td>FC6</td><td>全连接</td><td>25088</td><td>—</td><td>4096</td><td>102,764,544</td></tr>
 <tr><td></td><td>FC7</td><td>全连接</td><td>4096</td><td>—</td><td>4096</td><td>16,781,312</td></tr>
 <tr><td></td><td>FC8</td><td>全连接</td><td>4096</td><td>—</td><td>1000</td><td>4,097,000</td></tr>
@@ -1341,17 +1053,17 @@ GPU 2 路径: Conv1(48ch) → Conv2(128ch) → Conv3(192ch) → Conv4(192ch) →
 <h4>为什么VGG的参数量集中在全连接层</h4>
 <p>VGG-16中全连接层占用了约89%的参数量，这一现象可以从以下三个角度理解：</p>
 <p>第一，<strong>全连接层参数是输入维度与输出维度的乘积</strong>。FC6的输入是77512=25088维的展平向量，输出是4096维，权重矩阵为250884096=1.028亿个参数。仅这一层就占了总参数的约74%。这是全连接层参数量爆炸的根本原因。</p>
-<p>第二，<strong>卷积层的参数与特征图尺寸无关</strong>。卷积层使用权值共享，每个卷积核的参数只取决于kernel_size和通道数，与特征图的空间尺寸无关。例如，Conv5_3的输入为14×14512，输出为14×14512，但参数只有33512512+512=2,359,808个，不到240万。如果用全连接层处理14×14512=100352维的输入，参数量将超过1亿。</p>
+<p>第二，<strong>卷积层的参数与特征图尺寸无关</strong>。卷积层使用权值共享，每个卷积核的参数只取决于kernel_size和通道数，与特征图的空间尺寸无关。例如，Conv5_3的输入为1414512，输出为1414512，但参数只有33512512+512=2,359,808个，不到240万。如果用全连接层处理1414512=100352维的输入，参数量将超过1亿。</p>
 <p>第三，<strong>全局平均池化（GAP）的替代方案</strong>。后续的GoogLeNet和ResNet使用全局平均池化替代全连接层，将77512的特征图直接池化为512维向量，然后再接一个512→1000的全连接层，参数仅为5121000+1000=513,000。这就是为什么GoogLeNet（约500万参数）和ResNet-50（约2550万参数）比VGG-16（约1.38亿参数）轻量得多的核心原因。</p>
 <div class="example-box"><div class="example-title">VGG-16 结构速览</div>
-<p>输入(224×224×3) → 2Conv(64) → MaxPool → 2Conv(128) → MaxPool → 3Conv(256) → MaxPool → 3Conv(512) → MaxPool → 3Conv(512) → MaxPool → FC(4096) → FC(4096) → FC(1000) → Softmax</p></div>
+<p>输入(2242243) → 2Conv(64) → MaxPool → 2Conv(128) → MaxPool → 3Conv(256) → MaxPool → 3Conv(512) → MaxPool → 3Conv(512) → MaxPool → FC(4096) → FC(4096) → FC(1000) → Softmax</p></div>
 
 <div class="top-anchor" id="ch3-4"></div>
 <h3>3.4 GoogLeNet / Inception（2014）</h3>
 <p>GoogLeNet（Inception v1）在2014年ImageNet竞赛中夺冠，核心创新是<strong>Inception模块</strong>——在同一层中并行使用不同尺寸的卷积核（11、33、55、池化），让网络自己学习哪种尺寸更适合当前特征层。GoogLeNet仅约500万参数（AlexNet的1/12），但top-5错误率低至6.67%，充分体现了"更聪明地设计"胜于"更大力地堆参数"的哲学。</p>
 
 <h4>Inception模块的ASCII结构图</h4>
-<p>以下是原始Inception模块（naive版本，不含1×1降维）和带降维的Inception模块的结构对比：</p>
+<p>以下是原始Inception模块（naive版本，不含11降维）和带降维的Inception模块的结构对比：</p>
 <pre><code>┌─────────────────────────────────────────────────────────┐
 │              Naive Inception Module                      │
 │                                                          │
@@ -1405,27 +1117,27 @@ GPU 2 路径: Conv1(48ch) → Conv2(128ch) → Conv3(192ch) → Conv4(192ch) →
 │              │    Next Layer       │                    │
 │              └─────────────────────┘                    │
 └─────────────────────────────────────────────────────────┘</code></pre>
-<p>公式解读：在带降维的Inception模块中，1×1卷积被放置在3×3和5×5卷积之前，以及池化之后。1×1卷积的作用是跨通道的信息融合和降维——它将高维的输入特征压缩到较低的维度，使得后续的大卷积核（3×3、5×5）的计算量大幅降低，同时保持多尺度特征提取的能力。</p>
+<p>公式解读：在带降维的Inception模块中，11卷积被放置在33和55卷积之前，以及池化之后。11卷积的作用是跨通道的信息融合和降维——它将高维的输入特征压缩到较低的维度，使得后续的大卷积核（33、55）的计算量大幅降低，同时保持多尺度特征提取的能力。</p>
 
-<h4>1×1卷积降维的计算量节省公式推导</h4>
-<p>1×1卷积降维是Inception模块最巧妙的设计，以下通过严格的数学推导量化其计算量节省效果。</p>
-<p>假设输入特征图为H×W×C_in，希望输出H×W×C_out的特征图。对于5×5卷积分支：</p>
-<p><strong>不使用1×1卷积降维</strong>：</p>
-<pre><code>FLOPs_direct = 2 × 5×5 × C_in × C_out × H × W
-            = 50 × C_in × C_out × H × W</code></pre>
-<p>公式解读：每次5×5卷积需要5×5×C_in次乘法，加上累加需要同等次数的加法（乘2），共C_out个输出通道，特征图尺寸为H×W。</p>
-<p><strong>使用1×1卷积降维（先降维到C_mid，再5×5卷积）</strong>：</p>
-<pre><code>FLOPs_reduced = 2 × 1×1 × C_in × C_mid × H × W   （1×1降维）
-              + 2 × 5×5 × C_mid × C_out × H × W  （5×5卷积）
-            = 2 × C_in × C_mid × H × W + 50 × C_mid × C_out × H × W
-            = 2HWC_mid × (C_in + 25C_out)</code></pre>
-<p>公式解读：1×1降维卷积的计算量是2C_inC_midHW（因为没有空间维度的乘法累加，计算量较小），然后5×5卷积在降维后的特征图上运算，计算量取决于C_mid而非C_in。</p>
+<h4>11卷积降维的计算量节省公式推导</h4>
+<p>11卷积降维是Inception模块最巧妙的设计，以下通过严格的数学推导量化其计算量节省效果。</p>
+<p>假设输入特征图为HWC_in，希望输出HWC_out的特征图。对于55卷积分支：</p>
+<p><strong>不使用11卷积降维</strong>：</p>
+<pre><code>FLOPs_direct = 2  55  C_in  C_out  H  W
+            = 50  C_in  C_out  H  W</code></pre>
+<p>公式解读：每次55卷积需要55C_in次乘法，加上累加需要同等次数的加法（乘2），共C_out个输出通道，特征图尺寸为HW。</p>
+<p><strong>使用11卷积降维（先降维到C_mid，再55卷积）</strong>：</p>
+<pre><code>FLOPs_reduced = 2  11  C_in  C_mid  H  W   （11降维）
+              + 2  55  C_mid  C_out  H  W  （55卷积）
+            = 2  C_in  C_mid  H  W + 50  C_mid  C_out  H  W
+            = 2HWC_mid  (C_in + 25C_out)</code></pre>
+<p>公式解读：11降维卷积的计算量是2C_inC_midHW（因为没有空间维度的乘法累加，计算量较小），然后55卷积在降维后的特征图上运算，计算量取决于C_mid而非C_in。</p>
 <p><strong>节省比例</strong>：</p>
 <pre><code>节省比例 = 1 - FLOPs_reduced / FLOPs_direct
          = 1 - [2HWC_mid(C_in + 25C_out)] / [50C_inC_outHW]
          = 1 - [C_mid(C_in + 25C_out)] / [25C_inC_out]</code></pre>
-<p>公式解读：当C_mid << C_in时，节省比例非常显著。例如，取C_in=256, C_mid=64, C_out=128，则直接计算量=50×256×128×H×W=1,638,400HW，降维后计算量=2×256×64×H×W+50×64×128×H×W=32,768HW+409,600HW=442,368HW，节省比例=1-442,368/1,638,400≈73.0%。</p>
-<p>这意味着，通过一个简单的1×1卷积降维，5×5卷积分支的计算量降低了约73%，而模型的表达能力（感受野和通道数）并未受到实质影响——因为1×1卷积本身也引入了跨通道的非线性变换。</p>
+<p>公式解读：当C_mid << C_in时，节省比例非常显著。例如，取C_in=256, C_mid=64, C_out=128，则直接计算量=50256128HW=1,638,400HW，降维后计算量=225664HW+5064128HW=32,768HW+409,600HW=442,368HW，节省比例=1-442,368/1,638,40073.0%。</p>
+<p>这意味着，通过一个简单的11卷积降维，55卷积分支的计算量降低了约73%，而模型的表达能力（感受野和通道数）并未受到实质影响——因为11卷积本身也引入了跨通道的非线性变换。</p>
 
 <h4>辅助分类器的损失函数权重公式</h4>
 <p>GoogLeNet在网络中间层添加了两个辅助分类器，它们的输出也参与损失计算。总损失函数为：</p>
@@ -1436,9 +1148,9 @@ GPU 2 路径: Conv1(48ch) → Conv2(128ch) → Conv3(192ch) → Conv4(192ch) →
 
 <h4>其他关键设计</h4>
 <ul>
-<li><strong>全局平均池化</strong>：替代最后的大全连接层，将7×7×1024的特征图直接池化为1024维向量，参数从约5000万（全连接）降至约100万（GAP+FC），大幅减少过拟合风险。</li>
+<li><strong>全局平均池化</strong>：替代最后的大全连接层，将771024的特征图直接池化为1024维向量，参数从约5000万（全连接）降至约100万（GAP+FC），大幅减少过拟合风险。</li>
 <li><strong>22层深度</strong>：GoogLeNet共有22个带参数层（如果算上池化层则有27层），是当时最深的网络之一。</li>
-<li><strong>后续版本</strong>：Inception v2/v3引入了批归一化和卷积分解（将5×5分解为两个3×3），Inception v4引入了ResNet的残差连接思想，Inception-ResNet融合了两者优势。</li>
+<li><strong>后续版本</strong>：Inception v2/v3引入了批归一化和卷积分解（将55分解为两个33），Inception v4引入了ResNet的残差连接思想，Inception-ResNet融合了两者优势。</li>
 </ul>
 
 <div class="top-anchor" id="ch3-5"></div>
@@ -1461,42 +1173,42 @@ GPU 2 路径: Conv1(48ch) → Conv2(128ch) → Conv3(192ch) → Conv4(192ch) →
 <p>公式解读：x_L是第L层的输出，x_l是第l层的输入。由于链式法则中恒等映射贡献了"1"这一项，梯度信号可以无损地传播到任意浅层，而不会像传统网络那样随着链式乘积的累积而指数衰减。这就是为什么ResNet可以训练到152层甚至1001层而不会出现梯度消失的核心数学原因。</p>
 
 <h4>Bottleneck的详细计算量分析</h4>
-<p>在ResNet-50及更深版本中，使用Bottleneck结构替代普通的BasicBlock。Bottleneck由三层卷积组成：1×1降维→3×3特征提取→1×1升维。以下以256维输入为例进行详细分析：</p>
+<p>在ResNet-50及更深版本中，使用Bottleneck结构替代普通的BasicBlock。Bottleneck由三层卷积组成：11降维→33特征提取→11升维。以下以256维输入为例进行详细分析：</p>
 <pre><code>Bottleneck结构（256维 → 64维 → 64维 → 256维）：
 
 输入: 256维
-  ↓ 1×1 Conv, 256→64 (降维，减少计算量)
+  ↓ 11 Conv, 256→64 (降维，减少计算量)
   ↓ BN + ReLU
-  ↓ 3×3 Conv, 64→64 (特征提取，在低维空间进行)
+  ↓ 33 Conv, 64→64 (特征提取，在低维空间进行)
   ↓ BN + ReLU
-  ↓ 1×1 Conv, 64→256 (升维，恢复通道数)
+  ↓ 11 Conv, 64→256 (升维，恢复通道数)
   ↓ BN
   ↓ + 输入 (残差连接)
   ↓ ReLU (最后的激活)
 输出: 256维</code></pre>
 <p><strong>参数量对比（假设特征图尺寸为HW）</strong>：</p>
 <pre><code>Bottleneck:
-  1×1降维: 1×1×256×64 + 64 = 16,448
-  3×3卷积: 3×3×64×64 + 64 = 36,928
-  1×1升维: 1×1×64×256 + 256 = 16,640
+  11降维: 1125664 + 64 = 16,448
+  33卷积: 336464 + 64 = 36,928
+  11升维: 1164256 + 256 = 16,640
   总计:    16,448 + 36,928 + 16,640 = 70,016
 
-两个3×3卷积（BasicBlock, 256→256→256）:
-  3×3卷积1: 3×3×256×256 + 256 = 590,080
-  3×3卷积2: 3×3×256×256 + 256 = 590,080
+两个33卷积（BasicBlock, 256→256→256）:
+  33卷积1: 33256256 + 256 = 590,080
+  33卷积2: 33256256 + 256 = 590,080
   总计:      590,080 + 590,080 = 1,180,160
 
 节省比例: 1 - 70,016/1,180,160 = 94.1%</code></pre>
-<p>公式解读：Bottleneck结构通过先降维再升维的策略，在256维的输入下，比直接使用两个3×3卷积节省了约94%的参数量。更关键的是，Bottleneck在保持相同感受野（3×3）的同时，通过1×1卷积引入了额外的跨通道交互，实际上增强了表达能力。这种"降维-处理-升维"的瓶颈设计已经成为现代CNN的标准范式。</p>
+<p>公式解读：Bottleneck结构通过先降维再升维的策略，在256维的输入下，比直接使用两个33卷积节省了约94%的参数量。更关键的是，Bottleneck在保持相同感受野（33）的同时，通过11卷积引入了额外的跨通道交互，实际上增强了表达能力。这种"降维-处理-升维"的瓶颈设计已经成为现代CNN的标准范式。</p>
 <p><strong>FLOPs对比</strong>：</p>
 <pre><code>Bottleneck FLOPs:
-  1×1降维: 2×1×1×256×64×H×W = 32,768HW
-  3×3卷积: 2×3×3×64×64×H×W = 73,728HW
-  1×1升维: 2×1×1×64×256×H×W = 32,768HW
+  11降维: 21125664HW = 32,768HW
+  33卷积: 2336464HW = 73,728HW
+  11升维: 21164256HW = 32,768HW
   总计:    139,264HW
 
 BasicBlock FLOPs:
-  2×(2×3×3×256×256×H×W) = 2,359,296HW
+  2(233256256HW) = 2,359,296HW
 
 节省比例: 1 - 139,264/2,359,296 = 94.1%</code></pre>
 <p>公式解读：FLOPs的节省比例与参数量一致，均为约94%。Bottleneck在计算效率上的优势随着通道数的增加而更加显著——当通道数从256增加到512时，节省比例进一步提高到约96%。</p>
@@ -1504,27 +1216,27 @@ BasicBlock FLOPs:
 <h4>ResNet-50完整架构表</h4>
 <div class="table-wrap">
 <table>
-<caption>ResNet-50完整架构（输入224×224×3）</caption>
+<caption>ResNet-50完整架构（输入2242243）</caption>
 <thead><tr><th>Stage</th><th>层名</th><th>类型</th><th>输出尺寸</th><th>具体配置</th><th>参数量</th></tr></thead>
 <tbody>
-<tr><td rowspan="2">Input</td><td>Conv1</td><td>7×7 Conv, s=2</td><td>112×112×64</td><td>7×7, 3→64, s=2, p=3</td><td>9,472</td></tr>
-<tr><td>Pool1</td><td>3×3 MaxPool, s=2</td><td>56×56×64</td><td>3×3, s=2, p=1</td><td>0</td></tr>
-<tr><td rowspan="3">Stage1</td><td>Conv2_1</td><td>Bottleneck</td><td>56×56×256</td><td>[1×1,64]→[3×3,64]→[1×1,256]</td><td>75,520</td></tr>
-<tr><td>Conv2_2</td><td>Bottleneck</td><td>56×56×256</td><td>[1×1,64]→[3×3,64]→[1×1,256]</td><td>70,400</td></tr>
-<tr><td>Conv2_3</td><td>Bottleneck</td><td>56×56×256</td><td>[1×1,64]→[3×3,64]→[1×1,256]</td><td>70,400</td></tr>
-<tr><td rowspan="4">Stage2</td><td>Conv3_1</td><td>Bottleneck</td><td>28×28×512</td><td>[1×1,128]→[3×3,128]→[1×1,512]</td><td>379,392</td></tr>
-<tr><td>Conv3_2</td><td>Bottleneck</td><td>28×28×512</td><td>[1×1,128]→[3×3,128]→[1×1,512]</td><td>280,064</td></tr>
-<tr><td>Conv3_3</td><td>Bottleneck</td><td>28×28×512</td><td>[1×1,128]→[3×3,128]→[1×1,512]</td><td>280,064</td></tr>
-<tr><td>Conv3_4</td><td>Bottleneck</td><td>28×28×512</td><td>[1×1,128]→[3×3,128]→[1×1,512]</td><td>280,064</td></tr>
-<tr><td rowspan="6">Stage3</td><td>Conv4_1</td><td>Bottleneck</td><td>14×14×1024</td><td>[1×1,256]→[3×3,256]→[1×1,1024]</td><td>1,516,032</td></tr>
-<tr><td>Conv4_2</td><td>Bottleneck</td><td>14×14×1024</td><td>[1×1,256]→[3×3,256]→[1×1,1024]</td><td>1,117,184</td></tr>
-<tr><td>Conv4_3</td><td>Bottleneck</td><td>14×14×1024</td><td>[1×1,256]→[3×3,256]→[1×1,1024]</td><td>1,117,184</td></tr>
-<tr><td>Conv4_4</td><td>Bottleneck</td><td>14×14×1024</td><td>[1×1,256]→[3×3,256]→[1×1,1024]</td><td>1,117,184</td></tr>
-<tr><td>Conv4_5</td><td>Bottleneck</td><td>14×14×1024</td><td>[1×1,256]→[3×3,256]→[1×1,1024]</td><td>1,117,184</td></tr>
-<tr><td>Conv4_6</td><td>Bottleneck</td><td>14×14×1024</td><td>[1×1,256]→[3×3,256]→[1×1,1024]</td><td>1,117,184</td></tr>
-<tr><td rowspan="3">Stage4</td><td>Conv5_1</td><td>Bottleneck</td><td>7×7×2048</td><td>[1×1,512]→[3×3,512]→[1×1,2048]</td><td>6,057,472</td></tr>
-<tr><td>Conv5_2</td><td>Bottleneck</td><td>7×7×2048</td><td>[1×1,512]→[3×3,512]→[1×1,2048]</td><td>4,462,592</td></tr>
-<tr><td>Conv5_3</td><td>Bottleneck</td><td>7×7×2048</td><td>[1×1,512]→[3×3,512]→[1×1,2048]</td><td>4,462,592</td></tr>
+<tr><td rowspan="2">Input</td><td>Conv1</td><td>77 Conv, s=2</td><td>11211264</td><td>77, 3→64, s=2, p=3</td><td>9,472</td></tr>
+<tr><td>Pool1</td><td>33 MaxPool, s=2</td><td>565664</td><td>33, s=2, p=1</td><td>0</td></tr>
+<tr><td rowspan="3">Stage1</td><td>Conv2_1</td><td>Bottleneck</td><td>5656256</td><td>[11,64]→[33,64]→[11,256]</td><td>75,520</td></tr>
+<tr><td>Conv2_2</td><td>Bottleneck</td><td>5656256</td><td>[11,64]→[33,64]→[11,256]</td><td>70,400</td></tr>
+<tr><td>Conv2_3</td><td>Bottleneck</td><td>5656256</td><td>[11,64]→[33,64]→[11,256]</td><td>70,400</td></tr>
+<tr><td rowspan="4">Stage2</td><td>Conv3_1</td><td>Bottleneck</td><td>2828512</td><td>[11,128]→[33,128]→[11,512]</td><td>379,392</td></tr>
+<tr><td>Conv3_2</td><td>Bottleneck</td><td>2828512</td><td>[11,128]→[33,128]→[11,512]</td><td>280,064</td></tr>
+<tr><td>Conv3_3</td><td>Bottleneck</td><td>2828512</td><td>[11,128]→[33,128]→[11,512]</td><td>280,064</td></tr>
+<tr><td>Conv3_4</td><td>Bottleneck</td><td>2828512</td><td>[11,128]→[33,128]→[11,512]</td><td>280,064</td></tr>
+<tr><td rowspan="6">Stage3</td><td>Conv4_1</td><td>Bottleneck</td><td>14141024</td><td>[11,256]→[33,256]→[11,1024]</td><td>1,516,032</td></tr>
+<tr><td>Conv4_2</td><td>Bottleneck</td><td>14141024</td><td>[11,256]→[33,256]→[11,1024]</td><td>1,117,184</td></tr>
+<tr><td>Conv4_3</td><td>Bottleneck</td><td>14141024</td><td>[11,256]→[33,256]→[11,1024]</td><td>1,117,184</td></tr>
+<tr><td>Conv4_4</td><td>Bottleneck</td><td>14141024</td><td>[11,256]→[33,256]→[11,1024]</td><td>1,117,184</td></tr>
+<tr><td>Conv4_5</td><td>Bottleneck</td><td>14141024</td><td>[11,256]→[33,256]→[11,1024]</td><td>1,117,184</td></tr>
+<tr><td>Conv4_6</td><td>Bottleneck</td><td>14141024</td><td>[11,256]→[33,256]→[11,1024]</td><td>1,117,184</td></tr>
+<tr><td rowspan="3">Stage4</td><td>Conv5_1</td><td>Bottleneck</td><td>772048</td><td>[11,512]→[33,512]→[11,2048]</td><td>6,057,472</td></tr>
+<tr><td>Conv5_2</td><td>Bottleneck</td><td>772048</td><td>[11,512]→[33,512]→[11,2048]</td><td>4,462,592</td></tr>
+<tr><td>Conv5_3</td><td>Bottleneck</td><td>772048</td><td>[11,512]→[33,512]→[11,2048]</td><td>4,462,592</td></tr>
 <tr><td>Output</td><td>FC</td><td>全连接</td><td>1000</td><td>2048→1000</td><td>2,049,000</td></tr>
 </tbody>
 </table>
@@ -1537,7 +1249,7 @@ Stage3 (6Bottleneck):  1,516,032 + 51,117,184 = 7,101,952
 Stage4 (3Bottleneck):  6,057,472 + 24,462,592 = 14,982,656
 FC:                      2,049,000
 Total:                   25,578,984（约2558万）</code></pre>
-<p>公式解读：ResNet-50总计约2558万参数，远少于VGG-16的1.38亿。其中卷积层参数约2353万（92%），全连接层约205万（8%）。与VGG-16形成鲜明对比——VGG-16的全连接层占89%，ResNet-50的全连接层仅占8%。这是因为ResNet使用全局平均池化将7×7×2048的特征图压缩为2048维，再通过一个2048→1000的全连接层输出，大幅减少了全连接层的参数。</p>
+<p>公式解读：ResNet-50总计约2558万参数，远少于VGG-16的1.38亿。其中卷积层参数约2353万（92%），全连接层约205万（8%）。与VGG-16形成鲜明对比——VGG-16的全连接层占89%，ResNet-50的全连接层仅占8%。这是因为ResNet使用全局平均池化将772048的特征图压缩为2048维，再通过一个2048→1000的全连接层输出，大幅减少了全连接层的参数。</p>
 
 <h4>恒等映射 vs 投影映射的公式</h4>
 <p>当残差块的输入和输出维度相同时，残差连接直接使用恒等映射（Identity Mapping）：</p>
@@ -1545,9 +1257,9 @@ Total:                   25,578,984（约2558万）</code></pre>
 <p>公式解读：当F(x)的输出维度和x的维度相同时，可以直接相加。这是大多数残差块的情况——同一Stage内的Bottleneck输入输出维度相同。</p>
 <p>当维度不匹配时（例如Stage切换时，通道数翻倍且空间尺寸减半），需要使用投影映射（Projection Mapping）来匹配维度：</p>
 <pre><code>y = F(x, {W_i}) + W_s  x    （维度不匹配时）</code></pre>
-<p>公式解读：W_s是一个1×1卷积（或步长大于1的卷积），用于将x的维度映射到与F(x)相同的维度。在ResNet-50中，投影映射出现在Conv2_1、Conv3_1、Conv4_1和Conv5_1的Bottleneck的第一个1×1降维卷积中——该层同时承担降维和下采样的功能。</p>
-<p>具体来说，Conv2_1的输入为56×56×64，输出为56×56×256。残差分支F(x)的路径是64→64→256，而x本身是64维的，不能直接与256维的F(x)相加。因此需要通过W_s（一个1×1×64×256的卷积）将64维映射到256维再相加。投影映射的1×1卷积不需要激活函数，只是线性变换。</p>
-<div class="callout"><div class="callout-title">Bottleneck设计</div><p>在ResNet-50及更深版本中，使用Bottleneck结构：先1×1卷积降维→3×3卷积提取特征→1×1卷积升维。这种设计在保证表达能力的同时大幅减少了计算量。例如，256维→64维→64维→256维的Bottleneck，参数量比直接使用两个3×3卷积（256→256→256）减少了约94%。</p></div>
+<p>公式解读：W_s是一个11卷积（或步长大于1的卷积），用于将x的维度映射到与F(x)相同的维度。在ResNet-50中，投影映射出现在Conv2_1、Conv3_1、Conv4_1和Conv5_1的Bottleneck的第一个11降维卷积中——该层同时承担降维和下采样的功能。</p>
+<p>具体来说，Conv2_1的输入为565664，输出为5656256。残差分支F(x)的路径是64→64→256，而x本身是64维的，不能直接与256维的F(x)相加。因此需要通过W_s（一个1164256的卷积）将64维映射到256维再相加。投影映射的11卷积不需要激活函数，只是线性变换。</p>
+<div class="callout"><div class="callout-title">Bottleneck设计</div><p>在ResNet-50及更深版本中，使用Bottleneck结构：先11卷积降维→33卷积提取特征→11卷积升维。这种设计在保证表达能力的同时大幅减少了计算量。例如，256维→64维→64维→256维的Bottleneck，参数量比直接使用两个33卷积（256→256→256）减少了约94%。</p></div>
 
 <h4>ResNet变体一览</h4>
 <div class="table-wrap">
@@ -1557,99 +1269,11 @@ Total:                   25,578,984（约2558万）</code></pre>
 <tr><td>ResNet-18</td><td>18</td><td>BasicBlock (2Conv33)</td><td>—</td><td>11.7M</td></tr>
 <tr><td>ResNet-34</td><td>34</td><td>BasicBlock (2Conv33)</td><td>—</td><td>21.8M</td></tr>
 <tr><td>ResNet-50</td><td>50</td><td>Bottleneck (11→33→11)</td><td>7.02%</td><td>25.6M</td></tr>
-<tr><td>ResNet-101</td><td>101</td><td>Bottleneck (1×1→3×3→1×1)</td><td>6.21%</td><td>44.5M</td></tr>
-<tr><td>ResNet-152</td><td>152</td><td>Bottleneck (1×1→3×3→1×1)</td><td>5.71%</td><td>60.2M</td></tr>
+<tr><td>ResNet-101</td><td>101</td><td>Bottleneck (11→33→11)</td><td>6.21%</td><td>44.5M</td></tr>
+<tr><td>ResNet-152</td><td>152</td><td>Bottleneck (11→33→11)</td><td>5.71%</td><td>60.2M</td></tr>
 </tbody>
 </table>
 </div>
-
-<h4>经典CNN架构演进对比</h4>
-<figure class="chart-figure">
-<figcaption>图3-1：经典CNN架构演进对比 — 从LeNet-5到ResNet，展示网络深度、参数量和核心创新的演变</figcaption>
-<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;font-family:'PingFang SC','Microsoft YaHei',sans-serif">
-  <defs>
-    <linearGradient id="bgBar" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#2563eb;stop-opacity:0.15"/><stop offset="100%" style="stop-color:#7c3aed;stop-opacity:0.15"/></linearGradient>
-    <marker id="arrowEvo" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#2563eb"/></marker>
-  </defs>
-  <text x="400" y="22" text-anchor="middle" font-size="15" font-weight="700" fill="#1e293b">CNN架构演进时间线（1998 - 2015）</text>
-
-  <!-- 时间轴 -->
-  <line x1="50" y1="55" x2="750" y2="55" stroke="#94a3b8" stroke-width="2"/>
-  <circle cx="150" cy="55" r="5" fill="#2563eb"/><circle cx="290" cy="55" r="5" fill="#2563eb"/><circle cx="430" cy="55" r="5" fill="#2563eb"/><circle cx="570" cy="55" r="5" fill="#2563eb"/><circle cx="710" cy="55" r="5" fill="#2563eb"/>
-
-  <text x="150" y="42" text-anchor="middle" font-size="11" fill="#64748b">1998</text>
-  <text x="290" y="42" text-anchor="middle" font-size="11" fill="#64748b">2012</text>
-  <text x="430" y="42" text-anchor="middle" font-size="11" fill="#64748b">2014a</text>
-  <text x="570" y="42" text-anchor="middle" font-size="11" fill="#64748b">2014b</text>
-  <text x="710" y="42" text-anchor="middle" font-size="11" fill="#64748b">2015</text>
-
-  <text x="150" y="80" text-anchor="middle" font-size="14" font-weight="700" fill="#1e293b">LeNet-5</text>
-  <text x="290" y="80" text-anchor="middle" font-size="14" font-weight="700" fill="#1e293b">AlexNet</text>
-  <text x="430" y="80" text-anchor="middle" font-size="14" font-weight="700" fill="#1e293b">VGG-16</text>
-  <text x="570" y="80" text-anchor="middle" font-size="14" font-weight="700" fill="#1e293b">GoogLeNet</text>
-  <text x="710" y="80" text-anchor="middle" font-size="14" font-weight="700" fill="#1e293b">ResNet-152</text>
-
-  <!-- 网络深度 -->
-  <text x="400" y="105" text-anchor="middle" font-size="12" font-weight="600" fill="#64748b">网络深度（层数）</text>
-  <rect x="120" y="115" width="60" height="15" fill="#94a3b8" rx="3"/><text x="150" y="127" text-anchor="middle" font-size="9" fill="#fff">5</text>
-  <rect x="260" y="115" width="60" height="25" fill="#94a3b8" rx="3"/><text x="290" y="132" text-anchor="middle" font-size="9" fill="#fff">8</text>
-  <rect x="400" y="115" width="60" height="45" fill="#64748b" rx="3"/><text x="430" y="142" text-anchor="middle" font-size="9" fill="#fff">16</text>
-  <rect x="540" y="115" width="60" height="60" fill="#475569" rx="3"/><text x="570" y="150" text-anchor="middle" font-size="9" fill="#fff">22</text>
-  <rect x="680" y="115" width="60" height="85" fill="#1e293b" rx="3"/><text x="710" y="162" text-anchor="middle" font-size="9" fill="#fff">152</text>
-
-  <!-- 参数量 -->
-  <text x="400" y="218" text-anchor="middle" font-size="12" font-weight="600" fill="#64748b">参数量（百万）</text>
-  <rect x="115" y="228" width="70" height="15" fill="#86efac" rx="3"/><text x="150" y="240" text-anchor="middle" font-size="9" fill="#166534">0.06M</text>
-  <rect x="255" y="228" width="70" height="55" fill="#4ade80" rx="3"/><text x="290" y="260" text-anchor="middle" font-size="9" fill="#166534">60M</text>
-  <rect x="395" y="228" width="70" height="80" fill="#fbbf24" rx="3"/><text x="430" y="273" text-anchor="middle" font-size="9" fill="#92400e">138M</text>
-  <rect x="535" y="228" width="70" height="30" fill="#86efac" rx="3"/><text x="570" y="248" text-anchor="middle" font-size="9" fill="#166534">5M</text>
-  <rect x="675" y="228" width="70" height="50" fill="#4ade80" rx="3"/><text x="710" y="258" text-anchor="middle" font-size="9" fill="#166534">60M</text>
-
-  <!-- 核心创新 -->
-  <g transform="translate(0,318)">
-    <text x="400" y="0" text-anchor="middle" font-size="12" font-weight="600" fill="#64748b">核心创新</text>
-    <rect x="30" y="12" width="140" height="55" rx="4" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
-    <text x="100" y="32" text-anchor="middle" font-size="10" font-weight="700" fill="#1d4ed8">卷积+池化+FC</text>
-    <text x="100" y="48" text-anchor="middle" font-size="9" fill="#3b82f6">定义CNN基本范式</text>
-    <text x="100" y="62" text-anchor="middle" font-size="9" fill="#3b82f6">反向传播训练</text>
-
-    <rect x="185" y="12" width="140" height="55" rx="4" fill="#fef3c7" stroke="#fcd34d" stroke-width="1"/>
-    <text x="255" y="32" text-anchor="middle" font-size="10" font-weight="700" fill="#b45309">ReLU+Dropout</text>
-    <text x="255" y="48" text-anchor="middle" font-size="9" fill="#d97706">GPU并行训练</text>
-    <text x="255" y="62" text-anchor="middle" font-size="9" fill="#d97706">数据增强</text>
-
-    <rect x="340" y="12" width="140" height="55" rx="4" fill="#f3e8ff" stroke="#c4b5fd" stroke-width="1"/>
-    <text x="410" y="32" text-anchor="middle" font-size="10" font-weight="700" fill="#6d28d9">全3×3小卷积核</text>
-    <text x="410" y="48" text-anchor="middle" font-size="9" fill="#7c3aed">深度 vs 效率</text>
-    <text x="410" y="62" text-anchor="middle" font-size="9" fill="#7c3aed">简洁统一设计</text>
-
-    <rect x="495" y="12" width="140" height="55" rx="4" fill="#d1fae5" stroke="#6ee7b7" stroke-width="1"/>
-    <text x="565" y="32" text-anchor="middle" font-size="10" font-weight="700" fill="#047857">Inception模块</text>
-    <text x="565" y="48" text-anchor="middle" font-size="9" fill="#059669">1×1卷积降维</text>
-    <text x="565" y="62" text-anchor="middle" font-size="9" fill="#059669">多尺度并行</text>
-
-    <rect x="650" y="12" width="140" height="55" rx="4" fill="#fce7f3" stroke="#f9a8d4" stroke-width="1"/>
-    <text x="720" y="32" text-anchor="middle" font-size="10" font-weight="700" fill="#be185d">残差连接</text>
-    <text x="720" y="48" text-anchor="middle" font-size="9" fill="#db2777">解决退化问题</text>
-    <text x="720" y="62" text-anchor="middle" font-size="9" fill="#db2777">152层无梯度消失</text>
-  </g>
-
-  <!-- Top-5错误率 -->
-  <g transform="translate(0,430)">
-    <text x="400" y="0" text-anchor="middle" font-size="12" font-weight="600" fill="#64748b">ImageNet Top-5 错误率</text>
-    <text x="150" y="18" text-anchor="middle" font-size="10" fill="#94a3b8">N/A</text>
-    <text x="290" y="18" text-anchor="middle" font-size="11" font-weight="700" fill="#dc2626">15.3%</text>
-    <text x="430" y="18" text-anchor="middle" font-size="11" fill="#d97706">7.3%</text>
-    <text x="570" y="18" text-anchor="middle" font-size="11" fill="#059669">6.7%</text>
-    <text x="710" y="18" text-anchor="middle" font-size="11" font-weight="700" fill="#2563eb">3.57%</text>
-    <polyline points="150,38 290,26 430,20 570,18 710,8" fill="none" stroke="#2563eb" stroke-width="2" stroke-dasharray="5,3"/>
-    <circle cx="150" cy="38" r="3" fill="#94a3b8"/><circle cx="290" cy="26" r="3" fill="#dc2626"/>
-    <circle cx="430" cy="20" r="3" fill="#d97706"/><circle cx="570" cy="18" r="3" fill="#059669"/>
-    <circle cx="710" cy="8" r="3" fill="#2563eb"/>
-    <text x="750" y="8" font-size="9" fill="#2563eb" font-weight="700">超越人类</text>
-  </g>
-</svg>
-</figure>
 <div class="top-anchor" id="ch4"></div>
 <h2>第4章 CNN训练与优化</h2>
 <div class="top-anchor" id="ch4-1"></div>
@@ -1735,70 +1359,6 @@ Total:                   25,578,984（约2558万）</code></pre>
 <p>第一，<strong>(1-p_t)^γ调节因子自动降低易分类样本的权重</strong>。易分类的负样本p_t≈1（模型自信地判断为背景），则(1-p_t)^γ≈0，其损失贡献被抑制；难分类的正样本p_t≈0（模型难以判断），则(1-p_t)^γ≈1，其损失贡献被保留。这种"软加权"机制不需要手动设定样本权重，而是根据模型当前的预测置信度自动调整。</p>
 <p>第二，<strong>α_t提供基础的类别平衡</strong>。虽然(1-p_t)^γ已经能处理大部分不平衡问题，但α_t在极端不平衡场景下提供了额外的调优自由度。</p>
 <div class="callout"><div class="callout-title">电网场景应用</div><p>在电网设备缺陷检测中，缺陷样本通常远少于正常样本（可能1:100甚至1:1000）。Focal Loss是处理此类场景的利器。例如，在绝缘子缺陷检测中，99%的检测框是背景，仅1%包含缺陷。使用Focal Loss（γ=2, α=0.25）可以显著提升稀少缺陷类别的召回率。实践中，建议先用标准交叉熵训练基线模型，再切换到Focal Loss进行精调。</p></div>
-
-<h4>损失函数可视化对比</h4>
-<figure class="chart-figure">
-<figcaption>图4-1：常见损失函数曲线对比 — 交叉熵损失、Focal Loss（γ=2）、MSE损失的行为特性</figcaption>
-<svg viewBox="0 0 800 420" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;font-family:'PingFang SC','Microsoft YaHei',sans-serif">
-  <defs>
-    <marker id="arrLoss" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#64748b"/></marker>
-  </defs>
-  <!-- 背景网格 -->
-  <g stroke="#e2e8f0" stroke-width="0.5">
-    <line x1="80" y1="30" x2="80" y2="340"/><line x1="80" y1="340" x2="750" y2="340"/>
-    <line x1="80" y1="290" x2="750" y2="290" stroke-dasharray="4,4"/><line x1="80" y1="240" x2="750" y2="240" stroke-dasharray="4,4"/>
-    <line x1="80" y1="190" x2="750" y2="190" stroke-dasharray="4,4"/><line x1="80" y1="140" x2="750" y2="140" stroke-dasharray="4,4"/>
-    <line x1="80" y1="90" x2="750" y2="90" stroke-dasharray="4,4"/><line x1="80" y1="40" x2="750" y2="40" stroke-dasharray="4,4"/>
-  </g>
-  <!-- 坐标轴 -->
-  <text x="400" y="370" text-anchor="middle" font-size="12" fill="#64748b">预测概率 p_t（正确类别）</text>
-  <text x="20" y="190" text-anchor="middle" font-size="12" fill="#64748b" transform="rotate(-90,20,190)">损失值 L</text>
-  <!-- 刻度 -->
-  <text x="80" y="358" text-anchor="middle" font-size="10" fill="#64748b">0.0</text>
-  <text x="247" y="358" text-anchor="middle" font-size="10" fill="#64748b">0.2</text>
-  <text x="414" y="358" text-anchor="middle" font-size="10" fill="#64748b">0.4</text>
-  <text x="582" y="358" text-anchor="middle" font-size="10" fill="#64748b">0.6</text>
-  <text x="750" y="358" text-anchor="middle" font-size="10" fill="#64748b">0.8</text>
-
-  <text x="72" y="344" text-anchor="end" font-size="10" fill="#64748b">0</text>
-  <text x="72" y="294" text-anchor="end" font-size="10" fill="#64748b">1</text>
-  <text x="72" y="244" text-anchor="end" font-size="10" fill="#64748b">2</text>
-  <text x="72" y="194" text-anchor="end" font-size="10" fill="#64748b">3</text>
-  <text x="72" y="144" text-anchor="end" font-size="10" fill="#64748b">4</text>
-  <text x="72" y="94" text-anchor="end" font-size="10" fill="#64748b">5</text>
-
-  <!-- 交叉熵损失曲线 L=-log(p_t) -->
-  <polyline points="80,340 105,245 130,196 155,162 180,136 205,114 230,95 255,78 280,62 305,47 330,33 355,20 380,7 405,-5" fill="none" stroke="#2563eb" stroke-width="2.5"/>
-  <text x="500" y="60" font-size="12" fill="#2563eb" font-weight="700">交叉熵损失 CE = -log(p_t)</text>
-  <circle cx="500" cy="55" r="4" fill="#2563eb"/>
-
-  <!-- Focal Loss γ=0.5 -->
-  <polyline points="80,340 105,235 133,175 163,128 195,91 230,60 267,35 307,15 350,0 413,-15" fill="none" stroke="#059669" stroke-width="2.5" stroke-dasharray="8,4"/>
-  <text x="500" y="90" font-size="12" fill="#059669" font-weight="700">Focal Loss (γ=0.5)</text>
-  <circle cx="500" cy="85" r="4" fill="#059669"/>
-
-  <!-- Focal Loss γ=2 -->
-  <polyline points="80,340 107,207 142,119 185,60 237,24 298,6 366,0 442,-5" fill="none" stroke="#dc2626" stroke-width="2.5" stroke-dasharray="3,3"/>
-  <text x="500" y="120" font-size="12" fill="#dc2626" font-weight="700">Focal Loss (γ=2)</text>
-  <circle cx="500" cy="115" r="4" fill="#dc2626"/>
-
-  <!-- 标注 -->
-  <g font-size="10" fill="#64748b">
-    <text x="90" y="20" font-weight="600">高损失区域</text>
-    <text x="90" y="33">p_t 小（难样本）</text>
-    <text x="550" y="20" font-weight="600">低损失区域</text>
-    <text x="550" y="33">p_t 大（易样本）</text>
-  </g>
-
-  <!-- 箭头标注 -->
-  <line x1="200" y1="15" x2="100" y2="50" stroke="#94a3b8" stroke-width="1" marker-end="url(#arrLoss)"/>
-  <line x1="600" y1="15" x2="700" y2="50" stroke="#94a3b8" stroke-width="1" marker-end="url(#arrLoss)"/>
-
-  <g font-size="10" fill="#94a3b8">
-    <text x="400" y="395"><tspan font-weight="700">关键观察：</tspan>当p_t较大（易分类样本）时，Focal Loss(γ=2)的损失远小于交叉熵损失，实现了自动降低易分类样本权重</text>
-  </g>
-</svg>
-</figure>
 
 <div class="top-anchor" id="ch4-2"></div>
 <h3>4.2 优化器</h3>
@@ -3771,7 +3331,7 @@ class DistillationLoss(nn.Module):
 .search-result-item .result-title{font-weight:600;color:var(--accent);margin-bottom:4px}
 .search-result-item .result-excerpt{font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .search-highlight{background:var(--warning);color:#1a1a2e;padding:0 2px;border-radius:2px;font-weight:600}
-html[data-theme="dark"] .search-highlight{color:#1a1a2e}
+body.dark-mode .search-highlight{color:#1a1a2e}
 .search-panel-hint{padding:16px;text-align:center;color:var(--muted);font-size:14px}
 .search-panel-empty{padding:24px;text-align:center;color:var(--muted);font-size:14px}
 @media(max-width:768px){.search-panel{width:90vw;right:-10px}}
@@ -3843,7 +3403,8 @@ html[data-theme="dark"] .search-highlight{color:#1a1a2e}
     resultsContainer.querySelectorAll('.search-result-item').forEach(function(item) {
       item.addEventListener('click', function() {
         var title = this.dataset.title;
-        );
+        if (window._chapterSystem) {
+          var idx = window._chapterSystem.chapters.findIndex(function(c) { return c.title === title; });
           if (idx >= 0) {
             window._chapterSystem.showChapter(idx);
             widget.classList.remove('expanded');
@@ -3893,10 +3454,231 @@ html[data-theme="dark"] .search-highlight{color:#1a1a2e}
 </script>
 
 <!-- ===== Dark Mode Toggle ===== -->
-
+<style>
+.dark-toggle-float {
+  position: fixed;
+  right: 20px;
+  top: 200px;
+  transform: none;
+  z-index: 9999;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--rule);
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+  box-shadow: var(--shadow);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+  font-family: inherit;
+}
+.dark-toggle-float:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+  transform: scale(1.08);
+}
+.dark-toggle-float:active { transform: scale(0.95); }
+body.dark-mode .dark-toggle-float {
+  background: var(--surface);
+  border-color: var(--rule);
+  color: var(--warning);
+}
+body.dark-mode .dark-toggle-float:hover {
+  background: var(--warning);
+  color: #1a1a2e;
+  border-color: var(--warning);
+}
+@media (max-width: 768px) {
+  .dark-toggle-float { right: 10px; width: 40px; height: 40px; }
+}
+</style>
+<button id="dark-toggle-float" class="dark-toggle-float" title="切换夜间模式">☽</button>
+<script>
+(function() {
+  var isDark = false;
+  var btn = document.getElementById('dark-toggle-float');
+  function apply() {
+    if (isDark) {
+      document.body.classList.add('dark-mode');
+      btn.innerHTML = '☀';
+      btn.title = '切换日间模式';
+    } else {
+      document.body.classList.remove('dark-mode');
+      btn.innerHTML = '☽';
+      btn.title = '切换夜间模式';
+    }
+  }
+  btn.addEventListener('click', function() { isDark = !isDark; apply(); });
+  apply();
+})();
+</script>
 
 <!-- ===== Chapter Navigation System ===== -->
+<script>
+(function() {
+  var main = document.querySelector(".main");
+  if (!main) return;
 
+  var allH2s = Array.from(main.querySelectorAll("h2"));
+  if (allH2s.length === 0) return;
+
+  var chapters = [];
+  allH2s.forEach(function(h2) {
+    var prev = h2.previousElementSibling;
+    var chId = "";
+    if (prev && prev.classList.contains("top-anchor")) {
+      chId = prev.id;
+    }
+    if (chId && /^ch\d+$/.test(chId)) {
+      chapters.push({ id: chId, h2: h2, title: h2.textContent });
+    }
+  });
+
+  if (chapters.length === 0) return;
+
+  var chapterBlocks = [];
+  for (var i = 0; i < chapters.length; i++) {
+    var block = document.createElement("div");
+    block.className = "chapter-content-block";
+    block.dataset.ch = chapters[i].id;
+
+    var el = chapters[i].h2.previousElementSibling;
+    if (!el) el = chapters[i].h2;
+    var endEl = (i < chapters.length - 1) ? chapters[i + 1].h2.previousElementSibling : null;
+    if (!endEl) endEl = main.lastElementChild;
+
+    var nodes = [];
+    var n = el;
+    while (n) {
+      nodes.push(n);
+      if (n === endEl) break;
+      n = n.nextElementSibling;
+    }
+
+    nodes.forEach(function(node) { block.appendChild(node); });
+    chapterBlocks.push(block);
+  }
+
+  for (var j = chapterBlocks.length - 1; j >= 0; j--) {
+    main.insertBefore(chapterBlocks[j], main.firstChild);
+  }
+
+  var currentIndex = 0;
+  chapterBlocks[0].classList.add("active");
+
+  function countWords(block) {
+    var text = block.textContent || "";
+    var chinese = (text.match(/[\u4e00-\u9fa5]/g) || []).length;
+    var english = text.replace(/[\u4e00-\u9fa5]/g, " ").split(/\s+/).filter(function(w) { return w.length > 0; }).length;
+    return chinese + english;
+  }
+
+  function readingTime(words) {
+    return Math.max(1, Math.round(words / 300));
+  }
+
+  var chapterWords = chapterBlocks.map(function(b) { return countWords(b); });
+  var totalWords = chapterWords.reduce(function(a, b) { return a + b; }, 0);
+  var totalTime = readingTime(totalWords);
+
+  function buildNavHTML() {
+    var prevTitle = currentIndex > 0 ? chapters[currentIndex - 1].title : "—";
+    var nextTitle = currentIndex < chapters.length - 1 ? chapters[currentIndex + 1].title : "—";
+    var prevDisabled = currentIndex === 0 ? " disabled" : "";
+    var nextDisabled = currentIndex === chapters.length - 1 ? " disabled" : "";
+    return "<div class=\"chapter-nav\">" +
+      "<a class=\"nav-btn prev-chapter" + prevDisabled + "\"><span class=\"nav-label\">← 上一章</span><span class=\"nav-title\">" + prevTitle + "</span></a>" +
+      "<a class=\"nav-btn next-chapter" + nextDisabled + "\"><span class=\"nav-label\">下一章 →</span><span class=\"nav-title\">" + nextTitle + "</span></a>" +
+      "</div>";
+  }
+
+  function buildStatsHTML() {
+    var cw = chapterWords[currentIndex];
+    var ct = readingTime(cw);
+    return "<div class=\"word-count-stats\">" +
+      "<div class=\"stats-title\">📊 统计信息</div>" +
+      "<div class=\"stats-row\"><span>本章字数</span><span>" + cw + " 字</span></div>" +
+      "<div class=\"stats-row\"><span>本章预计阅读</span><span>" + ct + " 分钟</span></div>" +
+      "<div class=\"stats-row\"><span>全文字数</span><span>" + totalWords + " 字</span></div>" +
+      "<div class=\"stats-row\"><span>全文预计阅读</span><span>" + totalTime + " 分钟</span></div>" +
+      "</div>";
+  }
+
+  var navContainer = document.createElement("div");
+  navContainer.className = "chapter-nav-container";
+  navContainer.innerHTML = buildStatsHTML() + buildNavHTML();
+  main.appendChild(navContainer);
+
+  function showChapter(index) {
+    if (index < 0 || index >= chapterBlocks.length) return;
+    currentIndex = index;
+    chapterBlocks.forEach(function(b, i) {
+      b.classList.toggle("active", i === index);
+    });
+
+    var cnt = main.querySelector(".chapter-nav-container");
+    if (cnt) {
+      cnt.innerHTML = buildStatsHTML() + buildNavHTML();
+    }
+
+    document.querySelectorAll(".nav-sections a").forEach(function(a) {
+      a.classList.remove("nav-active-chapter");
+    });
+    var sidebarLink = document.querySelector(".nav-sections a[href=\"#" + chapters[index].id + "\"]");
+    if (sidebarLink) {
+      sidebarLink.classList.add("nav-active-chapter");
+      var chapterToggle = sidebarLink.closest(".nav-chapter");
+      if (chapterToggle) chapterToggle.classList.add("open");
+    }
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  document.querySelectorAll(".nav-sections a[href^=\"#ch\"]").forEach(function(link) {
+    link.addEventListener("click", function(e) {
+      e.preventDefault();
+      var href = this.getAttribute("href").substring(1);
+      var idx = chapters.findIndex(function(c) { return c.id === href; });
+      if (idx >= 0) showChapter(idx);
+    });
+  });
+
+  main.addEventListener("click", function(e) {
+    if (e.target.closest(".prev-chapter")) {
+      e.preventDefault();
+      if (currentIndex > 0) showChapter(currentIndex - 1);
+    }
+    if (e.target.closest(".next-chapter")) {
+      e.preventDefault();
+      if (currentIndex < chapters.length - 1) showChapter(currentIndex + 1);
+    }
+  });
+
+  function checkHash() {
+    var hash = location.hash;
+    if (hash && /^#ch\d+$/.test(hash)) {
+      var id = hash.substring(1);
+      var idx = chapters.findIndex(function(c) { return c.id === id; });
+      if (idx >= 0) setTimeout(function() { showChapter(idx); }, 50);
+    }
+  }
+  window.addEventListener("hashchange", checkHash);
+  checkHash();
+
+  window._chapterSystem = {
+    chapters: chapters,
+    chapterBlocks: chapterBlocks,
+    showChapter: showChapter,
+    getCurrentIndex: function() { return currentIndex; }
+  };
+})();
+</script>
 
 <!-- ===== Sidebar Toggle ===== -->
 <script>
@@ -3912,57 +3694,5 @@ html[data-theme="dark"] .search-highlight{color:#1a1a2e}
 })();
 </script>
 
-<script>
-// ===== Theme Toggle =====
-(function() {
-  const STORAGE_KEY = 'ai-study-theme';
-  const html = document.documentElement;
-  const toggleBtn = document.getElementById('themeToggle');
-
-  const savedTheme = localStorage.getItem(STORAGE_KEY);
-  if (savedTheme === 'dark') {
-    html.setAttribute('data-theme', 'dark');
-  } else {
-    html.removeAttribute('data-theme');
-  }
-
-  toggleBtn.addEventListener('click', function() {
-    if (html.hasAttribute('data-theme')) {
-      html.removeAttribute('data-theme');
-      localStorage.setItem(STORAGE_KEY, 'light');
-    } else {
-      html.setAttribute('data-theme', 'dark');
-      localStorage.setItem(STORAGE_KEY, 'dark');
-    }
-  });
-})();
-</script>
-<script>
-
-// Sidebar navigation active state
-(function() {
-  const navLinks = document.querySelectorAll('.nav-sections a');
-  const anchors = document.querySelectorAll('.top-anchor');
-
-  function onScroll() {
-    let current = '';
-    anchors.forEach(function(sec) {
-      const top = sec.getBoundingClientRect().top;
-      if (top <= 60) current = sec.id;
-    });
-    navLinks.forEach(function(link) {
-      link.classList.remove('active');
-      if (link.getAttribute('href') === '#' + current) {
-        link.classList.add('active');
-        const chapter = link.closest('.nav-chapter');
-        if (chapter) chapter.classList.add('open');
-      }
-    });
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-})();
-
-</script>
 </body>
 </html>
