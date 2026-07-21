@@ -340,6 +340,30 @@
       options.onStatsReady(manifest.stats);
     }
 
+    // 自动更新页脚字数统计
+    if (manifest.stats && manifest.stats.totalWordCount) {
+      var wc = manifest.stats.totalWordCount;
+      var wcEl = document.getElementById('siteWordCount');
+      if (wcEl) {
+        if (wc >= 10000) {
+          wcEl.textContent = (wc / 10000).toFixed(1) + '万';
+        } else if (wc >= 1000) {
+          wcEl.textContent = (wc / 1000).toFixed(0) + 'k';
+        } else {
+          wcEl.textContent = wc;
+        }
+      }
+      var rtEl = document.getElementById('siteReadTime');
+      if (rtEl && manifest.stats.totalReadMinutes) {
+        var mins = manifest.stats.totalReadMinutes;
+        if (mins >= 60) {
+          rtEl.textContent = (mins / 60).toFixed(1) + ' 小时';
+        } else {
+          rtEl.textContent = mins + ' 分钟';
+        }
+      }
+    }
+
     // 暴露API
     window.BlogEngine = {
       manifest: manifest,

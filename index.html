@@ -273,7 +273,8 @@
   </div>
 
   <div class="site-nav-right">
-    <a href="/admin.html" class="admin-entry" title="管理" aria-label="管理" style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:6px;color:#aaa;text-decoration:none;transition:all .2s;margin-right:8px;font-size:14px;opacity:.5" onmouseover="this.style.opacity='1';this.style.color='#555';this.style.background='#f0f0f0'" onmouseout="this.style.opacity='.5';this.style.color='#aaa';this.style.background='transparent'">&#9881;</a>
+    <a href="/admin.html" class="admin-entry" title="管理" aria-label="管理" style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:6px;color:#aaa;text-decoration:none;transition:all .2s;margin-right:4px;font-size:14px;opacity:.5" onmouseover="this.style.opacity='1';this.style.color='#555';this.style.background='#f0f0f0'" onmouseout="this.style.opacity='.5';this.style.color='#aaa';this.style.background='transparent'">&#9881;</a>
+    <a href="javascript:;" class="dark-toggle-nav" id="dark-toggle-nav" title="切换夜间模式" aria-label="切换夜间模式" style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:6px;color:#aaa;text-decoration:none;transition:all .2s;margin-right:8px;font-size:14px;opacity:.5" onmouseover="this.style.opacity='1';this.style.color='#555';this.style.background='#f0f0f0'" onmouseout="this.style.opacity='.5';this.style.color='#aaa';this.style.background='transparent'"><i class="fa fa-moon-o"></i></a>
     <div class="toggle popup-trigger" aria-label="搜索" role="button">
     </div>
   </div>
@@ -378,14 +379,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">2k</span>
+    <span title="站点总字数" id="siteWordCount">437k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">8 分钟</span>
+    <span title="站点阅读时长" id="siteReadTime">18.2 小时</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -725,7 +726,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // ================================================================
-// 夜间模式切换（浮动侧边按钮，默认暖色调，不记忆偏好）
+// 夜间模式切换（导航栏按钮，默认暖色调，不记忆偏好）
 // ================================================================
 (function() {
   var isDark = false;
@@ -741,7 +742,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function updateIcon() {
-    var btn = document.getElementById('dark-toggle-float');
+    var btn = document.getElementById('dark-toggle-nav');
     if (!btn) return;
     if (isDark) {
       btn.innerHTML = '<i class="fa fa-sun-o"></i>';
@@ -753,19 +754,15 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   document.addEventListener('DOMContentLoaded', function() {
-    // 默认始终暖色调
     applyDarkMode(false);
 
-    // 创建浮动侧边按钮
-    var btn = document.createElement('button');
-    btn.id = 'dark-toggle-float';
-    btn.className = 'dark-toggle-float';
-    btn.innerHTML = '<i class="fa fa-moon-o"></i>';
-    btn.title = '切换夜间模式';
-    btn.addEventListener('click', function() {
-      applyDarkMode(!isDark);
-    });
-    document.body.appendChild(btn);
+    var btn = document.getElementById('dark-toggle-nav');
+    if (btn) {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        applyDarkMode(!isDark);
+      });
+    }
 
     // 替换页脚文字
     var withLove = document.querySelector('.with-love');
