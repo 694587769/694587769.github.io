@@ -4,100 +4,125 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>博客管理 | 苦瓜与吉姆餐厅</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
 :root {
-  --bg: #f5f6fa; --surface: #fff; --ink: #1a1a2e; --muted: #888;
+  --bg: #f0f2f5; --surface: #fff; --ink: #1a1a2e; --muted: #888;
   --accent: #2563eb; --accent2: #7c3aed; --danger: #dc2626;
   --success: #059669; --warning: #d97706;
-  --rule: #e5e7eb; --radius: 10px; --shadow: 0 1px 3px rgba(0,0,0,.08);
-  --sidebar-w: 240px;
+  --rule: #e5e7eb; --radius: 10px; --shadow: 0 1px 3px rgba(0,0,0,.06);
+  --sidebar-w: 220px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;display:flex}
 
 /* Login */
-.login-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;z-index:9999;backdrop-filter:blur(4px)}
-.login-box{background:var(--surface);border-radius:16px;padding:40px 36px;width:380px;max-width:90vw;box-shadow:0 20px 60px rgba(0,0,0,.15);text-align:center}
-.login-box h2{font-size:22px;margin-bottom:6px}
-.login-box p{color:var(--muted);font-size:14px;margin-bottom:24px}
-.login-box input{width:100%;padding:12px 16px;border:2px solid var(--rule);border-radius:10px;font-size:16px;outline:none;transition:border-color .2s;text-align:center;letter-spacing:4px}
-.login-box input:focus{border-color:var(--accent)}
-.login-box .login-btn{width:100%;margin-top:16px;padding:12px;background:var(--accent);color:#fff;border:none;border-radius:10px;font-size:16px;cursor:pointer;transition:opacity .2s}
-.login-box .login-btn:hover{opacity:.9}
-.login-error{color:var(--danger);font-size:13px;margin-top:10px;display:none}
+.login-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;z-index:9999;backdrop-filter:blur(6px)}
+.login-box{background:var(--surface);border-radius:20px;padding:48px 40px;width:400px;max-width:90vw;box-shadow:0 24px 80px rgba(0,0,0,.12);text-align:center}
+.login-box h2{font-size:24px;margin-bottom:4px;font-weight:700}
+.login-box .sub{color:var(--muted);font-size:14px;margin-bottom:28px}
+.login-box input{width:100%;padding:14px 18px;border:2px solid var(--rule);border-radius:12px;font-size:16px;outline:none;transition:border-color .2s;text-align:center;letter-spacing:4px}
+.login-box input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+.login-box .login-btn{width:100%;margin-top:20px;padding:14px;background:var(--accent);color:#fff;border:none;border-radius:12px;font-size:16px;font-weight:600;cursor:pointer;transition:all .2s}
+.login-box .login-btn:hover{background:#1d4ed8;transform:translateY(-1px)}
+.login-error{color:var(--danger);font-size:13px;margin-top:12px;display:none}
 
 /* Sidebar */
 .sidebar{width:var(--sidebar-w);background:var(--surface);border-right:1px solid var(--rule);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:100}
 .sidebar-brand{padding:24px 20px;border-bottom:1px solid var(--rule)}
-.sidebar-brand h3{font-size:16px;color:var(--ink)}
-.sidebar-brand span{font-size:12px;color:var(--muted)}
-.sidebar-nav{flex:1;padding:12px 0;overflow-y:auto}
-.nav-item{display:flex;align-items:center;gap:10px;padding:12px 20px;cursor:pointer;color:var(--muted);font-size:14px;transition:all .15s;border-left:3px solid transparent;margin:2px 0}
-.nav-item:hover{background:#f0f1f5;color:var(--ink)}
+.sidebar-brand h3{font-size:15px;color:var(--ink);font-weight:700}
+.sidebar-brand span{font-size:11px;color:var(--muted);display:block;margin-top:2px}
+.sidebar-nav{flex:1;padding:8px 0;overflow-y:auto}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 20px;cursor:pointer;color:var(--muted);font-size:13px;transition:all .15s;border-left:3px solid transparent;margin:1px 0}
+.nav-item:hover{background:#f8f9fb;color:var(--ink)}
 .nav-item.active{background:#eff6ff;color:var(--accent);border-left-color:var(--accent);font-weight:600}
-.nav-item .icon{font-size:16px;width:20px;text-align:center}
-.sidebar-footer{padding:16px 20px;border-top:1px solid var(--rule);font-size:12px;color:var(--muted);display:flex;justify-content:space-between}
-.sidebar-footer a{color:var(--accent);text-decoration:none;cursor:pointer}
+.nav-item .icon{font-size:15px;width:20px;text-align:center}
+.nav-item .badge{background:var(--accent);color:#fff;font-size:10px;padding:1px 7px;border-radius:10px;margin-left:auto}
+.sidebar-footer{padding:14px 20px;border-top:1px solid var(--rule);font-size:11px;color:var(--muted);display:flex;justify-content:space-between}
+.sidebar-footer a{color:var(--accent);text-decoration:none;cursor:pointer;font-weight:600}
 
 /* Main */
-.main{flex:1;margin-left:var(--sidebar-w);padding:32px;overflow-y:auto;min-height:100vh}
-.page-title{font-size:24px;font-weight:700;margin-bottom:24px}
+.main{flex:1;margin-left:var(--sidebar-w);padding:28px 32px;overflow-y:auto;min-height:100vh}
+.page-title{font-size:22px;font-weight:700;margin-bottom:6px}
+.page-subtitle{font-size:13px;color:var(--muted);margin-bottom:24px}
 
-/* Cards */
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-bottom:28px}
-.stat-card{background:var(--surface);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);display:flex;align-items:center;gap:14px}
-.stat-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+/* Stats */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin-bottom:28px}
+.stat-card{background:var(--surface);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);display:flex;align-items:center;gap:12px;transition:transform .15s}
+.stat-card:hover{transform:translateY(-2px)}
+.stat-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
 .stat-icon.blue{background:#eff6ff;color:var(--accent)}
 .stat-icon.purple{background:#f3e8ff;color:var(--accent2)}
 .stat-icon.green{background:#ecfdf5;color:var(--success)}
 .stat-icon.orange{background:#fff7ed;color:var(--warning)}
-.stat-info .stat-val{font-size:22px;font-weight:700;line-height:1.2}
-.stat-info .stat-label{font-size:12px;color:var(--muted)}
+.stat-info .stat-val{font-size:20px;font-weight:700;line-height:1.2}
+.stat-info .stat-label{font-size:11px;color:var(--muted)}
 
 /* Panel */
-.panel{background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:24px;overflow:hidden}
-.panel-header{padding:16px 20px;border-bottom:1px solid var(--rule);font-size:15px;font-weight:600;display:flex;align-items:center;gap:8px}
+.panel{background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:20px;overflow:hidden}
+.panel-header{padding:14px 20px;border-bottom:1px solid var(--rule);font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.panel-header .panel-actions{display:flex;gap:8px}
 .panel-body{padding:20px}
 
-/* File Tree */
-.tree{font-size:14px;line-height:2}
-.tree-dir,.tree-file{display:flex;align-items:center;gap:6px;cursor:pointer;padding:4px 8px;border-radius:6px;transition:background .15s}
-.tree-dir:hover,.tree-file:hover{background:#f0f1f5}
-.tree-dir .arrow{font-size:10px;width:14px;text-align:center;transition:transform .2s;display:inline-block}
-.tree-dir.open>.arrow{transform:rotate(90deg)}
-.tree-children{display:none;padding-left:20px}
-.tree-children.show{display:block}
-.tree-icon{width:18px;text-align:center;font-size:13px}
-.tree-icon.dir{color:var(--warning)}
-.tree-icon.file{color:var(--muted)}
-.tree-size{font-size:11px;color:var(--muted);margin-left:auto}
-.tree-file a{color:var(--ink);text-decoration:none}
-.tree-file a:hover{color:var(--accent)}
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .15s}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:#1d4ed8}
+.btn-success{background:var(--success);color:#fff}
+.btn-success:hover{background:#047857}
+.btn-danger{background:var(--danger);color:#fff}
+.btn-danger:hover{background:#b91c1c}
+.btn-outline{background:transparent;border:1.5px solid var(--rule);color:var(--ink)}
+.btn-outline:hover{background:#f8f9fb;border-color:#ccc}
+.btn-sm{padding:5px 12px;font-size:12px}
+.btn-xs{padding:3px 8px;font-size:11px;border-radius:6px}
 
-/* Storage bar */
-.storage-bars{display:flex;flex-direction:column;gap:12px}
-.storage-row{display:flex;align-items:center;gap:12px}
-.storage-label{width:140px;font-size:13px;flex-shrink:0}
-.storage-bar-wrap{flex:1;height:22px;background:#f0f1f5;border-radius:6px;overflow:hidden;position:relative}
-.storage-bar{height:100%;border-radius:6px;transition:width .5s}
-.storage-bar.blue{background:var(--accent)}
-.storage-bar.purple{background:var(--accent2)}
-.storage-bar.green{background:var(--success)}
-.storage-bar.orange{background:var(--warning)}
-.storage-val{font-size:12px;color:var(--muted);width:60px;text-align:right;flex-shrink:0}
-
-/* Page list */
-.page-table{width:100%;border-collapse:collapse;font-size:14px}
-.page-table th{text-align:left;padding:10px 12px;border-bottom:2px solid var(--rule);color:var(--muted);font-weight:600;font-size:12px;text-transform:uppercase}
-.page-table td{padding:10px 12px;border-bottom:1px solid var(--rule)}
-.page-table tr:hover td{background:#f8f9fb}
-.page-table .type-badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600}
+/* Table */
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+table th{text-align:left;padding:10px 12px;border-bottom:2px solid var(--rule);color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;white-space:nowrap}
+table td{padding:10px 12px;border-bottom:1px solid var(--rule);vertical-align:middle}
+table tbody tr:hover{background:#f8f9fb}
+table tbody tr.dragging{opacity:.5;background:#eff6ff}
+.type-badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;text-transform:uppercase}
 .type-badge.article{background:#eff6ff;color:var(--accent)}
 .type-badge.study{background:#f3e8ff;color:var(--accent2)}
 .type-badge.quiz{background:#ecfdf5;color:var(--success)}
 .type-badge.system{background:#fef3c7;color:var(--warning)}
-.page-table a{color:var(--accent);text-decoration:none}
-.page-table a:hover{text-decoration:underline}
+.actions-cell{display:flex;gap:4px;white-space:nowrap}
+.drag-handle{cursor:grab;color:var(--muted);padding:4px;font-size:14px}
+.drag-handle:hover{color:var(--ink)}
+
+/* Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;z-index:10000;backdrop-filter:blur(4px)}
+.modal{background:var(--surface);border-radius:16px;width:520px;max-width:90vw;max-height:85vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,.15)}
+.modal-header{padding:18px 24px;border-bottom:1px solid var(--rule);display:flex;align-items:center;justify-content:space-between}
+.modal-header h3{font-size:16px;font-weight:700}
+.modal-close{background:none;border:none;font-size:20px;color:var(--muted);cursor:pointer;padding:4px;border-radius:6px}
+.modal-close:hover{background:#f0f1f5;color:var(--ink)}
+.modal-body{padding:24px}
+.modal-footer{padding:16px 24px;border-top:1px solid var(--rule);display:flex;justify-content:flex-end;gap:10px}
+
+/* Form */
+.form-group{margin-bottom:16px}
+.form-label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px;text-transform:uppercase}
+.form-input,.form-select,.form-textarea{width:100%;padding:10px 14px;border:1.5px solid var(--rule);border-radius:8px;font-size:14px;outline:none;font-family:inherit;transition:border-color .2s}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,.08)}
+.form-textarea{resize:vertical;min-height:80px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+/* Toast */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--surface);border-radius:10px;padding:14px 20px;box-shadow:0 8px 32px rgba(0,0,0,.12);font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;z-index:99999;animation:slideIn .3s ease}
+.toast.success{border-left:4px solid var(--success)}
+.toast.error{border-left:4px solid var(--danger)}
+@keyframes slideIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+
+/* Confirm */
+.confirm-overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;z-index:10001}
+.confirm-box{background:var(--surface);border-radius:14px;padding:28px 32px;width:380px;max-width:90vw;text-align:center;box-shadow:0 16px 48px rgba(0,0,0,.12)}
+.confirm-box h4{font-size:16px;margin-bottom:8px}
+.confirm-box p{color:var(--muted);font-size:13px;margin-bottom:20px}
+.confirm-box .confirm-actions{display:flex;gap:10px;justify-content:center}
 
 /* Sections */
 .section{display:none}
@@ -105,26 +130,29 @@ body{font-family:"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",sans-serif;b
 
 /* Responsive */
 @media(max-width:768px){
-  .sidebar{width:60px;overflow:hidden}
-  .sidebar .nav-item span:not(.icon),.sidebar-brand h3,.sidebar-brand span{display:none}
-  .sidebar .nav-item{justify-content:center;padding:12px}
-  .main{margin-left:60px;padding:16px}
+  .sidebar{width:56px;overflow:hidden}
+  .sidebar .nav-item span:not(.icon),.sidebar .nav-item .badge,.sidebar-brand h3,.sidebar-brand span{display:none}
+  .sidebar .nav-item{justify-content:center;padding:10px}
+  .main{margin-left:56px;padding:16px}
   .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .form-row{grid-template-columns:1fr}
 }
 
-/* Back to blog */
-.back-link{display:inline-flex;align-items:center;gap:6px;color:var(--muted);text-decoration:none;font-size:13px;margin-bottom:20px;transition:color .15s}
-.back-link:hover{color:var(--accent)}
+/* Deploy banner */
+.deploy-banner{background:#fffbeb;border:1px solid #fcd34d;border-radius:8px;padding:12px 16px;margin-bottom:16px;font-size:13px;display:flex;align-items:center;gap:10px}
+.deploy-banner .icon{font-size:18px;color:var(--warning)}
+.deploy-banner .text{flex:1;color:#92400e}
+.deploy-banner .btn{flex-shrink:0}
 </style>
 </head>
 <body>
 
-<!-- Login Overlay -->
+<!-- Login -->
 <div class="login-overlay" id="loginOverlay">
   <div class="login-box">
-    <h2>🔐 博客管理</h2>
-    <p>请输入管理密码</p>
-    <input type="password" id="pwdInput" placeholder="输入密码" maxlength="20" autofocus>
+    <h2>博客管理控制台</h2>
+    <p class="sub">苦瓜与吉姆餐厅 · CMS</p>
+    <input type="password" id="pwdInput" placeholder="输入管理密码" maxlength="20" autofocus>
     <button class="login-btn" id="loginBtn">进入管理</button>
     <div class="login-error" id="loginError">密码错误，请重试</div>
   </div>
@@ -134,101 +162,199 @@ body{font-family:"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",sans-serif;b
 <aside class="sidebar">
   <div class="sidebar-brand">
     <h3>苦瓜与吉姆餐厅</h3>
-    <span>管理控制台</span>
+    <span>内容管理系统</span>
   </div>
   <nav class="sidebar-nav">
     <div class="nav-item active" data-section="dashboard">
-      <span class="icon">📊</span><span>仪表盘</span>
+      <span class="icon"><i class="fa fa-dashboard"></i></span><span>仪表盘</span>
+    </div>
+    <div class="nav-item" data-section="articles-sec">
+      <span class="icon"><i class="fa fa-file-text"></i></span><span>文章管理</span>
+      <span class="badge" id="articlesCount">3</span>
+    </div>
+    <div class="nav-item" data-section="study-sec">
+      <span class="icon"><i class="fa fa-folder"></i></span><span>学习资料</span>
+      <span class="badge" id="studyCount">9</span>
+    </div>
+    <div class="nav-item" data-section="quiz-sec">
+      <span class="icon"><i class="fa fa-book"></i></span><span>题库管理</span>
+      <span class="badge" id="quizCount">3</span>
     </div>
     <div class="nav-item" data-section="files">
-      <span class="icon">📁</span><span>文件管理</span>
+      <span class="icon"><i class="fa fa-folder-open"></i></span><span>文件浏览</span>
     </div>
     <div class="nav-item" data-section="storage">
-      <span class="icon">💾</span><span>存储分析</span>
-    </div>
-    <div class="nav-item" data-section="pages">
-      <span class="icon">📄</span><span>页面管理</span>
+      <span class="icon"><i class="fa fa-hdd-o"></i></span><span>存储分析</span>
     </div>
   </nav>
   <div class="sidebar-footer">
-    <span id="lastUpdate">加载中...</span>
-    <a id="logoutBtn">退出</a>
+    <span id="lastUpdate">更新: 2026-07-21</span>
+    <a id="logoutBtn"><i class="fa fa-sign-out"></i> 退出</a>
   </div>
 </aside>
 
-<!-- Main Content -->
+<!-- Main -->
 <div class="main">
 
   <!-- Dashboard -->
   <div class="section active" id="section-dashboard">
-    <a class="back-link" href="/">← 返回博客首页</a>
     <div class="page-title">仪表盘</div>
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-icon blue">📁</div>
-        <div class="stat-info"><div class="stat-val" id="statFiles">-</div><div class="stat-label">文件总数</div></div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon purple">💾</div>
-        <div class="stat-info"><div class="stat-val" id="statSize">-</div><div class="stat-label">总占用空间</div></div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon green">📄</div>
-        <div class="stat-info"><div class="stat-val" id="statPages">-</div><div class="stat-label">内容页面</div></div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon orange">📚</div>
-        <div class="stat-info"><div class="stat-val" id="statQuiz">-</div><div class="stat-label">题库数量</div></div>
-      </div>
-    </div>
-
+    <div class="page-subtitle">博客内容概览与快捷操作</div>
+    <div class="stats-grid" id="statsGrid"></div>
     <div class="panel">
-      <div class="panel-header">📋 快速概览</div>
-      <div class="panel-body" id="quickOverview"></div>
-    </div>
-
-    <div class="panel">
-      <div class="panel-header">🕒 最近更新</div>
+      <div class="panel-header">📋 最近更新</div>
       <div class="panel-body" id="recentUpdates"></div>
     </div>
-  </div>
-
-  <!-- File Manager -->
-  <div class="section" id="section-files">
-    <a class="back-link" href="/">← 返回博客首页</a>
-    <div class="page-title">文件管理</div>
     <div class="panel">
-      <div class="panel-header">📁 目录结构</div>
-      <div class="panel-body"><div class="tree" id="fileTree"></div></div>
-    </div>
-  </div>
-
-  <!-- Storage Analysis -->
-  <div class="section" id="section-storage">
-    <a class="back-link" href="/">← 返回博客首页</a>
-    <div class="page-title">存储分析</div>
-    <div class="panel">
-      <div class="panel-header">📊 各目录占用</div>
-      <div class="panel-body"><div class="storage-bars" id="storageBars"></div></div>
-    </div>
-    <div class="panel">
-      <div class="panel-header">🔝 大文件 TOP 10</div>
-      <div class="panel-body" id="largeFiles"></div>
-    </div>
-  </div>
-
-  <!-- Page Management -->
-  <div class="section" id="section-pages">
-    <a class="back-link" href="/">← 返回博客首页</a>
-    <div class="page-title">页面管理</div>
-    <div class="panel">
-      <div class="panel-header">📄 所有页面</div>
-      <div class="panel-body" style="overflow-x:auto">
-        <table class="page-table">
-          <thead><tr><th>名称</th><th>类型</th><th>路径</th><th>大小</th></tr></thead>
-          <tbody id="pageTableBody"></tbody>
-        </table>
+      <div class="panel-header">⚡ 快捷操作</div>
+      <div class="panel-body" style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="openAddModal('articles')"><i class="fa fa-plus"></i> 新增文章</button>
+        <button class="btn btn-outline" onclick="openAddModal('study')"><i class="fa fa-plus"></i> 新增学习资料</button>
+        <button class="btn btn-outline" onclick="openAddModal('quiz')"><i class="fa fa-plus"></i> 新增题库</button>
+        <button class="btn btn-outline" onclick="downloadManifest()"><i class="fa fa-download"></i> 导出 manifest.json</button>
+        <button class="btn btn-outline" onclick="deployChanges()"><i class="fa fa-cloud-upload"></i> 部署到 GitHub</button>
       </div>
+    </div>
+  </div>
+
+  <!-- Articles -->
+  <div class="section" id="section-articles-sec">
+    <div class="page-title">文章管理</div>
+    <div class="page-subtitle">管理博客文章：编辑、排序、新增、删除</div>
+    <div class="deploy-banner" id="deployBanner1" style="display:none">
+      <span class="icon"><i class="fa fa-exclamation-triangle"></i></span>
+      <span class="text">有未保存的修改，请点击"部署到 GitHub"保存</span>
+      <button class="btn btn-warning btn-sm" onclick="deployChanges()" style="background:var(--warning);color:#fff">立即部署</button>
+    </div>
+    <div class="panel">
+      <div class="panel-header">
+        <span>📄 文章列表</span>
+        <div class="panel-actions">
+          <button class="btn btn-primary btn-sm" onclick="openAddModal('articles')"><i class="fa fa-plus"></i> 新增</button>
+        </div>
+      </div>
+      <div class="table-wrap"><table id="articlesTable"><thead><tr><th style="width:30px"></th><th>标题</th><th>日期</th><th>标签</th><th>大小</th><th style="width:160px">操作</th></tr></thead><tbody></tbody></table></div>
+    </div>
+  </div>
+
+  <!-- Study -->
+  <div class="section" id="section-study-sec">
+    <div class="page-title">学习资料管理</div>
+    <div class="page-subtitle">管理学习资料：编辑、排序、新增、删除</div>
+    <div class="deploy-banner" id="deployBanner2" style="display:none">
+      <span class="icon"><i class="fa fa-exclamation-triangle"></i></span>
+      <span class="text">有未保存的修改，请点击"部署到 GitHub"保存</span>
+      <button class="btn btn-warning btn-sm" onclick="deployChanges()" style="background:var(--warning);color:#fff">立即部署</button>
+    </div>
+    <div class="panel">
+      <div class="panel-header">
+        <span>📚 学习资料列表</span>
+        <div class="panel-actions">
+          <button class="btn btn-primary btn-sm" onclick="openAddModal('study')"><i class="fa fa-plus"></i> 新增</button>
+        </div>
+      </div>
+      <div class="table-wrap"><table id="studyTable"><thead><tr><th style="width:30px"></th><th>标题</th><th>日期</th><th>标签</th><th>大小</th><th style="width:160px">操作</th></tr></thead><tbody></tbody></table></div>
+    </div>
+  </div>
+
+  <!-- Quiz -->
+  <div class="section" id="section-quiz-sec">
+    <div class="page-title">题库管理</div>
+    <div class="page-subtitle">管理题库：编辑、排序、新增、删除</div>
+    <div class="deploy-banner" id="deployBanner3" style="display:none">
+      <span class="icon"><i class="fa fa-exclamation-triangle"></i></span>
+      <span class="text">有未保存的修改，请点击"部署到 GitHub"保存</span>
+      <button class="btn btn-warning btn-sm" onclick="deployChanges()" style="background:var(--warning);color:#fff">立即部署</button>
+    </div>
+    <div class="panel">
+      <div class="panel-header">
+        <span>📝 题库列表</span>
+        <div class="panel-actions">
+          <button class="btn btn-primary btn-sm" onclick="openAddModal('quiz')"><i class="fa fa-plus"></i> 新增</button>
+        </div>
+      </div>
+      <div class="table-wrap"><table id="quizTable"><thead><tr><th style="width:30px"></th><th>标题</th><th>日期</th><th>题数</th><th>标签</th><th style="width:160px">操作</th></tr></thead><tbody></tbody></table></div>
+    </div>
+  </div>
+
+  <!-- Files -->
+  <div class="section" id="section-files">
+    <div class="page-title">文件浏览</div>
+    <div class="page-subtitle">博客仓库目录结构</div>
+    <div class="panel"><div class="panel-body"><div class="tree" id="fileTree"></div></div></div>
+  </div>
+
+  <!-- Storage -->
+  <div class="section" id="section-storage">
+    <div class="page-title">存储分析</div>
+    <div class="page-subtitle">目录占用与大文件排行</div>
+    <div class="panel"><div class="panel-header">📊 各目录占用</div><div class="panel-body"><div class="storage-bars" id="storageBars"></div></div></div>
+    <div class="panel"><div class="panel-header">🔝 大文件 TOP 10</div><div class="panel-body" id="largeFiles"></div></div>
+  </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal-overlay" id="editModal" style="display:none">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="modalTitle">编辑内容</h3>
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">ID（唯一标识）</label>
+        <input class="form-input" id="editId" placeholder="e.g. my-article">
+      </div>
+      <div class="form-group">
+        <label class="form-label">标题</label>
+        <input class="form-input" id="editTitle" placeholder="文章标题">
+      </div>
+      <div class="form-group">
+        <label class="form-label">摘要</label>
+        <textarea class="form-textarea" id="editExcerpt" placeholder="文章摘要/描述"></textarea>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">URL 路径</label>
+          <input class="form-input" id="editUrl" placeholder="/articles/xxx.html">
+        </div>
+        <div class="form-group">
+          <label class="form-label">日期</label>
+          <input class="form-input" type="date" id="editDate">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">标签（逗号分隔）</label>
+          <input class="form-input" id="editTags" placeholder="标签1, 标签2">
+        </div>
+        <div class="form-group">
+          <label class="form-label">大小</label>
+          <input class="form-input" id="editSize" placeholder="e.g. 56 KB">
+        </div>
+      </div>
+      <div class="form-group" id="editCountGroup" style="display:none">
+        <label class="form-label">题目数量</label>
+        <input class="form-input" type="number" id="editCount" placeholder="e.g. 498">
+      </div>
+      <input type="hidden" id="editCategory">
+      <input type="hidden" id="editIndex">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal()">取消</button>
+      <button class="btn btn-primary" onclick="saveEdit()"><i class="fa fa-check"></i> 保存</button>
+    </div>
+  </div>
+</div>
+
+<!-- Confirm Dialog -->
+<div class="confirm-overlay" id="confirmOverlay" style="display:none">
+  <div class="confirm-box">
+    <h4 id="confirmTitle">确认删除</h4>
+    <p id="confirmMsg">此操作不可撤销</p>
+    <div class="confirm-actions">
+      <button class="btn btn-outline" onclick="closeConfirm()">取消</button>
+      <button class="btn btn-danger" id="confirmBtn" onclick="confirmDelete()">确认删除</button>
     </div>
   </div>
 </div>
@@ -237,14 +363,14 @@ body{font-family:"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",sans-serif;b
 // ===== Auth =====
 const CORRECT_PWD = '223511';
 const SESSION_KEY = 'blog_admin_authed';
+const GITHUB_TOKEN_KEY = 'blog_admin_github_token';
 
 if (sessionStorage.getItem(SESSION_KEY) === '1') {
   document.getElementById('loginOverlay').style.display = 'none';
 }
 
 document.getElementById('loginBtn').addEventListener('click', function() {
-  var input = document.getElementById('pwdInput').value;
-  if (input === CORRECT_PWD) {
+  if (document.getElementById('pwdInput').value === CORRECT_PWD) {
     sessionStorage.setItem(SESSION_KEY, '1');
     document.getElementById('loginOverlay').style.display = 'none';
   } else {
@@ -258,10 +384,27 @@ document.getElementById('pwdInput').addEventListener('keydown', function(e) {
   if (e.key === 'Enter') document.getElementById('loginBtn').click();
 });
 
+// Logout → go to homepage
 document.getElementById('logoutBtn').addEventListener('click', function() {
   sessionStorage.removeItem(SESSION_KEY);
-  location.reload();
+  window.location.href = '/';
 });
+
+// ===== Data =====
+let manifest = null;
+let hasChanges = false;
+
+async function loadManifest() {
+  try {
+    const resp = await fetch('/manifest.json?_=' + Date.now());
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    manifest = await resp.json();
+    return true;
+  } catch (e) {
+    showToast('无法加载 manifest.json', 'error');
+    return false;
+  }
+}
 
 // ===== Navigation =====
 document.querySelectorAll('.nav-item').forEach(function(item) {
@@ -273,245 +416,426 @@ document.querySelectorAll('.nav-item').forEach(function(item) {
   });
 });
 
-// ===== File Data =====
-var fileData = {
-  totalSize: 13 * 1024 * 1024, // 13MB
-  totalFiles: 79,
-  contentPages: 25,
-  quizCount: 3,
-  lastUpdate: '2026-07-21',
-  dirs: [
-    { name: 'study', size: '3.5 MB', files: 12, color: 'blue', path: '/study/' },
-    { name: 'quiz', size: '1.5 MB', files: 4, color: 'purple', path: '/quiz/' },
-    { name: 'css', size: '80 KB', files: 2, color: 'green', path: '/css/' },
-    { name: 'js', size: '68 KB', files: 8, color: 'orange', path: '/js/' },
-    { name: 'images', size: '32 KB', files: 6, color: 'green', path: '/images/' },
-    { name: 'tags', size: '88 KB', files: 3, color: 'orange', path: '/tags/' },
-    { name: '其他（根目录/文章/归档等）', size: '~1.1 MB', files: 44, color: 'blue', path: '/' }
-  ],
-  largeFiles: [
-    { name: 'echarts.min.js', path: '/shared/js/echarts.min.js', size: '1008 KB' },
-    { name: 'quiz.html', path: '/quiz/ai-contest/', size: '956 KB' },
-    { name: 'ml-basics.html', path: '/study/ml-basics.html', size: '300 KB' },
-    { name: 'cnn-basics.html (root)', path: '/articles/cnn-basics.html', size: '288 KB' },
-    { name: 'katex.min.js', path: '/shared/js/katex.min.js', size: '268 KB' },
-    { name: 'cnn-study.html', path: '/study/cnn-study.html', size: '264 KB' },
-    { name: 'cnn-basics.html', path: '/study/articles/cnn-basics.html', size: '264 KB' },
-    { name: 'data-processing.html', path: '/study/data-processing.html', size: '224 KB' },
-    { name: 'ai-study-guide.html', path: '/study/ai-study-guide.html', size: '212 KB' },
-    { name: 'python-basics.html', path: '/study/python-basics.html', size: '200 KB' }
-  ],
-  pages: [
-    { name: '首页', type: 'system', path: '/', size: '16 KB' },
-    { name: '文章列表', type: 'system', path: '/articles/', size: '16 KB' },
-    { name: '归档', type: 'system', path: '/archives/', size: '12 KB' },
-    { name: '学习资料', type: 'system', path: '/study/', size: '14 KB' },
-    { name: '题库', type: 'system', path: '/quiz/', size: '14 KB' },
-    { name: '如何使用 Github + Hexo 搭建个人博客', type: 'article', path: '/2018/06/06/2018-06-07-如何使用Github+Hexo搭建个人博客/', size: '36 KB' },
-    { name: '从走格子到网格哈密顿路径问题', type: 'article', path: '/articles/hamiltonian-path.html', size: '56 KB' },
-    { name: 'CNN基础知识教程', type: 'article', path: '/articles/cnn-basics.html', size: '288 KB' },
-    { name: '26年人工智能基础学习资料', type: 'study', path: '/study/ai-study-guide.html', size: '212 KB' },
-    { name: '26年电网python基础', type: 'study', path: '/study/python-basics.html', size: '200 KB' },
-    { name: '26年电网java基础', type: 'study', path: '/study/java-basics.html', size: '164 KB' },
-    { name: '26年电网SQL教程', type: 'study', path: '/study/sql-basics.html', size: '156 KB' },
-    { name: '26年电网机器学习教程', type: 'study', path: '/study/ml-basics.html', size: '300 KB' },
-    { name: '26年电网数据处理教程', type: 'study', path: '/study/data-processing.html', size: '224 KB' },
-    { name: '26年电网CNN基础知识', type: 'study', path: '/study/articles/cnn-basics.html', size: '264 KB' },
-    { name: 'CNN深度学习资料', type: 'study', path: '/study/cnn-study.html', size: '264 KB' },
-    { name: '26年电网Excel数据处理基础教程', type: 'study', path: '/study/excel-basics.html', size: '168 KB' },
-    { name: '26年省公司人工智能竞赛理论题库', type: 'quiz', path: '/quiz/ai-contest/', size: '956 KB' },
-    { name: '数据管理-2026修编（498道）', type: 'quiz', path: '/quiz/data-management/', size: '220 KB' },
-    { name: '数据分析-498道', type: 'quiz', path: '/quiz/data-analysis/', size: '220 KB' },
-    { name: '管理页面', type: 'system', path: '/admin.html', size: '16 KB' }
-  ],
-  tree: {
-    name: '/ (根目录)',
-    type: 'dir',
-    children: [
-      { name: 'index.html', type: 'file', size: '16 KB', path: '/' },
-      { name: 'cnn-basics.html', type: 'file', size: '288 KB', path: '/articles/cnn-basics.html' },
-      { name: 'hamiltonian-path.html', type: 'file', size: '56 KB', path: '/articles/hamiltonian-path.html' },
-      { name: 'admin.html', type: 'file', size: '16 KB', path: '/admin.html' },
-      { name: 'search.json', type: 'file', size: '12 KB', path: '/search.json' },
-      { name: '2018', type: 'dir', children: [
-        { name: '06/06/...', type: 'file', size: '36 KB', path: '/2018/06/06/2018-06-07-如何使用Github+Hexo搭建个人博客/' }
-      ]},
-      { name: 'articles', type: 'dir', children: [
-        { name: 'index.html', type: 'file', size: '16 KB', path: '/articles/' }
-      ]},
-      { name: 'archives', type: 'dir', children: [
-        { name: 'index.html', type: 'file', size: '12 KB', path: '/archives/' }
-      ]},
-      { name: 'study', type: 'dir', children: [
-        { name: 'index.html', type: 'file', size: '14 KB', path: '/study/' }
-      ]},
-      { name: 'quiz', type: 'dir', children: [
-        { name: 'index.html', type: 'file', size: '14 KB', path: '/quiz/' }
-      ]},
-      { name: 'tags', type: 'dir', children: [
-        { name: 'Hexo/', type: 'file', size: '8 KB', path: '/tags/Hexo/' },
-        { name: 'GitHub-Pages/', type: 'file', size: '8 KB', path: '/tags/GitHub-Pages/' },
-        { name: '教程/', type: 'file', size: '8 KB', path: '/tags/教程/' }
-      ]},
-      { name: 'css', type: 'dir', children: [
-        { name: 'main.css', type: 'file', size: '72 KB', path: '/css/main.css' },
-        { name: 'noscript.css', type: 'file', size: '8 KB', path: '/css/noscript.css' }
-      ]},
-      { name: 'js', type: 'dir', children: [
-        { name: 'config.js', type: 'file', size: '4 KB', path: '/js/' },
-        { name: 'utils.js', type: 'file', size: '4 KB', path: '/js/' },
-        { name: 'sidebar.js', type: 'file', size: '4 KB', path: '/js/' },
-        { name: 'next-boot.js', type: 'file', size: '8 KB', path: '/js/' },
-        { name: '其他 (4 files)', type: 'file', size: '48 KB', path: '/js/' }
-      ]},
-      { name: 'images', type: 'dir', children: [
-        { name: 'logo.svg', type: 'file', size: '4 KB', path: '/images/' },
-        { name: '其他 (5 files)', type: 'file', size: '28 KB', path: '/images/' }
-      ]},
-      { name: 'ai-study-guide', type: 'dir', children: [
-        { name: 'ai-study-guide.html', type: 'file', size: '212 KB', path: '/study/ai-study-guide.html' },
-        { name: 'cnn-basics.html', type: 'file', size: '264 KB', path: '/study/articles/cnn-basics.html' },
-        { name: 'cnn-study.html', type: 'file', size: '264 KB', path: '/study/cnn-study.html' },
-        { name: 'data-processing.html', type: 'file', size: '224 KB', path: '/study/data-processing.html' },
-        { name: 'excel-basics.html', type: 'file', size: '168 KB', path: '/study/excel-basics.html' },
-        { name: 'java-basics.html', type: 'file', size: '164 KB', path: '/study/java-basics.html' },
-        { name: 'ml-basics.html', type: 'file', size: '300 KB', path: '/study/ml-basics.html' },
-        { name: 'python-basics.html', type: 'file', size: '200 KB', path: '/study/python-basics.html' },
-        { name: 'sql-basics.html', type: 'file', size: '156 KB', path: '/study/sql-basics.html' },
-        { name: 'shared/', type: 'dir', children: [
-          { name: 'fonts/', type: 'dir', children: [
-            { name: '5 字体文件', type: 'file', size: '~200 KB', path: '/shared/fonts/' }
-          ]},
-          { name: 'js/', type: 'dir', children: [
-            { name: 'echarts.min.js', type: 'file', size: '1008 KB', path: '/shared/js/' },
-            { name: 'katex.min.js', type: 'file', size: '268 KB', path: '/shared/js/' },
-            { name: 'auto-render.min.js', type: 'file', size: '12 KB', path: '/shared/js/' }
-          ]},
-          { name: 'katex/', type: 'dir', children: [
-            { name: '16 字体 + CSS', type: 'file', size: '~600 KB', path: '/shared/katex/' }
-          ]}
-        ]},
-        { name: 'assets/', type: 'dir', children: [
-          { name: 'charts.js', type: 'file', size: '8 KB', path: '/study/assets/' }
-        ]},
-        { name: 'quiz/', type: 'dir', children: [
-          { name: 'quiz.html', type: 'file', size: '956 KB', path: '/study/quiz/' }
-        ]}
-      ]},
-      { name: 'quiz-bank-v2', type: 'dir', children: [
-        { name: 'dm/', type: 'dir', children: [
-          { name: 'index.html', type: 'file', size: '92 KB', path: '/quiz/data-management/' },
-          { name: 'questions.json', type: 'file', size: '128 KB', path: '/quiz/data-management/' }
-        ]},
-        { name: 'da/', type: 'dir', children: [
-          { name: 'index.html', type: 'file', size: '92 KB', path: '/quiz/data-analysis/' },
-          { name: 'questions.json', type: 'file', size: '128 KB', path: '/quiz/data-analysis/' }
-        ]}
-      ]}
-    ]
+// ===== Render =====
+async function init() {
+  const ok = await loadManifest();
+  if (!ok) return;
+  renderDashboard();
+  renderTable('articles');
+  renderTable('study');
+  renderTable('quiz');
+  renderFileTree();
+  renderStorage();
+  document.getElementById('articlesCount').textContent = manifest.articles.length;
+  document.getElementById('studyCount').textContent = manifest.study.length;
+  document.getElementById('quizCount').textContent = manifest.quiz.length;
+}
+
+function renderDashboard() {
+  const s = manifest.stats;
+  document.getElementById('statsGrid').innerHTML = [
+    { icon: 'fa-file-text', cls: 'blue', val: s.totalArticles, label: '文章' },
+    { icon: 'fa-folder', cls: 'purple', val: s.totalStudy, label: '学习资料' },
+    { icon: 'fa-book', cls: 'green', val: s.totalQuiz, label: '题库' },
+    { icon: 'fa-question-circle', cls: 'orange', val: s.totalQuestions, label: '总题目数' },
+    { icon: 'fa-font', cls: 'blue', val: (s.totalWordCount / 10000).toFixed(1) + '万', label: '总字数' },
+    { icon: 'fa-clock-o', cls: 'purple', val: (s.totalReadMinutes / 60).toFixed(1) + 'h', label: '阅读时间' }
+  ].map(function(item) {
+    return '<div class="stat-card"><div class="stat-icon ' + item.cls + '"><i class="fa ' + item.icon + '"></i></div><div class="stat-info"><div class="stat-val">' + item.val + '</div><div class="stat-label">' + item.label + '</div></div></div>';
+  }).join('');
+
+  document.getElementById('recentUpdates').innerHTML = [
+    '<div style="font-size:13px;line-height:2.4">',
+    ...getAllItems().slice(0, 10).map(function(item) {
+      var typeLabel = item.category === 'articles' ? '文章' : item.category === 'study' ? '学习资料' : '题库';
+      return '<div>📅 <strong>' + item.date + '</strong> — ' + typeLabel + '：' + item.title + '</div>';
+    }),
+    '</div>'
+  ].join('\n');
+}
+
+function getAllItems() {
+  var items = [];
+  if (manifest.articles) manifest.articles.forEach(function(item) { items.push(Object.assign({}, item, { category: 'articles' })); });
+  if (manifest.study) manifest.study.forEach(function(item) { items.push(Object.assign({}, item, { category: 'study' })); });
+  if (manifest.quiz) manifest.quiz.forEach(function(item) { items.push(Object.assign({}, item, { category: 'quiz' })); });
+  items.sort(function(a, b) { return (b.date || '').localeCompare(a.date || ''); });
+  return items;
+}
+
+function renderTable(type) {
+  var items = manifest[type] || [];
+  var tableId = type === 'articles' ? 'articlesTable' : type === 'study' ? 'studyTable' : 'quizTable';
+  var tbody = document.querySelector('#' + tableId + ' tbody');
+  if (!tbody) return;
+
+  var html = '';
+  items.forEach(function(item, index) {
+    var tags = (item.tags || []).join(', ');
+    html += '<tr data-index="' + index + '">';
+    html += '<td><span class="drag-handle" title="拖拽排序">⋮⋮</span></td>';
+    html += '<td><strong>' + item.title + '</strong></td>';
+    html += '<td>' + (item.date || '') + '</td>';
+    if (type === 'quiz') {
+      html += '<td>' + (item.count || '—') + '题</td>';
+    }
+    html += '<td style="font-size:12px;color:var(--muted)">' + tags + '</td>';
+    if (type !== 'quiz') html += '<td style="font-size:12px;color:var(--muted)">' + (item.size || '') + '</td>';
+    html += '<td class="actions-cell">';
+    html += '<button class="btn btn-outline btn-xs" onclick="openEditModal(\'' + type + '\',' + index + ')" title="编辑"><i class="fa fa-pencil"></i></button>';
+    html += '<button class="btn btn-outline btn-xs" onclick="moveItem(\'' + type + '\',' + index + ',-1)" title="上移" ' + (index === 0 ? 'disabled' : '') + '><i class="fa fa-arrow-up"></i></button>';
+    html += '<button class="btn btn-outline btn-xs" onclick="moveItem(\'' + type + '\',' + index + ',1)" title="下移" ' + (index === items.length - 1 ? 'disabled' : '') + '><i class="fa fa-arrow-down"></i></button>';
+    html += '<button class="btn btn-outline btn-xs" style="color:var(--danger)" onclick="confirmDeleteItem(\'' + type + '\',' + index + ',\'' + item.title.replace(/'/g, "\\'") + '\')" title="删除"><i class="fa fa-trash"></i></button>';
+    html += '</td>';
+    html += '</tr>';
+  });
+
+  if (items.length === 0) {
+    var colSpan = type === 'quiz' ? 6 : 6;
+    html += '<tr><td colspan="' + colSpan + '" style="text-align:center;color:var(--muted);padding:40px">暂无内容，点击"新增"添加</td></tr>';
   }
-};
 
-// ===== Render Dashboard =====
-document.getElementById('statFiles').textContent = fileData.totalFiles;
-document.getElementById('statSize').textContent = '13 MB';
-document.getElementById('statPages').textContent = fileData.contentPages;
-document.getElementById('statQuiz').textContent = fileData.quizCount;
-document.getElementById('lastUpdate').textContent = '更新: ' + fileData.lastUpdate;
+  tbody.innerHTML = html;
+}
 
-var overviewHTML = '<table style="width:100%;font-size:14px;line-height:2.2">';
-overviewHTML += '<tr><td style="color:var(--muted)">总文件数</td><td><strong>' + fileData.totalFiles + '</strong> 个</td></tr>';
-overviewHTML += '<tr><td style="color:var(--muted)">总占用空间</td><td><strong>13 MB</strong>（含 Git 历史 6 MB）</td></tr>';
-overviewHTML += '<tr><td style="color:var(--muted)">内容页面</td><td><strong>' + fileData.contentPages + '</strong> 个</td></tr>';
-overviewHTML += '<tr><td style="color:var(--muted)">题库</td><td><strong>' + fileData.quizCount + '</strong> 个（共 3,773 道题）</td></tr>';
-overviewHTML += '<tr><td style="color:var(--muted)">学习资料</td><td><strong>9</strong> 个</td></tr>';
-overviewHTML += '<tr><td style="color:var(--muted)">文章</td><td><strong>3</strong> 篇</td></tr>';
-overviewHTML += '<tr><td style="color:var(--muted)">静态资源</td><td><strong>~1.5 MB</strong>（CSS/JS/字体/图片）</td></tr>';
-overviewHTML += '</table>';
-document.getElementById('quickOverview').innerHTML = overviewHTML;
+// ===== CRUD =====
+function openEditModal(type, index) {
+  var items = manifest[type];
+  var item = items[index];
+  document.getElementById('editCategory').value = type;
+  document.getElementById('editIndex').value = index;
+  document.getElementById('modalTitle').textContent = '编辑' + (type === 'articles' ? '文章' : type === 'study' ? '学习资料' : '题库');
+  document.getElementById('editId').value = item.id || '';
+  document.getElementById('editTitle').value = item.title || '';
+  document.getElementById('editExcerpt').value = item.excerpt || '';
+  document.getElementById('editUrl').value = item.url || '';
+  document.getElementById('editDate').value = item.date || '';
+  document.getElementById('editTags').value = (item.tags || []).join(', ');
+  document.getElementById('editSize').value = item.size || '';
+  document.getElementById('editCount').value = item.count || '';
+  document.getElementById('editCountGroup').style.display = type === 'quiz' ? 'block' : 'none';
+  document.getElementById('editModal').style.display = 'flex';
+}
 
-document.getElementById('recentUpdates').innerHTML = [
-  '<div style="font-size:14px;line-height:2.2">',
-  '<div>📅 <strong>2026-07-21</strong> — 新增管理后台页面</div>',
-  '<div>📅 <strong>2026-07-20</strong> — 新增数据管理题库（498道）和数据分析题库（498道）</div>',
-  '<div>📅 <strong>2026-07-15</strong> — 新增 Excel 数据处理基础教程</div>',
-  '<div>📅 <strong>2026-07-14</strong> — 发布「从走格子到网格哈密顿路径问题」</div>',
-  '<div>📅 <strong>2026-07-13</strong> — 新增 CNN 深度学习资料</div>',
-  '<div>📅 <strong>2026-07-12</strong> — 新增 CNN 基础知识教程</div>',
-  '<div>📅 <strong>2026-07-08</strong> — 新增数据处理教程</div>',
-  '<div>📅 <strong>2026-07-07</strong> — 新增机器学习、SQL、Java 教程</div>',
-  '<div>📅 <strong>2026-07-06</strong> — 新增 Python 基础教程</div>',
-  '<div>📅 <strong>2026-07-01</strong> — 发布人工智能竞赛理论题库</div>',
-  '</div>'
-].join('\n');
+function openAddModal(type) {
+  document.getElementById('editCategory').value = type;
+  document.getElementById('editIndex').value = '-1';
+  document.getElementById('modalTitle').textContent = '新增' + (type === 'articles' ? '文章' : type === 'study' ? '学习资料' : '题库');
+  document.getElementById('editId').value = '';
+  document.getElementById('editTitle').value = '';
+  document.getElementById('editExcerpt').value = '';
+  document.getElementById('editUrl').value = '';
+  document.getElementById('editDate').value = new Date().toISOString().split('T')[0];
+  document.getElementById('editTags').value = '';
+  document.getElementById('editSize').value = '';
+  document.getElementById('editCount').value = '';
+  document.getElementById('editCountGroup').style.display = type === 'quiz' ? 'block' : 'none';
+  document.getElementById('editModal').style.display = 'flex';
+}
 
-// ===== Render File Tree =====
-function renderTree(nodes, container) {
+function closeModal() {
+  document.getElementById('editModal').style.display = 'none';
+}
+
+function saveEdit() {
+  var type = document.getElementById('editCategory').value;
+  var index = parseInt(document.getElementById('editIndex').value);
+  var item = {
+    id: document.getElementById('editId').value.trim(),
+    title: document.getElementById('editTitle').value.trim(),
+    excerpt: document.getElementById('editExcerpt').value.trim(),
+    url: document.getElementById('editUrl').value.trim(),
+    date: document.getElementById('editDate').value,
+    tags: document.getElementById('editTags').value.split(',').map(function(t) { return t.trim(); }).filter(Boolean),
+    size: document.getElementById('editSize').value.trim()
+  };
+  if (type === 'quiz') {
+    item.count = parseInt(document.getElementById('editCount').value) || 0;
+    delete item.size;
+  }
+
+  if (!item.title || !item.url || !item.date) {
+    showToast('标题、URL 和日期为必填项', 'error');
+    return;
+  }
+
+  if (index === -1) {
+    manifest[type].push(item);
+  } else {
+    manifest[type][index] = item;
+  }
+
+  markChanged();
+  renderTable(type);
+  renderDashboard();
+  updateCounts();
+  closeModal();
+  showToast('保存成功！请点击"部署到 GitHub"生效', 'success');
+}
+
+function moveItem(type, index, direction) {
+  var items = manifest[type];
+  var newIndex = index + direction;
+  if (newIndex < 0 || newIndex >= items.length) return;
+  var tmp = items[index];
+  items[index] = items[newIndex];
+  items[newIndex] = tmp;
+  markChanged();
+  renderTable(type);
+}
+
+let deleteTarget = null;
+function confirmDeleteItem(type, index, title) {
+  deleteTarget = { type: type, index: index };
+  document.getElementById('confirmTitle').textContent = '确认删除';
+  document.getElementById('confirmMsg').textContent = '确定要删除「' + title + '」吗？此操作不可撤销。';
+  document.getElementById('confirmOverlay').style.display = 'flex';
+}
+
+function confirmDelete() {
+  if (!deleteTarget) return;
+  manifest[deleteTarget.type].splice(deleteTarget.index, 1);
+  markChanged();
+  renderTable(deleteTarget.type);
+  renderDashboard();
+  updateCounts();
+  closeConfirm();
+  showToast('已删除。请点击"部署到 GitHub"生效', 'success');
+}
+
+function closeConfirm() {
+  document.getElementById('confirmOverlay').style.display = 'none';
+  deleteTarget = null;
+}
+
+function updateCounts() {
+  document.getElementById('articlesCount').textContent = manifest.articles.length;
+  document.getElementById('studyCount').textContent = manifest.study.length;
+  document.getElementById('quizCount').textContent = manifest.quiz.length;
+}
+
+function markChanged() {
+  hasChanges = true;
+  document.querySelectorAll('.deploy-banner').forEach(function(b) { b.style.display = 'flex'; });
+}
+
+// ===== Deploy =====
+function downloadManifest() {
+  var blob = new Blob([JSON.stringify(manifest, null, 2)], { type: 'application/json' });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'manifest.json';
+  a.click();
+  showToast('manifest.json 已下载', 'success');
+}
+
+function deployChanges() {
+  var json = JSON.stringify(manifest, null, 2);
+  var blob = new Blob([json], { type: 'application/json' });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'manifest.json';
+  a.click();
+
+  // Show instructions
+  var msg = 'manifest.json 已下载。\n\n请将下载的文件发送给 AI 助手，\nAI 助手会使用 GitHub MCP 自动部署。\n\n文件路径：/workspace/manifest.json';
+  showToast('manifest.json 已下载，请通过 AI 助手部署', 'success');
+
+  // Also try to deploy directly via GitHub API if token is available
+  var token = sessionStorage.getItem(GITHUB_TOKEN_KEY);
+  if (token) {
+    deployViaGitHubAPI(json, token);
+  } else {
+    // Prompt for token
+    var tokenInput = prompt('请输入 GitHub Personal Access Token 以直接部署，\n或点取消仅下载文件：');
+    if (tokenInput) {
+      sessionStorage.setItem(GITHUB_TOKEN_KEY, tokenInput);
+      deployViaGitHubAPI(json, tokenInput);
+    }
+  }
+}
+
+async function deployViaGitHubAPI(json, token) {
+  try {
+    // Get current file SHA
+    var getResp = await fetch('https://api.github.com/repos/694587769/694587769.github.io/contents/manifest.json', {
+      headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json' }
+    });
+    var fileInfo = await getResp.json();
+    var sha = fileInfo.sha;
+
+    // Update file
+    var putResp = await fetch('https://api.github.com/repos/694587769/694587769.github.io/contents/manifest.json', {
+      method: 'PUT',
+      headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: '管理后台更新 manifest.json',
+        content: btoa(unescape(encodeURIComponent(json))),
+        sha: sha
+      })
+    });
+
+    if (putResp.ok) {
+      hasChanges = false;
+      document.querySelectorAll('.deploy-banner').forEach(function(b) { b.style.display = 'none'; });
+      showToast('已部署到 GitHub！1-2分钟后生效', 'success');
+    } else {
+      var err = await putResp.json();
+      showToast('部署失败: ' + (err.message || '未知错误'), 'error');
+    }
+  } catch (e) {
+    showToast('GitHub API 请求失败，请检查网络和 Token', 'error');
+  }
+}
+
+// ===== Toast =====
+function showToast(msg, type) {
+  var existing = document.querySelector('.toast');
+  if (existing) existing.remove();
+  var toast = document.createElement('div');
+  toast.className = 'toast ' + (type || 'success');
+  toast.innerHTML = '<i class="fa fa-' + (type === 'error' ? 'times-circle' : 'check-circle') + '"></i> ' + msg;
+  document.body.appendChild(toast);
+  setTimeout(function() { toast.remove(); }, 3500);
+}
+
+// ===== File Tree =====
+function renderFileTree() {
+  var tree = {
+    name: '/ (根目录)',
+    children: [
+      { name: 'manifest.json', type: 'file', size: '8 KB' },
+      { name: 'index.html', type: 'file', size: '32 KB' },
+      { name: 'admin.html', type: 'file', size: '28 KB' },
+      { name: 'search.json', type: 'file', size: '6 KB' },
+      { name: 'articles/', type: 'dir', children: [
+        { name: 'index.html', type: 'file', size: '18 KB' },
+        { name: 'hamiltonian-path.html', type: 'file', size: '56 KB' },
+        { name: 'cnn-basics.html', type: 'file', size: '288 KB' },
+        { name: 'hexo-blog/', type: 'dir', children: [{ name: 'index.html', type: 'file', size: '36 KB' }] }
+      ]},
+      { name: 'study/', type: 'dir', children: [
+        { name: 'index.html', type: 'file', size: '16 KB' },
+        ...[ 'ai-study-guide', 'python-basics', 'sql-basics', 'java-basics', 'ml-basics', 'data-processing', 'cnn-basics', 'cnn-study', 'excel-basics' ].map(function(n) {
+          return { name: n + '.html', type: 'file', size: '~200 KB' };
+        })
+      ]},
+      { name: 'quiz/', type: 'dir', children: [
+        { name: 'index.html', type: 'file', size: '14 KB' },
+        { name: 'ai-contest/', type: 'dir', children: [{ name: 'index.html', type: 'file', size: '956 KB' }] },
+        { name: 'data-management/', type: 'dir', children: [
+          { name: 'index.html', type: 'file', size: '92 KB' },
+          { name: 'questions.json', type: 'file', size: '128 KB' }
+        ]},
+        { name: 'data-analysis/', type: 'dir', children: [
+          { name: 'index.html', type: 'file', size: '92 KB' },
+          { name: 'questions.json', type: 'file', size: '128 KB' }
+        ]}
+      ]},
+      { name: 'shared/', type: 'dir', children: [
+        { name: 'fonts/', type: 'dir', children: [{ name: '5 TTF 字体', type: 'file', size: '595 KB' }] },
+        { name: 'js/', type: 'dir', children: [
+          { name: 'blog-engine.js', type: 'file', size: '12 KB' },
+          { name: 'echarts.min.js', type: 'file', size: '1 MB' },
+          { name: 'katex.min.js', type: 'file', size: '271 KB' },
+          { name: 'auto-render.min.js', type: 'file', size: '4 KB' },
+          { name: 'charts.js', type: 'file', size: '18 KB' }
+        ]},
+        { name: 'katex/', type: 'dir', children: [{ name: '20 字体 + CSS', type: 'file', size: '~300 KB' }] }
+      ]},
+      { name: 'css/', type: 'dir', children: [{ name: 'main.css', type: 'file', size: '70 KB' }, { name: 'noscript.css', type: 'file', size: '1 KB' }] },
+      { name: 'js/', type: 'dir', children: [{ name: '5 主题 JS', type: 'file', size: '~30 KB' }] },
+      { name: 'images/', type: 'dir', children: [{ name: '4 图标', type: 'file', size: '~25 KB' }] }
+    ]
+  };
+  var container = document.getElementById('fileTree');
+  container.innerHTML = '';
+  renderTreeNodes(tree.children, container);
+}
+
+function renderTreeNodes(nodes, container) {
   nodes.forEach(function(node) {
     if (node.type === 'dir') {
       var div = document.createElement('div');
       div.className = 'tree-dir';
-      div.innerHTML = '<span class="arrow">▶</span><span class="tree-icon dir">📁</span><span>' + node.name + '</span>';
+      div.style.cssText = 'display:flex;align-items:center;gap:6px;cursor:pointer;padding:5px 8px;border-radius:6px;font-size:13px;transition:background .15s';
+      div.innerHTML = '<span class="tree-arrow" style="font-size:10px;width:14px;text-align:center;transition:transform .2s;display:inline-block">▶</span><span style="color:var(--warning);width:18px;text-align:center">📁</span><span>' + node.name + '</span>';
       var children = document.createElement('div');
-      children.className = 'tree-children';
-      if (node.children) renderTree(node.children, children);
+      children.style.cssText = 'display:none;padding-left:20px';
+      if (node.children) renderTreeNodes(node.children, children);
       div.addEventListener('click', function(e) {
         e.stopPropagation();
-        div.classList.toggle('open');
-        children.classList.toggle('show');
+        var isOpen = children.style.display === 'block';
+        children.style.display = isOpen ? 'none' : 'block';
+        div.querySelector('.tree-arrow').style.transform = isOpen ? 'rotate(0deg)' : 'rotate(90deg)';
       });
+      div.addEventListener('mouseenter', function() { this.style.background = '#f0f1f5'; });
+      div.addEventListener('mouseleave', function() { this.style.background = ''; });
       container.appendChild(div);
       container.appendChild(children);
     } else {
       var div = document.createElement('div');
-      div.className = 'tree-file';
-      var label = node.path && node.path !== '/' ? '<a href="' + node.path + '" target="_blank">' + node.name + '</a>' : node.name;
-      div.innerHTML = '<span style="width:14px"></span><span class="tree-icon file">📄</span>' + label + '<span class="tree-size">' + (node.size || '') + '</span>';
+      div.style.cssText = 'display:flex;align-items:center;gap:6px;padding:5px 8px;border-radius:6px;font-size:13px;transition:background .15s';
+      div.innerHTML = '<span style="width:14px"></span><span style="color:var(--muted);width:18px;text-align:center">📄</span><span>' + node.name + '</span><span style="font-size:11px;color:var(--muted);margin-left:auto">' + (node.size || '') + '</span>';
+      div.addEventListener('mouseenter', function() { this.style.background = '#f0f1f5'; });
+      div.addEventListener('mouseleave', function() { this.style.background = ''; });
       container.appendChild(div);
     }
   });
 }
 
-renderTree(fileData.tree.children, document.getElementById('fileTree'));
+// ===== Storage =====
+function renderStorage() {
+  var dirs = [
+    { name: 'study/', size: '3.5 MB', color: 'purple', pct: 56 },
+    { name: 'quiz/', size: '1.5 MB', color: 'green', pct: 24 },
+    { name: 'shared/', size: '2.2 MB', color: 'blue', pct: 35 },
+    { name: 'articles/', size: '380 KB', color: 'orange', pct: 6 },
+    { name: 'css/js/images/', size: '~200 KB', color: 'gray', pct: 3 }
+  ];
+  var maxPct = 56;
+  var barsHTML = '';
+  dirs.forEach(function(d) {
+    var w = (d.pct / maxPct * 100).toFixed(0);
+    barsHTML += '<div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;font-size:13px">';
+    barsHTML += '<span style="width:100px;flex-shrink:0">' + d.name + '</span>';
+    barsHTML += '<div style="flex:1;height:20px;background:#f0f1f5;border-radius:6px;overflow:hidden"><div style="height:100%;width:' + w + '%;background:var(--' + (d.color === 'gray' ? 'muted' : d.color === 'purple' ? 'accent2' : d.color === 'green' ? 'success' : d.color === 'orange' ? 'warning' : 'accent') + ');border-radius:6px;transition:width .5s"></div></div>';
+    barsHTML += '<span style="width:60px;text-align:right;color:var(--muted);font-size:12px">' + d.size + '</span>';
+    barsHTML += '</div>';
+  });
+  document.getElementById('storageBars').innerHTML = barsHTML;
 
-// ===== Render Storage =====
-var totalSizeBytes = fileData.totalSize;
-var barsHTML = '';
-fileData.dirs.forEach(function(dir) {
-  var sizeBytes = parseFloat(dir.size) * (dir.size.includes('MB') ? 1024 * 1024 : 1024);
-  var pct = (sizeBytes / totalSizeBytes * 100).toFixed(1);
-  barsHTML += '<div class="storage-row">';
-  barsHTML += '<span class="storage-label">' + dir.name + '</span>';
-  barsHTML += '<div class="storage-bar-wrap"><div class="storage-bar ' + dir.color + '" style="width:' + pct + '%"></div></div>';
-  barsHTML += '<span class="storage-val">' + dir.size + '</span>';
-  barsHTML += '</div>';
-});
-document.getElementById('storageBars').innerHTML = barsHTML;
+  document.getElementById('largeFiles').innerHTML = [
+    { name: 'echarts.min.js', path: '/shared/js/', size: '1 MB' },
+    { name: 'quiz.html (AI竞赛)', path: '/quiz/ai-contest/', size: '956 KB' },
+    { name: 'ml-basics.html', path: '/study/', size: '300 KB' },
+    { name: 'cnn-basics.html (文章)', path: '/articles/', size: '288 KB' },
+    { name: 'katex.min.js', path: '/shared/js/', size: '271 KB' },
+    { name: 'cnn-study.html', path: '/study/', size: '264 KB' },
+    { name: 'cnn-basics.html (学习)', path: '/study/', size: '264 KB' },
+    { name: 'data-processing.html', path: '/study/', size: '224 KB' },
+    { name: 'ai-study-guide.html', path: '/study/', size: '212 KB' },
+    { name: 'python-basics.html', path: '/study/', size: '200 KB' }
+  ].map(function(f) {
+    return '<div style="display:flex;padding:6px 0;font-size:13px;border-bottom:1px solid var(--rule)"><span style="flex:1">' + f.name + '</span><span style="color:var(--muted);font-size:12px;margin:0 16px">' + f.path + '</span><span style="font-weight:600">' + f.size + '</span></div>';
+  }).join('');
+}
 
-var lfHTML = '<table class="page-table"><thead><tr><th>文件</th><th>路径</th><th>大小</th></tr></thead><tbody>';
-fileData.largeFiles.forEach(function(f) {
-  lfHTML += '<tr><td>' + f.name + '</td><td style="font-size:12px;color:var(--muted)">' + f.path + '</td><td>' + f.size + '</td></tr>';
+// ===== Keyboard shortcuts =====
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    closeModal();
+    closeConfirm();
+  }
 });
-lfHTML += '</tbody></table>';
-document.getElementById('largeFiles').innerHTML = lfHTML;
 
-// ===== Render Pages =====
-var ptHTML = '';
-fileData.pages.forEach(function(p) {
-  var badgeClass = '';
-  if (p.type === 'article') badgeClass = 'article';
-  else if (p.type === 'study') badgeClass = 'study';
-  else if (p.type === 'quiz') badgeClass = 'quiz';
-  else badgeClass = 'system';
-  var typeLabel = { article: '文章', study: '学习资料', quiz: '题库', system: '系统' }[p.type];
-  ptHTML += '<tr>';
-  ptHTML += '<td><a href="' + p.path + '" target="_blank">' + p.name + '</a></td>';
-  ptHTML += '<td><span class="type-badge ' + badgeClass + '">' + typeLabel + '</span></td>';
-  ptHTML += '<td style="font-size:12px;color:var(--muted)">' + p.path + '</td>';
-  ptHTML += '<td>' + p.size + '</td>';
-  ptHTML += '</tr>';
+// Close modal on overlay click
+document.getElementById('editModal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
 });
-document.getElementById('pageTableBody').innerHTML = ptHTML;
+
+// Init
+init();
 </script>
 </body>
 </html>
