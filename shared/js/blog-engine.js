@@ -374,31 +374,43 @@
       currentPage: currentPage,
       pageSize: pageSize
     };
+
+    // 标记初始化成功完成（在安全网中用于判断是否已成功渲染）
+    window._blogEngineStarted = true;
   }
 
   window.initBlogEngine = initBlogEngine;
 
   // ================================================================
-  // 自初始化安全网
-  // 如果 HTML 页面内联脚本因任何原因未能调用 initBlogEngine，
-  // 这里自动检测页面类型并兜底初始化，防止内容空白。
+  // 自初始化安全网（v2）
+  // 多层防御策略，确保在任何情况下内容都不会空白：
+  //   1. 页面内联脚本正常调用 → _blogEngineStarted 在 initBlogEngine 内部设为 true
+  //   2. 内联脚本设置了 _blogEngineStarted 但 initBlogEngine 静默失败 → 安全网检测到容器为空，重新初始化
+  //   3. 内联脚本完全未执行 → 安全网在延迟后自动初始化
   // ================================================================
   (function autoInit() {
-    var MAX_RETRIES = 10;
+    var MAX_RETRIES = 15;
     var RETRY_DELAY = 200;
     var retries = 0;
     var started = false;
 
+    function hasContent() {
+      var listEl = document.getElementById('mixedList') || document.getElementById('resourceList') || document.getElementById('articleList');
+      if (!listEl) return false;
+      // 容器存在且至少有一个子元素（卡片、行等）
+      return listEl.children.length > 0;
+    }
+
     function tryInit() {
       if (started) return;
 
-      // 如果页面内联脚本已成功启动，跳过
-      if (window._blogEngineStarted) {
+      // 如果已经成功渲染了内容，跳过
+      if (hasContent()) {
         started = true;
         return;
       }
 
-      // 检查目标容器是否就绪
+      // 检查目标容器是否存在
       var listEl = document.getElementById('mixedList') || document.getElementById('resourceList') || document.getElementById('articleList');
       if (!listEl) {
         retries++;
@@ -408,9 +420,18 @@
         return;
       }
 
-      // 容器已就绪但内容为空，触发自动初始化
+      // 容器存在但没有内容：
+      // 情况A: _blogEngineStarted 为 true 但内容为空 → 内联脚本调用了 init 但失败了
+      // 情况B: _blogEngineStarted 为 false → 内联脚本根本没执行
+      // 无论哪种情况，都需要重新初始化
+      if (window._blogEngineStarted && retries < 5) {
+        // 给一点时间让可能正在进行的异步初始化完成
+        retries++;
+        setTimeout(tryInit, RETRY_DELAY);
+        return;
+      }
+
       started = true;
-      window._blogEngineStarted = true;
 
       var path = window.location.pathname;
       var opts = {
@@ -449,13 +470,13 @@
         setTimeout(tryInit, 100);
       });
     } else {
-      // DOM 已就绪，立即尝试
       setTimeout(tryInit, 50);
     }
 
-    // 策略2: 多级延迟兜底，确保即使上述事件丢失也能初始化
+    // 策略2: 多级延迟兜底，覆盖各种极端情况
     setTimeout(tryInit, 500);
     setTimeout(tryInit, 1500);
     setTimeout(tryInit, 3000);
+    setTimeout(tryInit, 5000);
   })();
 })();
