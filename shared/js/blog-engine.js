@@ -377,4 +377,85 @@
   }
 
   window.initBlogEngine = initBlogEngine;
+
+  // ================================================================
+  // 自初始化安全网
+  // 如果 HTML 页面内联脚本因任何原因未能调用 initBlogEngine，
+  // 这里自动检测页面类型并兜底初始化，防止内容空白。
+  // ================================================================
+  (function autoInit() {
+    var MAX_RETRIES = 10;
+    var RETRY_DELAY = 200;
+    var retries = 0;
+    var started = false;
+
+    function tryInit() {
+      if (started) return;
+
+      // 如果页面内联脚本已成功启动，跳过
+      if (window._blogEngineStarted) {
+        started = true;
+        return;
+      }
+
+      // 检查目标容器是否就绪
+      var listEl = document.getElementById('mixedList') || document.getElementById('resourceList') || document.getElementById('articleList');
+      if (!listEl) {
+        retries++;
+        if (retries < MAX_RETRIES) {
+          setTimeout(tryInit, RETRY_DELAY);
+        }
+        return;
+      }
+
+      // 容器已就绪但内容为空，触发自动初始化
+      started = true;
+      window._blogEngineStarted = true;
+
+      var path = window.location.pathname;
+      var opts = {
+        sortBy: 'date',
+        sortOrder: 'desc'
+      };
+
+      if (path.indexOf('/articles/') === 0 || path.indexOf('/articles') === 0 || document.getElementById('articleList')) {
+        opts.filterType = 'articles';
+        opts.pageSize = 5;
+        opts.showSortBar = false;
+        opts.renderCard = renderArticleRow;
+      } else if (path.indexOf('/study/') === 0 || path.indexOf('/study') === 0) {
+        opts.filterType = 'study';
+        opts.pageSize = 5;
+        opts.renderCard = renderResourceCard;
+      } else if (path.indexOf('/quiz/') === 0 || path.indexOf('/quiz') === 0) {
+        opts.filterType = 'quiz';
+        opts.pageSize = 5;
+        opts.renderCard = renderResourceCard;
+      } else {
+        // 首页
+        opts.filterType = 'all';
+        opts.pageSize = 10;
+        opts.showSortBar = true;
+        opts.renderCard = renderCard;
+      }
+
+      console.log('[BlogEngine] 自初始化安全网触发，页面类型:', opts.filterType);
+      initBlogEngine(opts);
+    }
+
+    // 策略1: DOMContentLoaded 后 100ms 尝试
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(tryInit, 100);
+      });
+    } else {
+      // DOM 已就绪，立即尝试
+      setTimeout(tryInit, 50);
+    }
+
+    // 策略2: 多级延迟兜底，确保即使上述事件丢失也能初始化
+    setTimeout(tryInit, 500);
+    setTimeout(tryInit, 1500);
+    setTimeout(tryInit, 3000);
+  })();
 })();

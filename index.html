@@ -116,6 +116,7 @@ html.dark-mode .reading-progress-bar { background: #2563eb; }
 
 
 
+
   
   <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" onerror="this.onerror=null;this.src='';console.log('busuanzi CDN unavailable, skipping visitor count');"></script>
   <script>
@@ -857,6 +858,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // 使用 readyState 检查，避免 DOMContentLoaded 竞态条件
 (function() {
   function boot() {
+    window._blogEngineStarted = true;
     initBlogEngine({
       filterType: 'all',
       sortBy: 'date',
