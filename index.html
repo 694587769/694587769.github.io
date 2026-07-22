@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+  <!-- Kindle E-Ink 浏览器检测：自动跳转到 Kindle 优化版 -->
+  <script>
+    (function(){
+      var ua=navigator.userAgent;
+      if(/Kindle\/[23]\./.test(ua)&&!/Silk/.test(ua)){
+        var p=location.pathname;
+        if(p==='/'||p==='/index.html'||p===''){
+          location.replace('/kindle.html');
+        }
+      }
+    })();
+  </script>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222"><meta name="generator" content="Hexo 8.1.2">
